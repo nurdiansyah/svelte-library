@@ -1,0 +1,129 @@
+@use "mixins/box-shadow";
+@use "mixins/buttons";
+@use "mixins/transition";
+@use "variables";
+
+//
+// Base styles
+//
+
+.btn {
+  display: inline-block;
+  font-family: variables.$btn-font-family;
+  font-weight: variables.$btn-font-weight;
+  line-height: variables.$btn-line-height;
+  color: variables.$body-color;
+  text-align: center;
+  text-decoration: if(variables.$link-decoration == none, null, none);
+  white-space: variables.$btn-white-space;
+  vertical-align: middle;
+  cursor: if(variables.$enable-button-pointers, pointer, null);
+  user-select: none;
+  background-color: transparent;
+  border: variables.$btn-border-width solid transparent;
+  @include buttons.button-size(variables.$btn-padding-y, variables.$btn-padding-x, variables.$btn-font-size, variables.$btn-border-radius);
+  @include transition.transition(variables.$btn-transition);
+
+  &:hover {
+    color: variables.$body-color;
+    text-decoration: if(variables.$link-hover-decoration == underline, none, null);
+  }
+
+  :global(.btn-check:focus) + &,
+  &:focus {
+    outline: 0;
+    box-shadow: variables.$btn-focus-box-shadow;
+  }
+
+  :global(.btn-check:checked) + &,
+  :global(.btn-check:active) + &,
+  &:active,
+  &.active {
+    @include box-shadow.box-shadow(variables.$btn-active-box-shadow);
+
+    &:focus {
+      @include box-shadow.box-shadow(variables.$btn-focus-box-shadow, variables.$btn-active-box-shadow);
+    }
+  }
+
+  &:disabled,
+  &.disabled,
+  :global(fieldset:disabled) & {
+    pointer-events: none;
+    opacity: variables.$btn-disabled-opacity;
+    @include box-shadow.box-shadow(none);
+  }
+}
+
+
+//
+// Alternate but`ns
+//
+
+@each $color, $value in variables.$theme-colors {
+  .btn-#{$color} {
+    @include buttons.button-variant($value, $value);
+  }
+}
+
+@each $color, $value in variables.$theme-colors {
+  .btn-outline-#{$color} {
+    @include buttons.button-outline-variant($value);
+  }
+}
+
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  font-weight: variables.$font-weight-normal;
+  color: variables.$btn-link-color;
+  text-decoration: variables.$link-decoration;
+
+  &:hover {
+    color: variables.$btn-link-hover-color;
+    text-decoration: variables.$link-hover-decoration;
+  }
+
+  &:focus {
+    text-decoration: variables.$link-hover-decoration;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: variables.$btn-link-disabled-color;
+  }
+
+  // No need for an active state here
+}
+
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+  @include buttons.button-size(variables.$btn-padding-y-lg, variables.$btn-padding-x-lg, variables.$btn-font-size-lg, variables.$btn-border-radius-lg);
+}
+
+.btn-sm {
+  @include buttons.button-size(variables.$btn-padding-y-sm, variables.$btn-padding-x-sm, variables.$btn-font-size-sm, variables.$btn-border-radius-sm);
+}
+
+
+//
+// Block button
+//
+
+.btn-block {
+  display: block;
+  width: 100%;
+
+  // Vertically space out multiple block buttons
+  + .btn-block {
+    margin-top: variables.$btn-block-spacing-y;
+  }
+}
