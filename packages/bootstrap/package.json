@@ -1,0 +1,30 @@
+{
+  "name": "@deboxsoft/bootstrap",
+  "version": "0.0.1",
+  "description": "bootstrap for svelte.",
+  "license": "SEE LICENSE IN ../../LICENSE.md",
+  "maintainers": [
+    {
+      "name": "Nurdiansyah",
+      "email": "nur.diansyah.ckt@gmail.com"
+    }
+  ],
+  "scripts": {
+    "clean": "rimraf scss/*",
+    "generate": "sass-migrator --migrate-deps module \"scss/bootstrap.scss\"",
+    "cp:scss": "yarn cpx \"../../node_modules/bootstrap/scss/**/*.scss\" scss",
+    "format": "",
+    "build": "tsc -b",
+    "typecheck": "eslint --fix \"**/src/**/*.ts?(x)\""
+  },
+  "dependencies": {
+    "lodash.tonumber": "4.0.3"
+  },
+  "devDependencies": {
+    "@types/lodash.tonumber": "4.0.6",
+    "bootstrap": "twbs/bootstrap",
+    "popper.js": "1.16.1",
+    "sveltestrap": "3.5.0",
+    "svelte": "3.24.0"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "@deboxsoft/devel",
+    "@deboxsoft/devel/svelte"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "ignorePatterns": [
+    "!.storybook",
+    "libs",
+    "node_modules",
+    "build",
+    "__sapper__"
+  ],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "jest": true
+  }
+}
