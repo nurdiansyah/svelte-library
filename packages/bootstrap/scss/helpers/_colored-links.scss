@@ -1,0 +1,15 @@
+@use "sass:color";
+@use "../variables";
+
+@each $color, $value in variables.$theme-colors {
+  .link-#{$color} {
+    color: $value;
+
+    @if variables.$emphasized-link-hover-darken-percentage != 0 {
+      &:hover,
+      &:focus {
+        color: color.adjust($value, $lightness: -(variables.$emphasized-link-hover-darken-percentage));
+      }
+    }
+  }
+}
