@@ -1,0 +1,46 @@
+{
+  "name": "@deboxsoft/svelte-website",
+  "version": "0.0.1",
+  "description": "Website Component UI for svelte.",
+  "license": "SEE LICENSE IN ../../LICENSE.md",
+  "maintainers": [
+    {
+      "name": "Nurdiansyah",
+      "email": "nur.diansyah.ckt@gmail.com"
+    }
+  ],
+  "scripts": {
+    "build": "yarn copy-workers && sapper build --output ../../node_modules/@sapper ../../website",
+    "clean": "rimraf ../../website",
+    "copy-workers": "rm -rf static/workers && cp -r ../../node_modules/@sveltejs/svelte-repl/workers static/workers",
+    "dev": "yarn copy-workers && sapper dev --output ../../node_modules/@sapper --port 3001",
+    "export": "sapper export",
+    "start": "node ../../website",
+    "sass": "sass --load-path ../../node_modules --load-path src",
+    "test": "run-p --race dev cy:run",
+    "typecheck": "run-p typecheck:prettier typecheck:eslint typecheck:tsc",
+    "typecheck:eslint": "eslint --fix src",
+    "typecheck:prettier": "prettier --write --plugin-search-dir ./ \"src/**/*.svelte\"",
+    "typecheck:tsc": "tsc --noEmit --composite false"
+  },
+  "dependencies": {
+    "@deboxsoft/svelte-components-base": "*",
+    "clsx": "^1.1.1",
+    "compression": "1.7.4",
+    "fastify": "^3.1.1",
+    "middie": "5.1.0",
+    "nanoid": "3.1.12",
+    "nconf": "^0.10.0",
+    "nconf-yaml": "^1.0.2",
+    "perfect-scrollbar": "1.5.0",
+    "pino": "^6.4.1",
+    "pino-pretty": "^4.1.0",
+    "prism-svelte": "^0.4.3",
+    "prismjs": "^1.17.1",
+    "sirv": "1.0.5"
+  },
+  "devDependencies": {
+    "@types/nanoid": "2.1.0",
+    "@types/pino": "^6.3.0"
+  }
+}

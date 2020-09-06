@@ -1,11 +1,8 @@
-const base = require("./jest.base.config");
+const base = require("./jest.config.base");
 
 module.exports = {
   ...base,
-  projects: [
-    "<rootDir>/applications/*/jest.config,js",
-    "<rootDir>/modules/*/*/jest.config.js"
-  ],
+  roots: ["<rootDir>/packages"],
   coverageDirectory: "<rootDir>/coverage/",
   collectCoverage: true,
   verbose: false

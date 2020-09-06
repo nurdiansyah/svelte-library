@@ -9,15 +9,12 @@ const createPreprocess = (options) => {
     }),
     postcss: {
       plugins: [require("autoprefixer")]
-    },
-    typescript: {
-      tsconfigFile: "tsconfig.json"
     }
   });
 };
 const preprocess = createPreprocess({
   scss: {
-    includePaths: []
+    includePaths: ["./packages/components-base/scss", "./packages/website/src/theme"]
   }
 });
 module.exports = {

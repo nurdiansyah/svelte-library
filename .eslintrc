@@ -1,10 +1,9 @@
 {
   "extends": [
-    "@deboxsoft/devel",
-    "@deboxsoft/devel/svelte"
+    "@deboxsoft/devel"
   ],
   "parserOptions": {
-    "ecmaVersion": 8
+    "ecmaVersion": 2018
   },
   "ignorePatterns": [
     "!.storybook",

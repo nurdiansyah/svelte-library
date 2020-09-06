@@ -2,7 +2,8 @@
   "bracketSpacing": true,
   "semi": true,
   "trailingComma": "none",
-  "plugins": ['prettier-plugin-svelte'],
+  "svelteStrictMode": true,
+  "printWidth": 120,
   "overrides": [
     {
       "files": [".js", ".jsx"],

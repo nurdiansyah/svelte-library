@@ -4,27 +4,31 @@ import commonjs from "@rollup/plugin-commonjs";
 import svelte from "rollup-plugin-svelte";
 import sucrase from "@rollup/plugin-sucrase";
 import typesccript from "@rollup/plugin-typescript";
+import url from "@rollup/plugin-url";
 import { terser } from "rollup-plugin-terser";
 import config from "sapper/config/rollup.js";
-import { preprocess } from "./svelte.config";
 import pkg from "./package.json";
+
+const createPreprocess = require("../../svelte.config").createPreprocess;
 
 const mode = process.env.NODE_ENV || "development";
 const dev = mode === "development";
+const preprocess = createPreprocess({
+  scss: {
+    includePaths: ["./src/theme", "../../node_modules"],
+    prependData: '@use "variables" as *;'
+  }
+});
 
-const onwarn = (warning, _onwarn) => {
-  if (warning.code === "anchor-is-valid" || warning.code === "a11y-autofocus")
-    return;
-
-  if (warning.code === "css-unused-selector" && warning.frame.includes("shape"))
-    return;
-  if (
-    warning.code === "CIRCULAR_DEPENDENCY" &&
-    /[/\\]@sapper[/\\]/.test(warning.message)
-  )
-    return;
-  _onwarn(warning);
+// public path url
+const urlPluginConfig = {
+  publicPath: "/assets/"
 };
+
+const onwarn = (warning, onwarn) =>
+  (warning.code === "MISSING_EXPORT" && /'preload'/.test(warning.message)) ||
+  (warning.code === "CIRCULAR_DEPENDENCY" && /[/\\]@sapper[/\\]/.test(warning.message)) ||
+  onwarn(warning);
 
 const tsPlugin = () => {
   if (dev) {
@@ -49,11 +53,15 @@ export default {
         "process.browser": true,
         "process.env.NODE_ENV": JSON.stringify(mode)
       }),
+      url({
+        publicPath: urlPluginConfig.publicPath
+      }),
       svelte({
         preprocess,
         dev,
         hydratable: true,
-        emitCss: true
+        css: true,
+        emitCss: false
       }),
       resolve({
         browser: true,
@@ -79,9 +87,14 @@ export default {
         "process.browser": false,
         "process.env.NODE_ENV": JSON.stringify(mode)
       }),
+      url({
+        publicPath: urlPluginConfig.publicPath,
+        emit: false
+      }),
       svelte({
         preprocess,
         generate: "ssr",
+        hydratable: true,
         dev
       }),
       resolve({
@@ -91,8 +104,7 @@ export default {
       tsPlugin()
     ],
     external: Object.keys(pkg.dependencies).concat(
-      require("module").builtinModules ||
-        Object.keys(process.binding("natives"))
+      require("module").builtinModules || Object.keys(process.binding("natives"))
     ),
 
     preserveEntrySignatures: "strict",

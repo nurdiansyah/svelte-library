@@ -1,9 +1,5 @@
 {
-  "extends": "@deboxsoft/devel/tsconfig-base",
-  "compilerOptions": {
-    "lib": ["DOM"],
-    "typeRoots": ["types", "./node_modules/@types"],
-    "types": ["svelte", "node"]
-  },
-  "exclude": ["node_modules", "**/node_modules", "**/__types__", "**/__mocks__"]
+  "extends": "@tsconfig/svelte/tsconfig",
+  "include": ["types", "**/src"],
+  "exclude": ["node_modules/*", "**/__sapper__/*", "**/public/*", "**/node_modules", "**/__types__", "**/__mocks__"]
 }
