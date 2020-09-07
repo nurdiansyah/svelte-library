@@ -1,0 +1,18 @@
+/* stylelint-disable rscss/class-format */
+@use "sass:color";
+
+$theme-colors: () !default;
+$emphasized-link-hover-darken-percentage: 0 !default;
+
+@each $color, $value in $theme-colors {
+  ._link-#{$color} {
+    color: $value;
+
+    @if $emphasized-link-hover-darken-percentage != 0 {
+      &:hover,
+      &:focus {
+        color: color.adjust($value, $lightness: - ($emphasized-link-hover-darken-percentage));
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@use "../mixins/screen-reader";
+
+//
+// Visually hidden
+//
+
+.visually-hidden,
+.visually-hidden-focusable:not(:focus) {
+  @include screen-reader.visually-hidden();
+}

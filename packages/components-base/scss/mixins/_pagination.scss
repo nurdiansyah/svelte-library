@@ -1,0 +1,32 @@
+@use "./border-radius";
+@use "../vendor/rfs";
+@use "../variables-default" as var;
+
+// Pagination
+
+@mixin pagination-size($padding-y, $padding-x, $font-size, $border-radius) {
+  .page-item {
+    &.-link {
+      padding: $padding-y $padding-x;
+      @include rfs.font-size($font-size);
+    }
+    @if var.$pagination-margin-left == (-(var.$pagination-border-width)) {
+      &:first-child {
+        &.-link {
+          @include border-radius.border-left-radius($border-radius);
+        }
+      }
+
+      &:last-child {
+        &.-link {
+          @include border-radius.border-right-radius($border-radius);
+        }
+      }
+    } @else {
+      //Add border-radius to all pageLinks in case they have left margin
+      &.-link {
+        @include border-radius.border-radius($border-radius);
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@use "../functions";
+
+//
+// SVG Icon
+//
+
+@mixin svg-icon-color($color, $important: false) {
+  svg {
+    g {
+      [fill] {
+        fill: $color functions.value-if($important, !important, null);
+        transition: fill 0.3s ease;
+      }
+    }
+
+    &:hover {
+      g {
+        [fill] {
+          transition: fill 0.3s ease;
+        }
+      }
+    }
+  }
+}
+
+@mixin svg-icon-transition() {
+  svg {
+    g {
+      [fill] {
+        transition: fill 0.3s ease;
+      }
+    }
+  }
+}
+
+@mixin svg-icon-size($size, $important: false) {
+  svg {
+    width: $size functions.value-if($important, !important, null);
+    height: $size functions.value-if($important, !important, null);
+  }
+}

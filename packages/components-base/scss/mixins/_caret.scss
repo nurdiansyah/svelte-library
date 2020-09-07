@@ -1,0 +1,64 @@
+@use "../variables-default" as var;
+
+@mixin caret-down {
+  border-top: var.$caret-width solid;
+  border-right: var.$caret-width solid transparent;
+  border-bottom: 0;
+  border-left: var.$caret-width solid transparent;
+}
+
+@mixin caret-up {
+  border-top: 0;
+  border-right: var.$caret-width solid transparent;
+  border-bottom: var.$caret-width solid;
+  border-left: var.$caret-width solid transparent;
+}
+
+@mixin caret-right {
+  border-top: var.$caret-width solid transparent;
+  border-right: 0;
+  border-bottom: var.$caret-width solid transparent;
+  border-left: var.$caret-width solid;
+}
+
+@mixin caret-left {
+  border-top: var.$caret-width solid transparent;
+  border-right: var.$caret-width solid;
+  border-bottom: var.$caret-width solid transparent;
+}
+
+@mixin caret($direction: down) {
+  @if var.$enable-caret {
+    &::after {
+      display: inline-block;
+      margin-left: var.$caret-spacing;
+      vertical-align: var.$caret-vertical-align;
+      content: "";
+      @if $direction == down {
+        @include caret-down();
+      } @else if $direction == up {
+        @include caret-up();
+      } @else if $direction == right {
+        @include caret-right();
+      }
+    }
+
+    @if $direction == left {
+      &::after {
+        display: none;
+      }
+
+      &::before {
+        display: inline-block;
+        margin-right: var.$caret-spacing;
+        vertical-align: var.$caret-vertical-align;
+        content: "";
+        @include caret-left();
+      }
+    }
+
+    &:empty::after {
+      margin-left: 0;
+    }
+  }
+}
