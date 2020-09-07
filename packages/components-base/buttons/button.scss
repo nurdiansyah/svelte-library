@@ -1,0 +1,127 @@
+@use "../scss/variables-default" as *;
+@use "sass:color";
+@use "../scss/mixins/buttons" as *;
+
+//
+// Base styles
+//
+/* stylelint-disable rscss/class-format */
+.button {
+  @extend %button-base;
+  &.-sm {
+    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+  }
+  &.-lg {
+    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+  }
+
+  @include transition($btn-transition);
+
+  &:hover {
+    color: $body-color;
+    text-decoration: if($link-hover-decoration == underline, none, null);
+  }
+
+  &.-check:focus + &,
+  &:focus {
+    outline: 0;
+    box-shadow: $btn-focus-box-shadow;
+  }
+
+  &.-check:checked + &,
+  &.-check:active + &,
+  &:active,
+  &.-active {
+    @include box-shadow($btn-active-box-shadow);
+
+    &:focus {
+      @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+    }
+  }
+
+  @each $color, $theme-color in $theme-colors {
+    &.-#{$color} {
+      color: color-contrast($theme-color);
+      border-color: $theme-color;
+      @include gradient-bg($theme-color);
+      @include box-shadow($btn-box-shadow);
+
+      &:hover,
+      &:focus {
+        $hover-background: color.adjust($theme-color, $lightness: -7.5%);
+        color: color-contrast($hover-background);
+        border-color: color.adjust($theme-color, $lightness: -10%);
+        @include gradient-bg($hover-background);
+      }
+
+      &.-active,
+      &:active {
+        $active-background: color.adjust($theme-color, $lightness: -10%);
+        color: color-contrast($active-background);
+        background-color: $active-background;
+        border-color: color.adjust($theme-color, $lightness: -12.5%);
+      }
+
+      &.-disabled,
+      &:disabled {
+        $disabled-background: $theme-color;
+        color: color-contrast($disabled-background);
+        background-color: $disabled-background;
+        // Remove CSS gradients if they're enabled
+        background-image: if($enable-gradients, none, null);
+        border-color: $theme-color;
+      }
+    }
+
+    &.-#{$color}.-outline {
+      color: $theme-color;
+      background-color: transparent;
+      border-color: $theme-color;
+
+      &:hover,
+      &:active,
+      &.-active {
+        color: color-contrast($theme-color);
+        background-color: transparent;
+        border-color: color-contrast($theme-color);
+      }
+    }
+  }
+}
+
+.button-inline {
+  @extend .button;
+  display: inline-block;
+  font-weight: $btn-font-weight;
+  text-decoration: if($link-decoration == none, null, none);
+}
+
+.button-block {
+  @extend .button;
+  display: block;
+  width: 100%;
+  font-weight: $btn-font-weight;
+
+  + & {
+    margin-top: $btn-block-spacing-y;
+  }
+}
+
+.button-link {
+  @extend .button;
+  font-weight: $font-weight-normal;
+  color: $btn-link-color;
+
+  &:hover {
+    text-decoration: $link-decoration;
+  }
+
+  &:focus {
+    text-decoration: $link-decoration;
+  }
+
+  &:disabled,
+  &.-disabled {
+    color: $btn-link-disabled-color;
+  }
+}
