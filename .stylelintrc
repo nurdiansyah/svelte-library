@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    "stylelint-order"
+  ],
+  "extends": [
+    "stylelint-rscss/config",
+    "stylelint-config-recess-order"
+  ],
+  "rules": {
+    "rscss/no-descendant-combinator": false,
+    "rscss/class-format": [
+      true,
+      {
+        "element": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$"
+      }
+    ],
+    "selector-pseudo-element-colon-notation": "double"
+  }
+}
