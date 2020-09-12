@@ -7,9 +7,9 @@
   "useWorkspaces": true,
   "command": {
     "version": {
-      "allowBranch": "master",
+      "allowBranch": ["master", "feat/*", "bug/*", "tag/*", "sup/*", "rel/*"],
       "exact": true,
-      "gitRemote": "origin"
+      "gitRemote": "upstream"
     }
   },
   "ignoreChanges": [

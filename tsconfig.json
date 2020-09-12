@@ -1,5 +1,9 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig",
+  "extends": "./configs/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["svelte"],
+    "lib": ["DOM", "ES2019"]
+  },
   "include": ["types", "**/src"],
   "exclude": ["node_modules/*", "**/__sapper__/*", "**/public/*", "**/node_modules", "**/__types__", "**/__mocks__"]
 }

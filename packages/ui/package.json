@@ -3,17 +3,19 @@
   "version": "0.0.1",
   "description": "Component base UI for svelte.",
   "license": "SEE LICENSE IN ../../LICENSE.md",
+  "repository": {
+    "url": "git@github.com:deboxsoft/svelte-library.git",
+    "type": "git",
+    "directory": "packages/svelte-ui"
+  },
   "maintainers": [
     {
       "name": "Nurdiansyah",
       "email": "nur.diansyah.ckt@gmail.com"
     }
   ],
-  "main": "libs",
   "scripts": {
-    "check:svelte": "svelte-check",
-    "build": "tsc -b",
-    "typecheck": "eslint --fix \"src/**/*.+(ts|js)\""
+    "build": "tsc -b"
   },
   "dependencies": {
     "clsx": "^1.1.1"

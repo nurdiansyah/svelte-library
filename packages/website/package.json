@@ -17,14 +17,11 @@
     "export": "sapper export",
     "start": "node ../../website",
     "sass": "sass --load-path ../../node_modules --load-path src",
-    "test": "run-p --race dev cy:run",
-    "typecheck": "run-p typecheck:prettier typecheck:eslint typecheck:tsc",
-    "typecheck:eslint": "eslint --fix src",
-    "typecheck:prettier": "prettier --write --plugin-search-dir ./ \"src/**/*.svelte\"",
-    "typecheck:tsc": "tsc --noEmit --composite false"
+    "test": "run-p --race dev cy:run"
   },
   "dependencies": {
     "@deboxsoft/svelte-components-base": "*",
+    "@deboxsoft/svelte-ui": "*",
     "clsx": "^1.1.1",
     "compression": "1.7.4",
     "fastify": "^3.1.1",
