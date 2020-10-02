@@ -1,0 +1,50 @@
+@use "../scss/mixins/index" as mix;
+@use "../scss/variables-default" as var;
+
+// Disable animation if transitions are disabled
+@if var.$enable-transitions {
+  @keyframes progress-bar-stripes {
+    0% {
+      background-position-x: var.$progress-height;
+    }
+  }
+}
+
+.progress {
+  display: flex;
+  height: var.$progress-height;
+  overflow: hidden; // force rounded corners by cropping it
+  @include mix.font-size(var.$progress-font-size);
+  background-color: var.$progress-bg;
+  @include mix.border-radius(var.$progress-border-radius);
+  @include mix.box-shadow(var.$progress-box-shadow);
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: var.$progress-bar-color;
+  text-align: center;
+  white-space: nowrap;
+  background-color: var.$progress-bar-bg;
+  @include mix.transition(var.$progress-bar-transition);
+}
+
+.progress-bar-striped {
+  @include mix.gradient-striped();
+  background-size: var.$progress-height var.$progress-height;
+}
+
+@if var.$enable-transitions {
+  .progress-bar-animated {
+    animation: progress-bar-stripes var.$progress-bar-animation-timing;
+
+    @if var.$enable-reduced-motion {
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+  }
+}

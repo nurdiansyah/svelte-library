@@ -5,13 +5,7 @@
 @use "sass:meta";
 @use "sass:string";
 
-$escaped-characters: (
-                ("<","%3c"),
-                (">","%3e"),
-                ("#","%23"),
-                ("(","%28"),
-                (")","%29"),
-) !default;
+$escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"), ("(", "%28"), (")", "%29")) !default;
 
 // Bootstrap functions
 //
@@ -34,7 +28,12 @@ $escaped-characters: (
   $result: ();
   @each $key, $value in $map {
     @if (list.index($values, $key) != null) {
-      $result: map.merge($result, ($key: $value));
+      $result: map.merge(
+        $result,
+        (
+          $key: $value
+        )
+      );
     }
   }
   @return $result;
@@ -52,7 +51,8 @@ $escaped-characters: (
   $index: string.index($string, $search);
 
   @if $index {
-    @return string.slice($string, 1, $index - 1) + $replace + str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+    @return string.slice($string, 1, $index - 1) + $replace +
+      str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
   }
 
   @return $string;
@@ -125,12 +125,20 @@ $escaped-characters: (
   }
 }
 
+@function value-default($value, $default: null) {
+  @if $value {
+    @return $value;
+  } @else {
+    @return $default;
+  }
+}
+
 @function get-value($map, $keys, $default: null) {
   @if length($keys) == 1 {
     $keys: nth($keys, 1);
   }
 
-  @if type-of($map) != 'map' or $map == null {
+  @if type-of($map) != "map" or $map == null {
     //@return false;
   }
 
@@ -140,7 +148,7 @@ $escaped-characters: (
 
   @if $length > 1 {
     @for $i from 2 through $length {
-      @if $get != null and type-of($get) == 'map' {
+      @if $get != null and type-of($get) == "map" {
         $warn: $warn + "->#{nth($keys, $i)}";
         $get: map.get($get, nth($keys, $i));
 
@@ -159,7 +167,7 @@ $escaped-characters: (
     $keys: nth($keys, 1);
   }
 
-  @if type-of($map) != 'map' or $map == null {
+  @if type-of($map) != "map" or $map == null {
     //@return false;
   }
 
@@ -169,15 +177,14 @@ $escaped-characters: (
 
   @if $length > 1 {
     @for $i from 2 through $length {
-      @if $get != null and type-of($get) == 'map' {
+      @if $get != null and type-of($get) == "map" {
         $warn: $warn + "->#{nth($keys, $i)}";
         $get: map-get($get, nth($keys, $i));
 
         @if $get == null {
           @return false;
         }
-      }
-      @else {
+      } @else {
         @return false;
       }
     }
@@ -185,8 +192,7 @@ $escaped-characters: (
 
   @if $get != null {
     @return true;
-  }
-  @else {
+  } @else {
     @return false;
   }
 }

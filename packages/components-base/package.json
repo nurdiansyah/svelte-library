@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "description": "Component base UI for svelte.",
   "license": "SEE LICENSE IN ../../LICENSE.md",
+  "main": "./",
+  "types": "./",
   "repository": {
     "url": "git@github.com:deboxsoft/svelte-library.git",
     "type": "git",
@@ -18,6 +20,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
+    "@deboxsoft/core-web": "^1.0.2",
     "clsx": "^1.1.1",
     "popper.js": "1.16.1"
   }

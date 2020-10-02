@@ -1,42 +1,36 @@
 <script lang="ts">
   import clsx from "clsx";
+  import { getId } from "../utils";
 
-  let className = "";
+  let className: string | null = null,
+    classes: string;
   export { className as class };
-  export let active = false;
-  export let block = false;
-  export let children = undefined;
-  export let theme = "secondary";
-  export let disabled = false;
-  export let href = "";
-  export let id = undefined;
-  export let outline = false;
-  export let size = undefined;
-  export let style = undefined;
+  export let active: boolean = false;
+  export let theme: string = "secondary";
+  export let disabled: boolean = false;
+  export let href: string | null = null;
+  export let id: string = getId();
+  export let outline: boolean = false;
+  export let size: "sm" | "lg" | null = null;
+  export let style: string | null = null;
+  export let close: boolean = false;
 
-  export let value = undefined;
-  export let link = false;
+  export let value: string | null = null;
+  export let link: boolean = false;
 
   $: ariaLabel = $$props["aria-label"];
-
   $: classes = clsx(
     className,
-    block ? "button-block" : href || link ? "button-link" : "button-inline",
-    {
-      "-outline": outline,
-      "-disabled": disabled,
-      "-active": active
-    },
+    "button",
+    (href || link) && "-link",
+    outline && "-outline",
+    disabled && "-disabled",
+    active && "-active",
     size && `-${size}`,
     `-${theme}`
   );
-
   $: defaultAriaLabel = close ? "Close" : null;
 </script>
-
-<style lang="scss" global>
-  @use "./button";
-</style>
 
 {#if href}
   <a
@@ -48,11 +42,7 @@
     {href}
     aria-label="{ariaLabel || defaultAriaLabel}"
     {style}>
-    {#if children}
-      {children}
-    {:else}
-      <slot />
-    {/if}
+    <slot />
   </a>
 {:else}
   <button
@@ -64,10 +54,10 @@
     {value}
     aria-label="{ariaLabel || defaultAriaLabel}"
     {style}>
-    {#if children}
-      {children}
-    {:else}
-      <slot />
-    {/if}
+    <slot />
   </button>
 {/if}
+
+<style lang="scss" src="./_button.scss">
+
+</style>

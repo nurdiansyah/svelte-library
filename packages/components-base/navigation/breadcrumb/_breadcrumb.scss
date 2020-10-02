@@ -1,0 +1,33 @@
+@use "../../scss/mixins/index" as mix;
+@use "../../scss/functions";
+@use "../../scss/variables-default" as var;
+
+.nav-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: var.$breadcrumb-padding-y var.$breadcrumb-padding-x;
+  margin-bottom: var.$breadcrumb-margin-bottom;
+  @include mix.font-size(var.$breadcrumb-font-size);
+  list-style: none;
+  background-color: var.$breadcrumb-bg;
+  @include mix.border-radius(var.$breadcrumb-border-radius);
+
+  > .item {
+    display: flex;
+    // The separator between breadcrumbs (by default, a forward-slash: "/")
+    + .breadcrumb-item {
+      padding-left: var.$breadcrumb-item-padding-x;
+
+      &::before {
+        display: inline-block; // Suppress underlining of the separator
+        padding-right: var.$breadcrumb-item-padding-x;
+        color: var.$breadcrumb-divider-color;
+        content: functions.escape-svg(var.$breadcrumb-divider);
+      }
+    }
+
+    &.-active {
+      color: var.$breadcrumb-active-color;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@use "../scss/variables-default" as var;
+@use "../scss/mixins/index" as mix;
+@use "../scss/functions" as *;
+
+.container {
+  @include mix.make-container();
+}
+
+// Responsive containers that are 100% wide until a breakpoint
+@each $breakpoint, $container-max-width in var.$container-max-widths {
+  @include mix.media-breakpoint-up($breakpoint, var.$grid-breakpoints) {
+    %responsive-container-#{$breakpoint} {
+      max-width: $container-max-width;
+    }
+
+    // Extend each breakpoint which is smaller or equal to the current breakpoint
+    $extend-breakpoint: true;
+
+    @each $name, $width in var.$grid-breakpoints {
+      $infix: mix.breakpoint-infix($name, var.$grid-breakpoints);
+      $infixClass: value-if($infix, ".#{$infix}", null);
+      @if ($extend-breakpoint and $infixClass) {
+        // stylelint-disable-next-line
+        .container#{$infixClass} {
+          @extend %responsive-container-#{$breakpoint};
+        }
+
+        // Once the current breakpoint is reached, stop extending
+        @if ($breakpoint == $name) {
+          $extend-breakpoint: false;
+        }
+      }
+    }
+  }
+}

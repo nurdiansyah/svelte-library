@@ -1,0 +1,25 @@
+@use "sass:map";
+
+// Form validation
+//
+// Provide feedback to users when form field values are valid or invalid. Works
+// primarily for client-side validation via scoped `:invalid` and `:valid`
+// pseudo-classes but also includes `.-is-invalid` and `.-is-valid` classes for
+// server-side validation.
+
+$form-validated-selector: ".c-form.-validated";
+
+@mixin form-validation-state-selector($state) {
+  @if & {
+    @if ($state == "valid" or $state == "invalid") {
+      #{$form-validated-selector} &:#{$state},
+      #{$form-validated-selector} &.-#{$state} {
+        @content;
+      }
+    } @else {
+      .c-form.-validated &.-#{$state} {
+        @content;
+      }
+    }
+  }
+}

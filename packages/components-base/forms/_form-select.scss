@@ -1,0 +1,86 @@
+@use "../scss/functions" as *;
+@use "../scss/variables-default" as var;
+@use "../scss/mixins/index" as mix;
+
+// Select
+//
+// Replaces the browser default select with a custom one, mostly pulled from
+// https://primer.github.io/.
+
+.form-select {
+  display: block;
+  width: 100%;
+  height: var.$form-select-height;
+  padding: var.$form-select-padding-y (var.$form-select-padding-x + var.$form-select-indicator-padding)
+    var.$form-select-padding-y var.$form-select-padding-x;
+  font-family: var.$form-select-font-family;
+  @include mix.font-size(var.$form-select-font-size);
+  font-weight: var.$form-select-font-weight;
+  line-height: var.$form-select-line-height;
+  color: var.$form-select-color;
+  background-color: var.$form-select-bg;
+  background-image: escape-svg(var.$form-select-indicator);
+  background-repeat: no-repeat;
+  background-position: var.$form-select-bg-position;
+  background-size: var.$form-select-bg-size;
+  border: var.$form-select-border-width solid var.$form-select-border-color;
+  @include mix.border-radius(var.$form-select-border-radius, 0);
+  @include mix.box-shadow(var.$form-select-box-shadow);
+  appearance: none;
+
+  &:focus {
+    border-color: var.$form-select-focus-border-color;
+    outline: 0;
+    @if var.$enable-shadows {
+      @include mix.box-shadow(var.$form-select-box-shadow, var.$form-select-focus-box-shadow);
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: var.$form-select-focus-box-shadow;
+    }
+
+    &::-ms-value {
+      // For visual consistency with other platforms/browsers,
+      // suppress the default white text on blue background highlight given to
+      // the selected option text when the (still closed) <select> receives focus
+      // in Edge.
+      // See https://github.com/twbs/bootstrap/issues/19398.
+      color: var.$input-color;
+      background-color: var.$input-bg;
+    }
+  }
+
+  &[multiple],
+  &[size]:not([size="1"]) {
+    height: auto;
+    padding-right: var.$form-select-padding-x;
+    background-image: none;
+  }
+
+  &:disabled {
+    color: var.$form-select-disabled-color;
+    background-color: var.$form-select-disabled-bg;
+    border-color: var.$form-select-disabled-border-color;
+  }
+
+  // Remove outline from select box in FF
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 var.$form-select-color;
+  }
+
+  &.-sm {
+    height: var.$form-select-height-sm;
+    padding-top: var.$form-select-padding-y-sm;
+    padding-bottom: var.$form-select-padding-y-sm;
+    padding-left: var.$form-select-padding-x-sm;
+    @include mix.font-size(var.$form-select-font-size-sm);
+  }
+
+  &.-lg {
+    height: var.$form-select-height-lg;
+    padding-top: var.$form-select-padding-y-lg;
+    padding-bottom: var.$form-select-padding-y-lg;
+    padding-left: var.$form-select-padding-x-lg;
+    @include mix.font-size(var.$form-select-font-size-lg);
+  }
+}
