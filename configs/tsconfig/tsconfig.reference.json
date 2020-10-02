@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig-base.json",
+  "files": [],
+  "exclude": [],
+  "references": [
+    {
+      "path": "../../packages/components-base"
+    }
+  ]
+}

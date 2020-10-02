@@ -1,0 +1,11 @@
+{
+  "extends": "@deboxsoft/devel/tsconfig-base.json",
+  "compilerOptions": {
+    "importsNotUsedAsValues": "error",
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "composite": false,
+    "noEmit": false,
+    "sourceMap": false
+  }
+}
