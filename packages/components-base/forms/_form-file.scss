@@ -1,0 +1,91 @@
+@use "../scss/mixins/index" as mix;
+@use "../scss/variables-default" as var;
+@use "../scss/functions";
+
+.form-file {
+  --form-file-height: #{var.$form-file-height};
+  position: relative;
+
+  > .input {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: var(--form-file-height);
+    margin: 0;
+    opacity: 0;
+
+    &:focus-within ~ .form-file-label {
+      border-color: var.$form-file-focus-border-color;
+      box-shadow: var.$form-file-focus-box-shadow;
+    }
+
+    // Use disabled attribute in addition of :disabled pseudo-class
+    // See: https://github.com/twbs/bootstrap/issues/28247
+    &[disabled] ~ .form-file-label .form-file-text,
+    &:disabled ~ .form-file-label .form-file-text {
+      background-color: var.$form-file-disabled-bg;
+      border-color: var.$form-file-disabled-border-color;
+    }
+  }
+
+  > .label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    height: var(--form-file-height);
+    border-color: var.$form-file-border-color;
+    @include mix.border-radius(var.$form-file-border-radius);
+    @include mix.box-shadow(var.$form-file-box-shadow);
+
+    > .text {
+      display: block;
+      flex-grow: 1;
+      padding: var.$form-file-padding-y var.$form-file-padding-x;
+      overflow: hidden;
+      font-family: var.$form-file-font-family;
+      font-weight: var.$form-file-font-weight;
+      line-height: var.$form-file-line-height;
+      color: var.$form-file-color;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background-color: var.$form-file-bg;
+      border-color: inherit;
+      border-style: solid;
+      border-width: var.$form-file-border-width;
+      @include mix.border-left-radius(inherit);
+    }
+
+    > .button {
+      display: block;
+      flex-shrink: 0;
+      padding: var.$form-file-padding-y var.$form-file-padding-x;
+      margin-left: -(var.$form-file-border-width);
+      line-height: var.$form-file-line-height;
+      color: var.$form-file-button-color;
+      @include mix.gradient-bg(var.$form-file-button-bg);
+      border-color: inherit;
+      border-style: solid;
+      border-width: var.$form-file-border-width;
+      @include mix.border-right-radius(inherit);
+    }
+  }
+
+  &.-sm {
+    --form-file-height: #{var.$form-file-height-sm};
+    @include mix.font-size(var.$form-file-font-size-sm);
+    > .label > * {
+      padding: var.$form-file-padding-y-sm var.$form-file-padding-x-sm;
+    }
+  }
+
+  &.-lg {
+    --form-file-height: #{var.$form-file-height-lg};
+    @include mix.font-size(var.$form-file-font-size-lg);
+    > .label > * {
+      padding: var.$form-file-padding-y-lg var.$form-file-padding-x-lg;
+    }
+  }
+}

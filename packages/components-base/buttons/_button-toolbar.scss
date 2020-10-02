@@ -1,0 +1,11 @@
+.button-toolbar {
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  background-color: #fff;
+
+  > .input-group {
+    width: auto;
+  }
+}

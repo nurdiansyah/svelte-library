@@ -1,13 +1,12 @@
 <script lang="ts">
   import Scrollbar from "./perfect-scrollbar";
   import clsx from "clsx";
-  import { onMount, afterUpdate, onDestroy } from "svelte";
 
-  let scrollbar, Container, classes, className;
+  let classes: string, className: string;
 
   export { className as class };
-  export let height = "100%";
-  export let options = {};
+  export let height: string = "100%";
+  export let options: any = {};
 
   $: classes = clsx(className);
 

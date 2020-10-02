@@ -1,5 +1,25 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig",
-  "include": ["types", "**/src"],
-  "exclude": ["node_modules/*", "**/__sapper__/*", "**/public/*", "**/node_modules", "**/__types__", "**/__mocks__"]
+  "extends": "./configs/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "types": [
+      "svelte"
+    ],
+    "composite": false,
+    "lib": [
+      "DOM",
+      "ES2019"
+    ]
+  },
+  "include": [
+    "types"
+  ],
+  "exclude": [
+    "node_modules/*",
+    "**/__sapper__/*",
+    "**/public/*",
+    "**/node_modules",
+    "**/__types__",
+    "**/__mocks__",
+    "packages/*.d.ts"
+  ]
 }

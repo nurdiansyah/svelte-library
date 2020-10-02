@@ -159,5 +159,5 @@ lerna-debug.log
 **/.cache
 .trash
 docker-compose.yml
-.tsbuildinfo
+**/*.tsbuildinfo
 __sapper__

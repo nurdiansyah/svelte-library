@@ -1,0 +1,232 @@
+@use "../scss/functions" as *;
+@use "../scss/variables-default" as var;
+@use "../scss/mixins/index" as mix;
+
+// nav-menu
+$nav-menu-padding: 15px 0 !default;
+
+// nav-item
+$nav-item-margin: 0 !default;
+$nav-item-link-padding: 9px 25px !default;
+$nav-item-link-height: null !default;
+$nav-item-link-margin: null !default;
+$nav-item-link-background-color: null !default;
+$nav-item-link-background-color-hover: null !default;
+$nav-item-link-background-color-disabled: null !default;
+$nav-item-link-border-radius: null !default;
+$nav-item-link-icon-width: null !default;
+$nav-item-link-icon-font-size: null !default;
+$nav-item-link-icon-color: null !default;
+$nav-item-link-icon-color-hover: null !default;
+$nav-item-link-icon-color-disabled: null !default;
+$nav-item-link-text-font-size: null !default;
+$nav-item-link-text-font-weight: null !default;
+$nav-item-link-text-color: null !default;
+$nav-item-link-text-color-hover: null !default;
+$nav-item-link-text-color-disabled: null !default;
+$nav-item-link-text-transform: null !default;
+$nav-item-link-label-padding: null !default;
+$nav-item-link-label-size: null !default;
+$nav-item-link-arrow-width: null !default;
+$nav-item-link-arrow-color: null !default;
+$nav-item-link-arrow-font-size: null !default;
+$nav-item-link-arrow-transition: null !default;
+$nav-item-active-link-arrow-color: null !default;
+$nav-item-section-padding: 0 25px !default;
+
+// nav-menu submenu item
+$nav-item-submenu-padding-left: 25px !default;
+$nav-item-submenu-indent: 15px !default;
+$nav-item-submenu-section-indent: 15px !default;
+$nav-item-submenu-section-padding: 0 25px !default;
+
+.nav-menu {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $nav-menu-padding;
+  margin-bottom: 0;
+  list-style: none;
+
+  .nav-item {
+    margin: $nav-item-margin;
+    > .link {
+      position: relative;
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      min-height: $nav-item-link-height;
+      padding: $nav-item-link-padding;
+      margin: $nav-item-link-margin;
+      text-decoration: none;
+      cursor: pointer;
+      background-color: $nav-item-link-background-color;
+      border-radius: $nav-item-link-border-radius;
+
+      > .icon {
+        width: $nav-item-link-icon-width;
+        font-size: $nav-item-link-icon-font-size;
+        color: $nav-item-link-icon-color;
+      }
+      > .text {
+        flex-grow: 1;
+        align-items: center;
+        font-size: $nav-item-link-text-font-size;
+        font-weight: $nav-item-link-text-font-weight;
+        color: $nav-item-link-text-color;
+        transform: $nav-item-link-text-transform;
+      }
+      > .label {
+        padding: $nav-item-link-label-padding;
+        size: $nav-item-link-label-size;
+      }
+
+      > .arrow {
+        display: flex;
+        flex: 0 0 20px;
+        align-items: center;
+        justify-content: flex-end;
+        width: $nav-item-link-arrow-width;
+        color: $nav-item-link-arrow-color;
+        // stylelint-disable-next-line
+        > i {
+          display: flex;
+          font-size: $nav-item-link-arrow-font-size;
+          line-height: 0;
+          &::before {
+            transition: $nav-item-link-arrow-transition;
+          }
+        }
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: $nav-item-link-background-color-hover;
+        > .icon {
+          color: $nav-item-link-icon-color-hover;
+        }
+        > .text {
+          color: $nav-item-link-text-color-hover;
+        }
+      }
+    }
+
+    &.-active {
+      > .link > .arrow {
+        color: $nav-item-active-link-arrow-color;
+        // stylelint-disable-next-line
+        i::before {
+          transform: rotateZ(90deg);
+        }
+      }
+    }
+
+    &.-disabled {
+      background-color: $nav-item-link-background-color-disabled;
+      > .icon {
+        color: $nav-item-link-icon-color-disabled;
+      }
+      > .text {
+        color: $nav-item-link-text-color-disabled;
+      }
+    }
+  }
+
+  &.-submenu {
+    padding: 0;
+    > .nav-item {
+      > .link {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: $nav-item-submenu-padding-left + (2 * $nav-item-submenu-indent);
+      }
+    }
+  }
+
+  &.-minimized {
+    > .nav-item {
+      > .link {
+        > .icon {
+          width: 100%;
+        }
+
+        > .text {
+          display: none;
+        }
+
+        > .arrow {
+          display: none;
+        }
+
+        & ~ * {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.-inline {
+    flex-direction: column;
+    padding-left: 0;
+
+    > .nav-item {
+      > .link {
+        padding-right: 0;
+        padding-left: 0;
+      }
+    }
+  }
+
+  //
+  // Tabs
+  //
+
+  &.-tabs {
+    border-bottom: var.$nav-tabs-border-width solid var.$nav-tabs-border-color;
+
+    .nav-item {
+      > .link {
+        margin-bottom: -(var.$nav-tabs-border-width);
+        border: var.$nav-tabs-border-width solid transparent;
+        @include mix.border-top-radius(var.$nav-tabs-border-radius);
+
+        &:hover,
+        &:focus {
+          border-color: var.$nav-tabs-link-hover-border-color;
+        }
+      }
+
+      &.-disabled > .link {
+        color: var.$nav-link-disabled-color;
+        background-color: transparent;
+        border-color: transparent;
+      }
+
+      &.-active > .link {
+        color: var.$nav-tabs-link-active-color;
+        background-color: var.$nav-tabs-link-active-bg;
+        border-color: var.$nav-tabs-link-active-border-color;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    // Make dropdown border overlap tab border
+    margin-top: -(var.$nav-tabs-border-width);
+    // Remove the top rounded corners here since there is a hard edge above the menu
+    @include mix.border-top-radius(0);
+  }
+}
+
+// Tabbable tabs
+//
+// Hide tabbable panes to start, show them when `.active`
+
+.tab-content {
+  > .pane {
+    display: none;
+    > &.-active {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,153 @@
+@use "sass:color";
+@use "../scss/variables-default" as var;
+@use "../scss/colors";
+@use "../scss/mixins/index" as mix;
+
+// Button sizes
+@mixin button-size($padding-y, $padding-x, $font-size, $border-radius) {
+  padding: $padding-y $padding-x;
+  @include mix.font-size($font-size);
+  // Manually declare to provide an override to the browser default
+  @include mix.border-radius($border-radius, 0);
+}
+
+//
+// Base styles
+//
+/* stylelint-disable-next-line rscss/class-format */
+.button {
+  font-family: var.$btn-font-family;
+  font-weight: var.$btn-font-weight;
+  line-height: var.$btn-line-height;
+  color: var.$body-color;
+  text-align: center;
+  white-space: var.$btn-white-space;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+
+  border: var.$btn-border-width solid transparent;
+  @include button-size(var.$btn-padding-y, var.$btn-padding-x, var.$btn-font-size, var.$btn-border-radius);
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: var.$link-hover-decoration;
+    text-decoration: if(var.$link-hover-decoration == underline, none, null);
+    border: var.$btn-border-width solid transparent;
+  }
+
+  &:disabled,
+  &.-disabled,
+  fieldset:disabled {
+    pointer-events: none;
+    opacity: var.$btn-disabled-opacity;
+    @include mix.box-shadow(none);
+  }
+
+  &.-sm {
+    @include button-size(
+      var.$btn-padding-y-sm,
+      var.$btn-padding-x-sm,
+      var.$btn-font-size-sm,
+      var.$btn-border-radius-sm
+    );
+  }
+
+  &.-lg {
+    @include button-size(
+      var.$btn-padding-y-lg,
+      var.$btn-padding-x-lg,
+      var.$btn-font-size-lg,
+      var.$btn-border-radius-lg
+    );
+  }
+
+  @include mix.transition(var.$btn-transition);
+
+  &.-check:focus + &,
+  &:focus {
+    outline: 0;
+    box-shadow: var.$btn-focus-box-shadow;
+  }
+
+  &.-check:checked + &,
+  &.-check:active + &,
+  &:active,
+  &.-active {
+    @include mix.box-shadow(var.$btn-active-box-shadow);
+
+    &:focus {
+      @include mix.box-shadow(var.$btn-focus-box-shadow, var.$btn-active-box-shadow);
+    }
+  }
+
+  @each $color, $theme-color in var.$theme-colors {
+    &.-#{$color} {
+      color: colors.color-contrast($theme-color);
+      border-color: $theme-color;
+      @include mix.gradient-bg($theme-color);
+      @include mix.box-shadow(var.$btn-box-shadow);
+
+      &:hover,
+      &:focus {
+        $hover-background: color.adjust($theme-color, $lightness: -7.5%);
+        color: colors.color-contrast($hover-background);
+        border-color: color.adjust($theme-color, $lightness: -10%);
+        @include mix.gradient-bg($hover-background);
+      }
+
+      &.-active,
+      &:active {
+        $active-background: color.adjust($theme-color, $lightness: -10%);
+        color: colors.color-contrast($active-background);
+        background-color: $active-background;
+        border-color: color.adjust($theme-color, $lightness: -12.5%);
+      }
+
+      &.-disabled,
+      &:disabled {
+        $disabled-background: $theme-color;
+        color: colors.color-contrast($disabled-background);
+        background-color: $disabled-background;
+        // Remove CSS gradients if they're enabled
+        background-image: if(var.$enable-gradients, none, null);
+        border-color: $theme-color;
+      }
+    }
+
+    &.-#{$color}.-outline {
+      color: $theme-color;
+      background-color: transparent;
+      border-color: $theme-color;
+
+      &:hover,
+      &:active,
+      &.-active {
+        color: colors.color-contrast($theme-color);
+        background-color: transparent;
+        border-color: colors.color-contrast($theme-color);
+      }
+    }
+  }
+
+  &.-link {
+    font-weight: var.$font-weight-normal;
+    color: var.$btn-link-color;
+    text-decoration: var.$link-decoration;
+
+    &:hover {
+      text-decoration: var.$link-decoration;
+    }
+
+    &:focus {
+      text-decoration: var.$link-decoration;
+    }
+
+    &:disabled,
+    &.-disabled {
+      color: var.$btn-link-disabled-color;
+    }
+  }
+}

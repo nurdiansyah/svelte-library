@@ -132,6 +132,7 @@ $breakpoint-name-default: lg;
 
 // scss-docs-start grid-breakpoints
 $grid-breakpoints: (
+  xs: 0,
   sm: 576px,
   md: 768px,
   lg: 992px,

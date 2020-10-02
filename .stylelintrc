@@ -3,15 +3,15 @@
     "stylelint-order"
   ],
   "extends": [
-    "stylelint-rscss/config",
+    "@nurdiansyah/stylelint-rscss/config",
     "stylelint-config-recess-order"
   ],
   "rules": {
-    "rscss/no-descendant-combinator": false,
+    "rscss/no-descendant-combinator": true,
     "rscss/class-format": [
       true,
       {
-        "element": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$"
+        "componentWhitelist": ["navbar", "container", "button", "nav", "collapse"]
       }
     ],
     "selector-pseudo-element-colon-notation": "double"

@@ -1,6 +1,7 @@
 @use "sass:math";
 @use "sass:map";
 @use "./breakpoints";
+@use "../functions" as *;
 @use "../variables-default" as var;
 
 /// Grid system
@@ -54,5 +55,63 @@
   & > * {
     flex: 0 0 auto;
     width: 100% / $count;
+  }
+}
+
+// Framework grid generation
+//
+// Used only by Bootstrap to generate the correct number of grid classes given
+// any value of `$grid-columns`.
+
+@mixin make-grid-columns(
+  $columns: var.$grid-columns,
+  $gutter: var.$grid-gutter-width,
+  $breakpoints: var.$grid-breakpoints
+) {
+  @each $breakpoint in map-keys($breakpoints) {
+    $infix: breakpoints.breakpoint-infix($breakpoint, $breakpoints);
+    $infixClass: #{value-if($infix, ".#{$infix}")};
+
+    @include breakpoints.media-breakpoint-up($breakpoint, $breakpoints) {
+      // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+      > .col#{$infixClass} {
+        flex: 1 0 0; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
+      }
+
+      &#{$infixClass}-auto > * {
+        @include make-col-auto();
+      }
+
+      @if var.$grid-row-columns > 0 {
+        @for $i from 1 through var.$grid-row-columns {
+          // stylelint-disable-next-line
+          &.-cols#{$infix}-#{$i} {
+            @include row-cols($i);
+          }
+        }
+      }
+
+      > .col#{$infixClass}.-auto {
+        @include make-col-auto();
+      }
+
+      @if $columns > 0 {
+        @for $i from 1 through $columns {
+          > .col#{$infixClass}-#{$i} {
+            @include make-col($i, $columns);
+          }
+        }
+
+        // `$columns - 1` because offsetting by the width of an entire row isn't possible
+        @for $i from 0 through ($columns - 1) {
+          @if not($infix == "" and $i == 0) {
+            // Avoid emitting useless .offset-0
+            > col.-offset-#{$i}#{$infixClass} {
+              @include make-col-offset($i, $columns);
+            }
+          }
+        }
+      }
+    }
   }
 }

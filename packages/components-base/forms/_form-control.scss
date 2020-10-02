@@ -1,0 +1,92 @@
+@use "../scss/variables-default" as var;
+@use "../scss/mixins/index" as mix;
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: var.$input-height;
+  padding: var.$input-padding-y var.$input-padding-x;
+  font-family: var.$input-font-family;
+  @include mix.font-size(var.$input-font-size);
+  font-weight: var.$input-font-weight;
+  line-height: var.$input-line-height;
+  color: var.$input-color;
+  background-color: var.$input-bg;
+  background-clip: padding-box;
+  border: var.$input-border-width solid var.$input-border-color;
+  appearance: none; // Fix appearance for date inputs in Safari
+
+  // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
+  @include mix.border-radius(var.$input-border-radius, 0);
+
+  @include mix.box-shadow(var.$input-box-shadow);
+  @include mix.transition(var.$input-transition);
+
+  // Customize the `:focus` state to imitate native WebKit styles.
+  &:focus {
+    color: var.$input-focus-color;
+    background-color: var.$input-focus-bg;
+    border-color: var.$input-focus-border-color;
+    outline: 0;
+    @if var.$enable-shadows {
+      @include mix.box-shadow(var.$input-box-shadow, var.$input-focus-box-shadow);
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: var.$input-focus-box-shadow;
+    }
+  }
+
+  // Placeholder
+  &::placeholder {
+    color: var.$input-placeholder-color;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    opacity: 1;
+  }
+
+  // Disabled and read-only inputs
+  //
+  // HTML5 says that controls under a fieldset > legend:first-child won't be
+  // disabled if the fieldset is disabled. Due to implementation difficulty, we
+  // don't honor that edge case; we style them as disabled anyway.
+  &:disabled,
+  &[readonly] {
+    background-color: var.$input-disabled-bg;
+    border-color: var.$input-disabled-border-color;
+    // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
+    opacity: 1;
+  }
+
+  // Readonly controls as plain text
+  //
+  // Apply class to a readonly input to make it appear like regular plain
+  // text (without any border, background color, focus indicator)
+
+  &.-plaintext {
+    padding: var.$input-padding-y 0;
+    margin-bottom: 0; // match inputs if this class comes on inputs with default margins
+    color: var.$input-plaintext-color;
+    background-color: transparent;
+    border: solid transparent;
+    border-width: var.$input-border-width 0;
+
+    &.-sm,
+    &.-lg {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
+  &.-sm {
+    min-height: var.$input-height-sm;
+    padding: var.$input-padding-y-sm var.$input-padding-x-sm;
+    @include mix.font-size(var.$input-font-size-sm);
+    @include mix.border-radius(var.$input-border-radius-sm);
+  }
+
+  &.-lg {
+    min-height: var.$input-height-lg;
+    padding: var.$input-padding-y-lg var.$input-padding-x-lg;
+    @include mix.font-size(var.$input-font-size-lg);
+    @include mix.border-radius(var.$input-border-radius-lg);
+  }
+}
