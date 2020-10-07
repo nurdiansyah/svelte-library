@@ -1,0 +1,27 @@
+{
+  "name": "@deboxsoft/svelte-icons",
+  "version": "0.0.1",
+  "description": "Icons for svelte.",
+  "license": "SEE LICENSE IN ../../LICENSE.md",
+  "main": "./libs/index.js",
+  "types": "./",
+  "files": [
+    "index.js",
+    "*.svelte"
+  ],
+  "repository": {
+    "url": "git@github.com:deboxsoft/svelte-library.git",
+    "type": "git",
+    "directory": "packages/icons"
+  },
+  "maintainers": [
+    {
+      "name": "Nurdiansyah",
+      "email": "nur.diansyah.ckt@gmail.com"
+    }
+  ],
+  "scripts": {
+  },
+  "dependencies": {
+  }
+}
