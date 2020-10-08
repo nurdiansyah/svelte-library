@@ -9,6 +9,11 @@ const createPreprocess = (options) => {
     }),
     postcss: {
       plugins: [require("autoprefixer")]
+    },
+    typescript: {
+      compilerOptions: {
+        allowJs: true
+      }
     }
   });
 };

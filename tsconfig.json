@@ -1,18 +1,11 @@
 {
   "extends": "./configs/tsconfig/tsconfig.base.json",
   "compilerOptions": {
-    "types": [
-      "svelte"
-    ],
+    "types": ["svelte"],
     "composite": false,
-    "lib": [
-      "DOM",
-      "ES2019"
-    ]
+    "lib": ["DOM", "ES2019"]
   },
-  "include": [
-    "types"
-  ],
+  "include": ["types", "packages"],
   "exclude": [
     "node_modules/*",
     "**/__sapper__/*",

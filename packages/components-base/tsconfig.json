@@ -1,4 +1,8 @@
 {
+  "compilerOptions": {
+    "declaration": true
+  },
   "extends": "../../tsconfig.json",
-  "include": ["./"]
+  "include": ["./"],
+  "exclude": ["./libs"]
 }

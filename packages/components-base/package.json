@@ -3,8 +3,14 @@
   "version": "0.0.1",
   "description": "Component base UI for svelte.",
   "license": "SEE LICENSE IN ../../LICENSE.md",
-  "main": "./",
+  "main": "./libs/index.js",
+  "module": "./libs/index.mjs",
   "types": "./",
+  "files": [
+    "**/*.js",
+    "**/*.d.ts",
+    "**/*.svelte"
+  ],
   "repository": {
     "url": "git@github.com:deboxsoft/svelte-library.git",
     "type": "git",
@@ -17,11 +23,14 @@
     }
   ],
   "scripts": {
-    "build": "tsc -b"
+    "build": "run-p build:*",
+    "build:rollup": "rollup -c",
+    "build:ts": "tsc -b"
   },
   "dependencies": {
     "@deboxsoft/core-web": "^1.0.2",
     "clsx": "^1.1.1",
-    "popper.js": "1.16.1"
+    "@popperjs/core": "2.5.3",
+    "svelte-awesome": "^2.3.0"
   }
 }
