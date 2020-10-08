@@ -23,10 +23,10 @@
   };
 </script>
 
-<style lang="scss" global>
-  @use "./scrollbar";
-</style>
-
 <div use:useScrollbar="{options}" class="{classes}" style="--height: {height}">
   <slot />
 </div>
+
+<style lang="scss" global>
+  @use "./scrollbar";
+</style>

@@ -1,10 +1,11 @@
 /* stylelint-disable rscss*/
 
-@use "../scss/variables-default" as var;
+@use "../../scss/functions" as *;
+@use "../../scss/theme";
 
-$color: var.$scrollbar-color;
-$rail-size: var.$scrollbar-rail-size;
-$thumb-size: var.$scrollbar-thumb-size;
+$color: get-value(theme.$scrollbar, color);
+$rail-size: get-value(theme.$scrollbar, (rail, size));
+$thumb-size: get-value(theme.$scrollbar, (thumb, size));
 
 /*
  * Container style
