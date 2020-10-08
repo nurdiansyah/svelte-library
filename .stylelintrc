@@ -8,12 +8,7 @@
   ],
   "rules": {
     "rscss/no-descendant-combinator": true,
-    "rscss/class-format": [
-      true,
-      {
-        "componentWhitelist": ["navbar", "container", "button", "nav", "collapse"]
-      }
-    ],
+    "rscss/class-format": true,
     "selector-pseudo-element-colon-notation": "double"
   }
 }
