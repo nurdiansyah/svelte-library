@@ -1,7 +1,7 @@
 /* stylelint-disable rscss*/
 
-@use "../../scss/functions" as *;
-@use "../../scss/theme";
+@use "../scss/functions" as *;
+@use "../scss/theme";
 
 $color: get-value(theme.$scrollbar, color);
 $rail-size: get-value(theme.$scrollbar, (rail, size));

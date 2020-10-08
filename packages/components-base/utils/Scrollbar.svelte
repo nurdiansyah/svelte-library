@@ -27,6 +27,5 @@
   <slot />
 </div>
 
-<style lang="scss" global>
-  @use "./scrollbar";
+<style src="./scrollbar.scss" global>
 </style>
