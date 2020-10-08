@@ -1,0 +1,35 @@
+@use "../scss/functions" as *;
+@use "../scss/theme";
+@use "../scss/mixins/index" as mix;
+
+.dbx-toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  > *,
+  > .dbx-button {
+    min-height: 56px;
+    @include mix.media-breakpoint-up(xs) {
+      @media (orientation: landscape) {
+        min-height: 48px;
+      }
+    }
+
+    @include mix.media-breakpoint-up(sm) {
+      min-height: 64px;
+    }
+  }
+
+  &.-gutters {
+    $_spacing: get-value(theme.$spacers, 2);
+    padding-right: $_spacing;
+    padding-left: $_spacing;
+
+    @include mix.media-breakpoint-up(sm) {
+      $_spacing: get-value(theme.$spacers, 3);
+      padding-right: $_spacing;
+      padding-left: $_spacing;
+    }
+  }
+}

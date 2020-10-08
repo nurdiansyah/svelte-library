@@ -1,18 +1,18 @@
 <script lang="ts">
   import clsx from "clsx";
-  import Button from "Button.svelte";
 
   let className: string | null = null,
     classes: string;
+
+  export let disableGutter: boolean = false;
+
   export { className as class };
-  $: classes = clsx(className, "button-toolbar");
+  $: classes = clsx(className, "dbx-toolbar", !disableGutter && "-gutter");
 </script>
 
 <div class="{classes}" role="toolbar" {...$$restProps}>
   <slot />
-  <Button />
 </div>
 
-<style lang="scss">
-  @use "./button-toolbar";
+<style src="./toolbar.scss" global>
 </style>
