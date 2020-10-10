@@ -1,7 +1,7 @@
 {
   "extends": "./configs/tsconfig/tsconfig.base.json",
   "compilerOptions": {
-    "types": ["svelte"],
+    "types": ["svelte", "node"],
     "composite": false,
     "lib": ["DOM", "ES2019"]
   },

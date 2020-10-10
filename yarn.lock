@@ -347,6 +347,11 @@
     eslint-plugin-react-hooks "^4.0.0"
     eslint-plugin-svelte3 "^2.7.3"
 
+"@deboxsoft/svelte-icons@^0.0.1":
+  version "0.0.1"
+  resolved "https://npm.pkg.github.com/download/@deboxsoft/svelte-icons/0.0.1/8f9a820d17faff86ed3b26642d1ab45718880764b5d94014881405b6eb204cbc#44a4474250a7e9aafdf85a77b4f56fe06ca4573f"
+  integrity sha512-GhR2Xvjc9sC3kstHTX0SBolzAkw3RzB+RIvHRSACa0iZ1kh7Tq/MiX12LdoO34O4HImv03CkBM4mpI8sHInEag==
+
 "@emmetio/extract-abbreviation@0.1.6":
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/@emmetio/extract-abbreviation/-/extract-abbreviation-0.1.6.tgz#e4a9856c1057f0aff7d443b8536477c243abe28c"
