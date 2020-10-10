@@ -1,5 +1,4 @@
 <script>
-  export let disabled;
   export let label;
   export let titleAccess;
   export let viewBox = "0 0 24 24";
