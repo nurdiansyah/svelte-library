@@ -1,30 +1,64 @@
-/* stylelint-disable rscss/class-format */
-@use "../variables-default" as var;
-@use "../functions" as *;
-@use "./border-radius" as *;
-@use "./reset" as *;
-
-//
-// Burger Icon Mixins
-//
+@use "../../scss/functions" as *;
+@use "../../scss/colors";
+@use "../../scss/theme";
+@use "../../scss/mixins/index" as mix;
 
 // Burger Icon
 $width: 24px !default;
 $height: 24px !default;
 $transition: all 0.3s !default;
 $thickness: 3px !default;
-$space: 5px !default;
+$space: get-value(theme.$spacers, 1) !default;
 $radius: 3px !default;
-$theme: (
-  default: var.$text-muted,
-  hover: var.$primary,
-  active: var.$primary
+$colors: (
+  primary: (
+    default: get-value(theme.$primary, main),
+    hover: get-value(theme.$primary, light)
+  ),
+  secondary: (
+    default: get-value(theme.$primary, main),
+    hover: get-value(theme.$primary, light)
+  )
 ) !default;
 
-$space: $thickness + $space;
+@mixin burger-icon-theme($config) {
+  $color: get-value($config, main);
+  & {
+    > span {
+      background-color: ;
 
-@mixin create-burger-icon() {
-  @include reset-button();
+      &::before,
+      &::after {
+        background-color: get-value($config, default);
+      }
+    }
+
+    //active & hover state
+    &:hover {
+      span {
+        background-color: get($config, hover);
+
+        &::before,
+        &::after {
+          background-color: get($config, hover);
+        }
+      }
+    }
+
+    &.#{$class}-active {
+      span {
+        background-color: get($config, active);
+
+        &::before,
+        &::after {
+          background-color: get($config, active);
+        }
+      }
+    }
+  }
+}
+
+.icon-burger {
   position: relative;
 
   display: inline-block;
@@ -44,7 +78,7 @@ $space: $thickness + $space;
   transition: $transition;
   appearance: none;
 
-  span {
+  > span {
     position: absolute;
     top: ($height) / 2 - ($thickness) + 1px;
     display: block;
@@ -53,7 +87,7 @@ $space: $thickness + $space;
     min-height: $thickness;
     background-color: get-value($theme, default);
     transition: $transition;
-    @include border-radius($radius);
+    @include get-value(theme.$shape, border-radius);
 
     &::before,
     &::after {
@@ -79,8 +113,8 @@ $space: $thickness + $space;
   }
 
   &:hover {
-    span {
-      background-color: get-value($theme, hover);
+    > span {
+      background-color: get-value(theme, hover);
 
       &::before,
       &::after {
@@ -91,7 +125,7 @@ $space: $thickness + $space;
 
   &.-left,
   &.-right {
-    span {
+    > span {
       &::before {
         width: 50%;
       }
@@ -104,7 +138,7 @@ $space: $thickness + $space;
 
   // Left Direction
   &.-left {
-    span {
+    > span {
       &::before,
       &::after {
         right: 0;
@@ -115,7 +149,7 @@ $space: $thickness + $space;
 
   // Right Direction
   &.-right {
-    span {
+    > span {
       &::before,
       &::after {
         right: auto;
@@ -126,7 +160,7 @@ $space: $thickness + $space;
 
   &.-active,
   &:hover.-active {
-    span {
+    > span {
       background-color: get-value($theme, active);
 
       &::before,
@@ -135,8 +169,4 @@ $space: $thickness + $space;
       }
     }
   }
-}
-
-.icon-bugger {
-  @include create-burger-icon();
 }
