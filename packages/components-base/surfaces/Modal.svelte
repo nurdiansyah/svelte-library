@@ -5,12 +5,13 @@
 
 <script lang="ts">
   import clsx from "clsx";
-  import { browserEvent } from ".../utils";
   import { onDestroy, onMount, afterUpdate } from "svelte";
   import { fade as fadeTransition } from "svelte/transition";
-  import { conditionallyUpdateScrollbar, getOriginalBodyPadding, setScrollbarWidth } from ".../utils";
+  import { domUtils } from "../utils";
+  import Header from "./modal/Header.svelte";
+  import Footer from "./modal/Footer.svelte";
 
-  function noop() {}
+  const { getOriginalBodyPadding, setScrollbarWidth } = domUtils;
 
   let className: string | null = null,
     classes: string;
@@ -24,10 +25,10 @@
   export let toggle: Function;
   export let labelledBy: string | null = null;
   export let backdrop: boolean = true;
-  export let onEnter = undefined;
-  export let onExit = undefined;
-  export let onOpened = noop;
-  export let onClosed = noop;
+  export let onEnter: null | ((e: Event) => void) = null;
+  export let onExit: null | ((e: Event) => void) = null;
+  export let onOpened: null | ((e: Event) => void) = null;
+  export let onClosed: null | ((e: Event) => void) = null;
   export let wrapClassName: string | null = null;
   export let modalClassName: string | null = null;
   export let backdropClassName: string | null = null;
@@ -103,7 +104,6 @@
     }
 
     _originalBodyPadding = getOriginalBodyPadding();
-    conditionallyUpdateScrollbar();
     if (openCount === 0) {
       document.body.className = clsx(document.body.className, "modal-open");
     }
@@ -184,42 +184,50 @@
     _mouseDownElement = e.target;
   }
 
-  const dialogBaseClass = "modal-dialog";
-
-  $: classes = clsx(dialogBaseClass, className, {
-    [`modal-${size}`]: size,
-    [`${dialogBaseClass}-centered`]: centered,
-    [`${dialogBaseClass}-scrollable`]: scrollable
-  });
+  $: classes = clsx(
+    className,
+    "modal-dialog",
+    size && `-${size}`,
+    centered && "-centered",
+    scrollable && "-scrollable"
+  );
 </script>
 
 {#if _isMounted}
-  <div {...$$restProps} class="{wrapClassName}" tabindex="-1" style="position: relative; z-index: {zIndex}">
+  <div {...$$restProps} class={wrapClassName} tabindex="-1" style="position: relative; z-index: {zIndex}">
     {#if isOpen}
       <div
-        transition:transitionType="{transitionOptions}"
-        ariaLabelledby="{labelledBy}"
-        class="{classNames('modal', 'show', modalClassName)}"
+        transition:transitionType={transitionOptions}
+        ariaLabelledby={labelledBy}
+        class={clsx('dbx-modal', '-show', modalClassName)}
         role="dialog"
         style="display: block;"
-        on:introend="{onModalOpened}"
-        on:outroend="{onModalClosed}"
-        on:click="{handleBackdropClick}"
-        on:mousedown="{handleBackdropMouseDown}">
-        <div class="{classes}" role="document" bind:this="{_dialog}">
-          <div class="{classNames('modal-content', contentClassName)}">
-            <slot name="external" />
-            <slot />
+        on:introend={onModalOpened}
+        on:outroend={onModalClosed}
+        on:click={handleBackdropClick}
+        on:mousedown={handleBackdropMouseDown}>
+        <div class={classes} role="document" bind:this={_dialog}>
+          <div class={clsx('modal-content', contentClassName)}>
+            <slot name="header" class="header" />
+            {#if $$slots.default}
+              <div class="content">
+                <slot />
+              </div>
+            {/if}
+            {#if $$slots.header}
+              <Footer {...footerProps}>
+                <slot name="footer" />
+              </Footer>
+            {/if}
           </div>
         </div>
       </div>
       <div
-        transition:fadeTransition="{{ duration: fade && backdropDuration }}"
-        class="{classNames('modal-backdrop', 'show', backdropClassName)}"></div>
+        transition:fadeTransition={{ duration: fade && backdropDuration }}
+        class={classNames('modal-backdrop', 'show', backdropClassName)} />
     {/if}
   </div>
 {/if}
 
-<style lang="scss" global>
-  @use "./modal.scss";
+<style src="./styles/modal.scss" global>
 </style>
