@@ -27,10 +27,11 @@
     "build:rollup": "rollup -c",
     "build:ts": "tsc -b"
   },
-  "dependencies": {
+  "devDependencies": {
     "@deboxsoft/core-web": "^1.0.2",
+    "@deboxsoft/svelte-icons": "^0.0.2",
     "clsx": "^1.1.1",
     "@popperjs/core": "2.5.3",
-    "svelte-awesome": "^2.3.0"
+    "tippy.js": "^6.2.7"
   }
 }
