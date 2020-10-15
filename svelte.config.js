@@ -4,6 +4,7 @@ const createPreprocess = (options) => {
   const scss = options.scss || {};
   return sveltePreprocess({
     scss: Object.assign(scss, {
+      includePaths: ["src"],
       implementation: require("sass"),
       renderSync: true
     }),
