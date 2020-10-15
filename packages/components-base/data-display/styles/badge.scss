@@ -1,0 +1,148 @@
+@use "../../scss/functions" as *;
+@use "../../scss/theme";
+@use "../../scss/colors";
+@use "../../scss/mixins/index" as mix;
+
+.dbx-badge {
+  $radius-standard: 10;
+  $radius-dot: 4;
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  vertical-align: middle;
+  > .badge {
+    position: absolute;
+    z-index: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    min-width: calc(#{$radius-standard} * 2px);
+    height: calc(#{$radius-standard} * 2px);
+    padding: 0 6px;
+    font-size: pxToRem(12);
+    font-weight: get-value(theme.$font, (weight, medium));
+    line-height: 1;
+    border-radius: $radius-standard;
+    transition: get-transition(theme.$transitions, transform, ease-in-out, entering-screen);
+  }
+
+  &.-color-primary > .badge {
+    $color-primary: get-value(theme.$primary, main);
+    color: colors.color-contrast($color-primary);
+    background-color: $color-primary;
+  }
+
+  &.-color-secondary > .badge {
+    $color-secondary: get-value(theme.$secondary, main);
+    color: colors.color-contrast($color-secondary);
+    background-color: $color-secondary;
+  }
+
+  &.-color-error > .badge {
+    $color-error: get-value(theme.$primary, main);
+    color: colors.color-contrast($color-error);
+    background-color: $color-error;
+  }
+
+  &.-dot > .badge {
+    min-width: calc(#{$radius-dot * 2px});
+    height: calc(#{$radius-dot * 2px});
+    padding: 0;
+    border-radius: $radius-dot;
+  }
+
+  &.-anchor-origin-top-right-rectangle > .badge {
+    top: 0;
+    right: 0;
+    transform: scale(1) translate(50%, -50%);
+    transform-origin: 100% 0;
+
+    &.-invisible {
+      transform: scale(0) translate(50%, -50%);
+    }
+  }
+
+  &.-anchor-origin-top-left-rectangle > .badge {
+    top: 0;
+    left: 0;
+    transform: scale(1) translate(-50%, -50%);
+    transform-origin: 0 0;
+
+    &.-invisible {
+      transform: scale(0) translate(-50%, -50%);
+    }
+  }
+
+  &.-anchor-origin-bottom-right-rectangle > .badge {
+    right: 0;
+    bottom: 0;
+    transform: scale(1) translate(50%, 50%);
+    transform-origin: 100% 100%;
+
+    &.-invisible {
+      transform: scale(0) translate(50%, 50%);
+    }
+  }
+
+  &.-anchor-origin-bottom-left-rectangle > .badge {
+    bottom: 0;
+    left: 0;
+    transform: scale(1) translate(-50%, 50%);
+    transform-origin: 0 100%;
+
+    &.-invisible {
+      transform: scale(0) translate(-50%, 50%);
+    }
+  }
+
+  &.-anchor-origin-top-right-circle > .badge {
+    top: 14%;
+    right: 14%;
+    transform: scale(1) translate(50%, -50%);
+    transform-origin: 100% 0;
+
+    &.-invisible {
+      transform: scale(0) translate(50%, -50%);
+    }
+  }
+
+  &.-anchor-origin-top-left-circle > .badge {
+    top: 14%;
+    left: 14%;
+    transform: scale(1) translate(-50%, -50%);
+    transform-origin: 0 0;
+
+    &.-invisible {
+      transform: scale(0) translate(-50%, -50%);
+    }
+  }
+
+  &.-anchor-origin-bottom-right-circle > .badge {
+    right: 14%;
+    bottom: 14%;
+    transform: scale(1) translate(50%, 50%);
+    transform-origin: 100% 100%;
+
+    &.-invisible {
+      transform: scale(0) translate(50%, 50%);
+    }
+  }
+
+  &.-anchor-origin-bottom-left-circle > .badge {
+    bottom: 14%;
+    left: 14%;
+    transform: scale(1) translate(-50%, 50%);
+    transform-origin: 0 100%;
+
+    &.-invisible {
+      transform: scale(0) translate(-50%, 50%);
+    }
+  }
+
+  &.-invisible > .badge {
+    transition: get-transition(theme.$transitions, transform, ease, leaving-screen);
+  }
+}

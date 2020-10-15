@@ -2,7 +2,6 @@
   "bracketSpacing": true,
   "semi": true,
   "trailingComma": "none",
-  "svelteStrictMode": true,
   "svelteSortOrder": "scripts-markup-styles",
   "printWidth": 120,
   "overrides": [

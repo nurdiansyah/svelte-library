@@ -1,4 +1,9 @@
 {
+  "compilerOptions": {
+    "declaration": true,
+    "jsx": "preserve"
+  },
   "extends": "../../tsconfig.json",
-  "include": ["./"]
+  "include": ["./"],
+  "exclude": ["./libs", "**/__tests__"]
 }

@@ -1,0 +1,23 @@
+@use "../scss/variables-default" as var;
+@use "../scss/theme";
+@use "../scss/mixins/index" as mix;
+@use "../scss/functions" as *;
+
+.dbx-container {
+  @include mix.make-container();
+
+  &.-disable-gutters {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  @each $breakpoint, $value in theme.$breakpoints {
+    @include mix.media-breakpoint-up($breakpoint) {
+      //  stylelint-disable-next-line
+      &.-max-width-#{$breakpoint},
+      &.-fixed {
+        max-width: value-if($value != 0, $value, 444px);
+      }
+    }
+  }
+}

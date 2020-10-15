@@ -1,18 +1,12 @@
 {
   "extends": "./configs/tsconfig/tsconfig.base.json",
   "compilerOptions": {
-    "types": [
-      "svelte"
-    ],
+    "types": ["svelte", "node", "jest", "@testing-library/jest-dom", "cypress" , "@testing-library/cypress"],
     "composite": false,
-    "lib": [
-      "DOM",
-      "ES2019"
-    ]
+    "lib": ["DOM", "ES2019"],
+    "jsx": "preserve"
   },
-  "include": [
-    "types"
-  ],
+  "include": ["types", "packages"],
   "exclude": [
     "node_modules/*",
     "**/__sapper__/*",

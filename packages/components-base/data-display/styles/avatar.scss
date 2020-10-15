@@ -1,0 +1,50 @@
+@use "../../scss/functions" as *;
+@use "../../scss/theme";
+@use "../../scss/colors";
+@use "../../scss/mixins/index" as mix;
+
+.dbx-avatar {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  font-size: pxToRem(20);
+  line-height: 1;
+  user-select: none;
+  border-radius: 50%;
+
+  &.-rounded {
+    border-radius: get-value(theme.$shape, border-radius);
+  }
+
+  &.-square {
+    border-radius: 0;
+  }
+
+  &.-fallback {
+    & > svg {
+      width: 75%;
+      height: 75%;
+    }
+  }
+
+  > .img {
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    text-align: center;
+    text-indent: 10000px;
+    object-fit: cover;
+  }
+
+  @include mix.build-theme using($theme, $name) {
+    &.-color-default {
+      color: get-value($theme, (background, default));
+      background-color: value-if($name == "light", colors.$gray-400, colors.$gray-600);
+    }
+  }
+}
