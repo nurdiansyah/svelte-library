@@ -1,5 +1,5 @@
 ---
-to: packages/<%= _project %>/<%= _category %>/__tests__/<%= h.changeCase.pascal(_name) %>.ts
+to: packages/<%= _project %>/<%= _category %>/__tests__/<%= h.changeCase.pascal(_name) %>.test.ts
 ---
 
 <%
