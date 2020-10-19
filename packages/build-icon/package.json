@@ -1,0 +1,34 @@
+{
+  "name": "@deboxsoft/build-icons",
+  "version": "0.0.1",
+  "author": "Deboxsoft",
+  "description": "Building svelte component icon base materia icons.",
+  "main": "./src/index.js",
+  "keywords": [
+    "svelte",
+    "svelte-component",
+    "icons"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deboxsoft/svelte-library.git",
+    "directory": "packages/build-icons"
+  },
+  "scripts": {
+    "clean": "rimraf \"../icons/*.svelte\" ../icons/index.js",
+    "prettier": "prettier",
+    "download": "ts-node ./scripts/download.ts",
+    "create-icons": "UV_THREADPOOL_SIZE=64 ts-node ./scripts/builder.ts --output-dir ../icons --svg-dir svg --renameFilter ./renameFilters/material-design-icons.ts"
+  },
+  "devDependencies": {
+    "cross-fetch": "3.0.6",
+    "fs-extra": "^9.0.0",
+    "mustache": "^4.0.0",
+    "svgo": "^1.3.0",
+    "temp": "^0.9.0",
+    "yargs": "^15.0.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
