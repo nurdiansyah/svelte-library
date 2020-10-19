@@ -1,21 +1,15 @@
 <script>
-  export let label;
-  export let titleAccess;
   export let viewBox = "0 0 24 24";
   export let htmlColor;
-
 </script>
 
 <svg
   {...$$restProps}
   viewBox="{viewBox}"
-  aria-hidden="{titleAccess ? undefined : 'true'}"
   color="{htmlColor}"
-  role="{titleAccess ? 'img' : undefined}"
+  role="img"
 >
-    <path d="M17 13h2v2h-5V9h7V7h-9v10h9v-6h-4zM3 13h5v2H3v2h7v-6H5V9h5V7H3z" />
-    {#if titleAccess}
-      <title>{titleAccess}</title>
-    {/if}
+  <path d="M17 13h2v2h-5V9h7V7h-9v10h9v-6h-4zM3 13h5v2H3v2h7v-6H5V9h5V7H3z" />
+  <title>5gSharp</title>
 </svg>
 
