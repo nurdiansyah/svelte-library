@@ -1,5 +1,5 @@
-export const ownerDocument = (node: Node) => (node && node.ownerDocument) || document;
-export const ownerWindow = (node: Node) => {
+export const ownerDocument = (node?: Node) => (node && node.ownerDocument) || document;
+export const ownerWindow = (node?: Node) => {
   const doc = ownerDocument(node);
   return doc.defaultView || window;
 };
