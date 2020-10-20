@@ -83,7 +83,7 @@ export function RippleStop(ripple) {
 /**
  * @param node {Element}
  */
-export const useRipple = (node, _options = {}) => {
+export const ripple = (node, _options = {}) => {
   let options = _options;
   let destroyed = false;
   let ripple;

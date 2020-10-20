@@ -7,7 +7,7 @@ function format(input) {
  * @param node {Element}
  * @param styles {Object}
  */
-export const useStyle = (node, _styles) => {
+export const styleObject = (node, _styles) => {
   let styles = _styles;
   Object.entries(styles).forEach(([key, value]) => {
     if (value) node.style.setProperty(key, format(value));
@@ -29,7 +29,7 @@ export const useStyle = (node, _styles) => {
   };
 };
 
-export const useCssVariable = (node, props) => {
+export const cssVariable = (node, props) => {
   Object.entries(props).forEach(([key, value]) => {
     node.style.setProperty(`--${key}`, value);
   });

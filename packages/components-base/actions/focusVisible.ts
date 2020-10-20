@@ -127,7 +127,7 @@ function handleBlurVisible() {
   }, 100);
 }
 
-export const useIsFocusVisible = (node: Node) => {
+export const focusVisible = (node: Node) => {
   if (node != null) {
     prepare(node.ownerDocument);
   }
