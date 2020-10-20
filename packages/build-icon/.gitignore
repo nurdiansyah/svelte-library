@@ -1,0 +1,5 @@
+*.d.ts
+**/*.js
+!rollup.config.js
+!types/*.d.ts
+!jest.config.js

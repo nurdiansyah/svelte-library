@@ -82,17 +82,17 @@ export function getComponentName(destPath) {
   return parts.join("");
 }
 
-async function generateIndex(options) {
-  const files = await globAsync(path.join(options.outputDir, "*.svelte"));
-  const index = files
-    .map((file) => {
-      const typename = path.basename(file).replace(".svelte", "");
-      return `export { default as ${typename} } from "./${typename}.svelte";\n`;
-    })
-    .join("");
-
-  await fse.writeFile(path.join(options.outputDir, "index.ts"), index);
-}
+// async function generateIndex(options) {
+//   const files = await globAsync(path.join(options.outputDir, "*.svelte"));
+//   const index = files
+//     .map((file) => {
+//       const typename = path.basename(file).replace(".svelte", "");
+//       return `export { default as ${typename} } from "./${typename}.svelte";\n`;
+//     })
+//     .join("");
+//
+//   await fse.writeFile(path.join(options.outputDir, "index.ts"), index);
+// }
 
 // Noise introduced by Google by mistake
 const noises = [
@@ -247,7 +247,7 @@ export async function main(options) {
     await fse.copy(path.join(__dirname, "../legacy"), options.outputDir);
     await fse.copy(path.join(__dirname, "../custom"), options.outputDir);
 
-    await generateIndex(options);
+    // await generateIndex(options);
 
     if (options.disableLog) {
       // bring back stdout

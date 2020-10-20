@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import temp from "temp";
-import { RENAME_FILTER_MUI, RENAME_FILTER_DEFAULT, main, getComponentName } from "../builder";
+import { RENAME_FILTER_MUI, main, getComponentName } from "../builder";
 
 const DISABLE_LOG = true;
 
@@ -41,7 +41,7 @@ describe("builder", () => {
       glob: "/**/production/*_24px.svg",
       renameFilter: RENAME_FILTER_MUI,
       disableLog: DISABLE_LOG,
-      outputDir: null
+      outputDir: ""
     };
 
     beforeEach(() => {
@@ -65,7 +65,7 @@ describe("builder", () => {
       glob: "/*_24px.svg",
       renameFilter: RENAME_FILTER_MUI,
       disableLog: DISABLE_LOG,
-      outputDir: null
+      outputDir: ""
     };
 
     beforeEach(() => {
