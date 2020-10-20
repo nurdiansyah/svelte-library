@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Scrollbar from "./perfect-scrollbar";
-  import clsx from "clsx";
+  import Scrollbar from "./scrollbar";
+  import { clsx } from "./clsx";
 
   let classes: string, className: string;
 
@@ -23,9 +23,9 @@
   };
 </script>
 
-<div use:useScrollbar="{options}" class="{classes}" style="--height: {height}">
+<div use:useScrollbar={options} class={classes} style="--height: {height}">
   <slot />
 </div>
 
-<style src="./scrollbar.scss" global>
+<style src="./styles/scrollbar.scss" global>
 </style>

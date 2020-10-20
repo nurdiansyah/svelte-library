@@ -8,7 +8,7 @@ function EventManager() {
   this.eventElements = [];
 }
 
-function PerfectScrollbar(element, userSettings) {
+function Index(element, userSettings) {
   var this$1 = this;
   if (userSettings === void 0) userSettings = {};
 
@@ -1181,7 +1181,7 @@ var handlers = {
   touch: touch
 };
 
-PerfectScrollbar.prototype.update = function update() {
+Index.prototype.update = function update() {
   if (!this.isAlive) {
     return;
   }
@@ -1208,7 +1208,7 @@ PerfectScrollbar.prototype.update = function update() {
   set(this.scrollbarYRail, { display: "" });
 };
 
-PerfectScrollbar.prototype.onScroll = function onScroll(e) {
+Index.prototype.onScroll = function onScroll(e) {
   if (!this.isAlive) {
     return;
   }
@@ -1221,7 +1221,7 @@ PerfectScrollbar.prototype.onScroll = function onScroll(e) {
   this.lastScrollLeft = this.element.scrollLeft;
 };
 
-PerfectScrollbar.prototype.destroy = function destroy() {
+Index.prototype.destroy = function destroy() {
   if (!this.isAlive) {
     return;
   }
@@ -1243,7 +1243,7 @@ PerfectScrollbar.prototype.destroy = function destroy() {
   this.isAlive = false;
 };
 
-PerfectScrollbar.prototype.removePsClasses = function removePsClasses() {
+Index.prototype.removePsClasses = function removePsClasses() {
   this.element.className = this.element.className
     .split(" ")
     .filter(function (name) {
@@ -1252,5 +1252,5 @@ PerfectScrollbar.prototype.removePsClasses = function removePsClasses() {
     .join(" ");
 };
 
-export default PerfectScrollbar;
+export default Index;
 //# sourceMappingURL=perfect-scrollbar.esm.js.map
