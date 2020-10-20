@@ -2,9 +2,9 @@
   import Scrollbar from "./scrollbar";
   import { clsx } from "./clsx";
 
-  let classes: string, className: string;
+  let { class: className } = $$props;
+  let classes: string;
 
-  export { className as class };
   export let height: string = "100%";
   export let options: any = {};
 

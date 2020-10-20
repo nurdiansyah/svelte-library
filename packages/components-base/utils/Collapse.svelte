@@ -6,9 +6,8 @@
   const noop = () => undefined;
 
   export let show: boolean = false;
-  let className: string | undefined = undefined,
-    classes: string | undefined;
-  export { className as class };
+  let { class: className } = $$props;
+  let classes: string | undefined;
   export let onEntering: (e?: Event) => any = noop;
   export let onEntered: (e?: Event) => any = noop;
   export let onExiting: (e?: Event) => any = noop;

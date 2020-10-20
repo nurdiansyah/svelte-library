@@ -8,13 +8,12 @@
   import Portal from "./Portal.svelte";
 
   // state
-  let className: string | undefined = undefined,
-    tippyjs: TippyInstance | undefined = undefined,
-    node,
-    classes: string | undefined;
+  let { class: className } = $$props;
+  let tippyjs: TippyInstance | undefined = undefined;
+  let node;
+  let classes: string | undefined;
 
   // props
-  export { className as class };
   export let disablePortal: boolean = false;
   export let tippyjsProps: Object = {};
   export let target: HTMLElement;

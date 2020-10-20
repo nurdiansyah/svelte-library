@@ -10,12 +10,11 @@
   import Portal from "./Portal.svelte";
   import { ModalManager } from "./modal/ModalManager";
 
-  let className: string | undefined = undefined,
-    classes: string,
-    exited: boolean,
-    BackdropComponent: typeof SvelteComponent | undefined;
+  let { class: className } = $$props;
+  let classes: string;
+  let exited: boolean;
+  let BackdropComponent: typeof SvelteComponent | undefined;
 
-  export { className as class };
   export let backdropComponent: typeof SvelteComponent | undefined = undefined;
   export let backdropProps: Record<string, any> = {};
   export let closeAfterTransition: boolean = false;
