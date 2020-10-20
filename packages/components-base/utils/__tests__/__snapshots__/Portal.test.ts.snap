@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portal cek render komponen tanpa error dan snapshot 1`] = `
+<body>
+  <div>
+    <div>
+      <div
+        data-testid="container"
+      >
+        <div
+          data-testid="portal"
+        >
+          <div
+            data-testid="child"
+          />
+        </div>
+      </div>
+       
+      <div
+        style="display: none;"
+      />
+      
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Portal props disable 1`] = `
+<body>
+  <div>
+    <div>
+      <div
+        data-testid="container"
+      />
+       
+      <div
+        data-testid="child"
+      />
+      
+    </div>
+  </div>
+</body>
+`;

@@ -1,19 +1,26 @@
-import PopOver from "../Popover.svelte";
-import h from "../../utils/hyperscript";
 import { render } from "@testing-library/svelte";
+// import { logDOM } from "@testing-library/dom";
+import PopOverMock from "./mocks/PopOverMock.svelte";
+import PopOver from "../PopOver.svelte";
+import { BaseProps, itConformance } from "../test-utils";
 
-describe("<PopOver />", () => {
-  let popOverProps;
-  const popOverRender = (props = popOverProps) => {
-    props = Object.assign({ target: document.body }, props);
-    return render(h(PopOver, props), { target: document.body });
-  };
-  it("render", () => {
-    const { getByTestId } = popOverRender();
-    let el: undefined | HTMLElement;
-    expect(() => (el = getByTestId("pop-over"))).not.toThrow();
-    expect(el).toBeInTheDocument();
-    expect(el).toBeVisible();
-    expect(el?.parentElement).toBe(document.body);
+type Props = BaseProps & Record<string, any>;
+
+describe("PopOver", () => {
+  const props: Props = { open: true };
+
+  itConformance<Props>(PopOver, {
+    props
+  });
+
+  const renderTest = (__props: Props = {}) => render(PopOverMock, { props: { ...props, ...__props } });
+  describe("props", () => {
+    it("container", () => {
+      const { getByTestId } = renderTest({ open: false });
+      expect(() => getByTestId("container")).not.toThrow();
+
+      // logDOM(containerNode);
+      // let modalNode = getByRole("presentation");
+    });
   });
 });

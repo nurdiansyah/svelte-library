@@ -1,0 +1,16 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+.dbx-modal {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: get-value(theme.$z-index, modal);
+
+  &.-hidden {
+    visibility: hidden;
+  }
+}

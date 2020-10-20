@@ -1,3 +1,7 @@
+<script context="module" lang="ts">
+  export type Container = {};
+</script>
+
 <script lang="ts">
   import { onMount } from "svelte";
 

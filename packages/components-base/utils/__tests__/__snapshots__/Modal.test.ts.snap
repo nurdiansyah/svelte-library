@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal cek render komponen tanpa error dan snapshot 1`] = `
+<body>
+  <div>
+    <div
+      style="display: none;"
+    />
+    
+    
+  </div>
+  <div>
+    <div
+      class="dbx-modal -open"
+      data-testid="modal"
+      role="presentation"
+    >
+       
+      <div>
+        <div
+          data-testid="sentinel-start"
+          tabindex="0"
+        />
+         
+         
+        <div
+          data-testid="sentinel-end"
+          tabindex="0"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;

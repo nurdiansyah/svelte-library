@@ -1,0 +1,16 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+.dbx-popover {
+  .dbx-paper {
+    position: absolute;
+    min-width: 16px;
+    max-width: calc(100% - 32px);
+    min-height: 16px;
+    max-height: calc(100% - 32px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+  }
+}

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopOver cek render komponen tanpa error dan snapshot 1`] = `
+<body>
+  <div>
+    <div
+      style="display: none;"
+    />
+    
+    
+  </div>
+  <div>
+    <div
+      class="dbx-popover dbx-modal"
+      role="presentation"
+    >
+       
+      <div>
+        <div
+          data-testid="sentinel-start"
+          tabindex="0"
+        />
+         
+        <div
+          class="dbx-paper -rounded -elevation-8"
+          data-testid="paper"
+        />
+         
+        <div
+          data-testid="sentinel-end"
+          tabindex="0"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;

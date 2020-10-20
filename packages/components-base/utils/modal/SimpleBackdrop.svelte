@@ -1,0 +1,22 @@
+<script lang="ts">
+  export let invisible: boolean = false;
+</script>
+
+<div class="simple-backdrop" class:-invisible={invisible} aria-hidden="true" {...$$restProps} on:click />
+
+<style lang="scss">
+  .simple-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-tap-highlight-color: transparent;
+
+    &.-invisible {
+      background-color: transparent;
+    }
+  }
+</style>

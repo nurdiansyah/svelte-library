@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TrapFocus /> props check: open 1`] = `
+<body>
+  <div
+    data-testid="trap-focus"
+  >
+    <div
+      data-testid="sentinel-start"
+      tabindex="0"
+    />
+     
+     
+    <div
+      data-testid="sentinel-end"
+      tabindex="0"
+    />
+  </div>
+</body>
+`;
