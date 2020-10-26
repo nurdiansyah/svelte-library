@@ -1,0 +1,15 @@
+// stylelint-disable rscss/class-format
+
+@use "sass:list";
+@use "../theme";
+
+@mixin box-shadow($num) {
+  box-shadow: #{list.nth(theme.$shadow, $num)};
+}
+@mixin elevation-box-shadow() {
+  @for $i from 1 through list.length(theme.$shadow) {
+    &.-elevation-#{$i} {
+      box-shadow: #{list.nth(theme.$shadow, $i)};
+    }
+  }
+}

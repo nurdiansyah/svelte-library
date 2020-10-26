@@ -1,0 +1,24 @@
+@use "../theme";
+
+@mixin build-theme($clazz: "&") {
+  @each $key, $theme in theme.$theme-colors {
+    // stylelint-disable-next-line
+    .dbx-theme.-#{$key} #{$clazz} {
+      @content ( $theme, $key);
+    }
+  }
+}
+
+@mixin build-colors(
+  $colors: (
+    primary: theme.$primary,
+    secondary: theme.$secondary
+  )
+) {
+  @each $prop, $color in $colors {
+    // stylelint-disable-next-line
+    &.-color-#{$prop} {
+      @content ($color);
+    }
+  }
+}

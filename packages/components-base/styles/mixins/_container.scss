@@ -1,0 +1,20 @@
+// Container mixins
+@use "../functions" as *;
+@use "../theme";
+@use "./breakpoints" as *;
+
+@mixin make-container($padding-x: get-value(theme.$spacers, 2)) {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding-right: $padding-x;
+  padding-left: $padding-x;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include media-breakpoint-up(sm) {
+    $padding-x: get-value(theme.$spacers, 3);
+    padding-right: $padding-x;
+    padding-left: $padding-x;
+  }
+}
