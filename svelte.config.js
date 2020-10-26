@@ -4,7 +4,6 @@ const createPreprocess = (options) => {
   const scss = options.scss || {};
   return sveltePreprocess({
     scss: Object.assign(scss, {
-      includePaths: ["src"],
       implementation: require("sass"),
       renderSync: true
     }),
@@ -20,7 +19,7 @@ const createPreprocess = (options) => {
 };
 const preprocess = createPreprocess({
   scss: {
-    includePaths: ["./packages/components-base/scss", "./packages/website/src/theme"]
+    includePaths: ["./packages/components-base", "./packages/website/src/theme"]
   }
 });
 module.exports = {

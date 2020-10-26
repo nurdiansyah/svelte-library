@@ -1,5 +1,4 @@
 **/*.js
 **/*.d.ts
 **/*.svelte
-!**/__tests__/*.js
-!**/__tests__/**/*.js
+!**/__tests__

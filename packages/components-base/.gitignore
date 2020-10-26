@@ -2,5 +2,4 @@
 **/*.js
 !rollup.config.js
 !types/*.d.ts
-!**/__tests__/*.js
 !jest.config.js
