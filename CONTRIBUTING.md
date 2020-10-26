@@ -55,16 +55,15 @@ git push -u origin HEAD
 The core team is monitoring for Pull Requests. We will review your Pull Request and either merge it, request changes to it, or close it with an explanation.
 
 
-### Trying the changes on the documentation site
+### The documentation site
 
-The documentation site is built with Material-UI and contains examples of all the components.
-This is a great place to experiment with your changes.
+[TODO]
 
 To get started:
 
 ```sh
 yarn
-yarn docs:dev
+yarn docs
 ```
 
 You can now access the documentation site [locally](http://localhost:3000).
