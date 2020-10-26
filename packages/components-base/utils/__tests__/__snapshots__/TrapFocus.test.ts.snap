@@ -2,19 +2,21 @@
 
 exports[`<TrapFocus /> props check: open 1`] = `
 <body>
-  <div
-    data-testid="trap-focus"
-  >
+  <div>
     <div
-      data-testid="sentinel-start"
-      tabindex="0"
-    />
-     
-     
-    <div
-      data-testid="sentinel-end"
-      tabindex="0"
-    />
+      data-testid="trap-focus"
+    >
+      <div
+        data-testid="sentinel-start"
+        tabindex="0"
+      />
+
+
+      <div
+        data-testid="sentinel-end"
+        tabindex="0"
+      />
+    </div>
   </div>
 </body>
 `;

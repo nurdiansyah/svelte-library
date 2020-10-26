@@ -1,4 +1,4 @@
-import Modal from "./mocks/ModalMock.svelte";
+import Modal from "./features/ModalMock.svelte";
 import { render } from "@testing-library/svelte";
 // import { logDOM } from "@testing-library/dom";
 import { BaseProps, itConformance } from "../test-utils";

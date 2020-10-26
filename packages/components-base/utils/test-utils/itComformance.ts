@@ -1,7 +1,5 @@
 import type { RenderResult } from "@testing-library/svelte";
 import type { SvelteComponentDev } from "svelte/internal";
-
-import { utils } from "@deboxsoft/core-web";
 import { cleanup, render } from "@testing-library/svelte";
 
 export type BaseProps = {
@@ -18,10 +16,6 @@ export type Options<P = Record<string, any>> = {
   target?: HTMLElement;
   className?: string;
 };
-
-function randomClassSelector() {
-  return "dbx-" + utils.generateId(5);
-}
 
 function testMergeClassName(_render: () => RenderResult, { props, className }: Options) {
   it("cek merge class", () => {
@@ -54,10 +48,11 @@ const fullSuite: Record<string, (_render: () => RenderResult, options: Options) 
   mergeClassName: testMergeClassName
 };
 
-export function itConformance<P extends object>(component: typeof SvelteComponentDev, options: Options<P>) {
+export function itConformance<P = Record<string, any>>(component: typeof SvelteComponentDev, options: Options<P>) {
   const { after: runAfterHook = () => {}, only = Object.keys(fullSuite), skip = [], props = {}, container } = options;
   const renderComponent = (_props?: P): RenderResult => {
-    const __props = Object.assign(props, _props);
+    const __props = { ...props, ..._props };
+
     return render(component, __props, { container });
   };
   afterEach(() => {

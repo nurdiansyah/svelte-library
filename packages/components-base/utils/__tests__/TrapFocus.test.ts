@@ -1,18 +1,16 @@
 import { render as renderSvelte, act, fireEvent, cleanup } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import { ownerDocument } from "../dom";
-import h from "../hyperscript";
 import TrapFocus from "../modal/TrapFocus.svelte";
-import { tick } from "svelte";
 
 describe("<TrapFocus />", () => {
   const testId = "trap-focus";
   let props = {
     "data-testid": testId
   };
-  const render = (_props = {}, ...children) => {
+  const render = (_props = {}) => {
     _props = Object.assign(props, _props);
-    return renderSvelte(h(TrapFocus, props, ...children), { target: document.body });
+    return renderSvelte(TrapFocus, props, { container: document.body });
   };
 
   describe("props", () => {

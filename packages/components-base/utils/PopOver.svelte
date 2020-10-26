@@ -84,6 +84,7 @@
   export let onExit: ((e?: Event) => void) | undefined = undefined;
   export let onExiting: ((e?: Event) => void) | undefined = undefined;
   export let onExited: ((e?: Event) => void) | undefined = undefined;
+  export let onClose: ((e?: Event) => void) | undefined = undefined;
   export let open: boolean;
   export let paperProps: Record<string, any> = {};
   export let transformOrigin: Position = { vertical: "top", horizontal: "left" };
@@ -256,6 +257,7 @@
   hideBackdrop
   {container}
   class="dbx-popover"
+  {onClose}
   {open}
   {onEntered}
   {onEntering}

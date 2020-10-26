@@ -1,6 +1,6 @@
 import { render } from "@testing-library/svelte";
 // import { logDOM } from "@testing-library/dom";
-import PopOverMock from "./mocks/PopOverMock.svelte";
+import PopOverMock from "./features/PopOverMock.svelte";
 import PopOver from "../PopOver.svelte";
 import { BaseProps, itConformance } from "../test-utils";
 

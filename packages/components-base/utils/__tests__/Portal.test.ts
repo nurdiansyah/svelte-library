@@ -1,5 +1,5 @@
 import { render } from "@testing-library/svelte";
-import PortalMock from "./mocks/PortalMock.svelte";
+import PortalMock from "./features/PortalMock.svelte";
 import { BaseProps, itConformance } from "../test-utils";
 
 type Props = BaseProps & Record<string, any>;
