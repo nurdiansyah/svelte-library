@@ -1,23 +1,20 @@
 ---
 to: packages/<%= _project %>/<%= _category %>/<%= h.changeCase.pascal(_name) %>.svelte
 ---
-
 <%
   nameParam = h.changeCase.param(_name)
-
   prefix = "dbx";
   nameCss = prefix + "-" + nameParam;
 %>
 
-<script lang="ts">
-  import { clsx } from "../utils";
-
-  // state
-  let className: string | null = null,
-    classes: string;
+<script>
+  import { clsx } from "<%= _testUtils %>";
 
   // props
-  export { className as class };
+
+  // state
+  let { class: className } = $$props;
+  let classes;
 
   // handler
 
@@ -25,7 +22,7 @@ to: packages/<%= _project %>/<%= _category %>/<%= h.changeCase.pascal(_name) %>.
   $: classes = clsx(className, "<%= nameCss %>");
 </script>
 
-<div {...$$restProps} class="{classes}" data-testid="<%= nameParam  %>">
+<div {...$$restProps} class="{classes}">
   <slot />
 </div>
 
