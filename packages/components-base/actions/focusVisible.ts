@@ -127,19 +127,10 @@ function handleBlurVisible() {
   }, 100);
 }
 
-export const focusVisible = (node: Node) => {
-  if (node != null) {
-    prepare(node.ownerDocument);
-  }
+export const focusVisible = (node: Node, { onFocusVisible }) => {
+  prepare(node.ownerDocument);
 
-  node.dispatchEvent(
-    new CustomEvent("isFocusVisible", {
-      detail: {
-        isFocusVisible,
-        onBlurVisible: handleBlurVisible
-      }
-    })
-  );
+  onFocusVisible && onFocusVisible({ isFocusVisible, onBlurVisible: handleBlurVisible });
 
   return {
     destroy: () => {

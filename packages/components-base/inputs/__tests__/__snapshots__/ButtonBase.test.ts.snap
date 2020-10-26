@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonBase cek render komponen tanpa error dan snapshot 1`] = `
+<body>
+  <div>
+    <button
+      class="button-base"
+      data-testid="button-base"
+    />
+     
+    <div
+      class="ripple-container"
+    />
+    
+  </div>
+</body>
+`;
+
+exports[`ButtonBase check: href || link 1`] = `
+<body>
+  <div>
+    <a
+      class="button-base"
+      data-testid="button-base"
+      href="#"
+    />
+     
+    <div
+      class="ripple-container"
+    />
+    
+  </div>
+</body>
+`;

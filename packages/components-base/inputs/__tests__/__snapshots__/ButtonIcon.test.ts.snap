@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonIcon cek render komponen tanpa error dan snapshot 1`] = `
+<body>
+  <div>
+    <button
+      class="-icon button-base"
+      data-testid="button-icon"
+      focusripple="true"
+      href="false"
+    >
+      <span
+        class="label"
+      />
+       
+      <div
+        class="ripple-container"
+      />
+      
+    </button>
+    
+  </div>
+</body>
+`;
