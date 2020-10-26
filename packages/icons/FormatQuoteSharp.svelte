@@ -1,12 +1,17 @@
 <script>
   export let viewBox = "0 0 24 24";
-  export let htmlColor;
+
+  /**
+  *
+  * @type {string} [htmlColor]
+  */
+  export let htmlColor = undefined;
 </script>
 
 <svg
   {...$$restProps}
-  viewBox="{viewBox}"
-  color="{htmlColor}"
+  viewBox={viewBox}
+  color={htmlColor}
   role="img"
 >
   <path d="M5 17h3l2-4V7H4v6h3l-2 4zm10 0h3l2-4V7h-6v6h3l-2 4z" />
