@@ -1,0 +1,118 @@
+@use "styles/functions" as *;
+@use "styles/colors";
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+@mixin build-color($color) {
+  $backgroundColor: get-value($color, main);
+  color: colors.color-contrast($backgroundColor);
+  background-color: $backgroundColor;
+
+  &:hover {
+    background-color: get-value($color, dark);
+
+    @media (hover: none) {
+      background-color: $backgroundColor;
+    }
+  }
+}
+
+.dbx-fab {
+  @each $prop, $value in get-value(theme.$typography, button) {
+    #{$prop}: $value;
+  }
+  box-sizing: border-box;
+  width: 56px;
+  min-width: 0;
+  height: 56px;
+  min-height: 36px;
+  padding: 0;
+  color: colors.color-contrast(colors.$gray-300);
+  background-color: colors.$gray-300;
+  border-radius: 50%;
+  transition: get-transition(theme.$transitions, (background-color, box-shadow, border), short);
+  @include mix.box-shadow(6);
+
+  &:active {
+    @include mix.box-shadow(12);
+  }
+
+  &:hover {
+    text-decoration: none;
+    background-color: colors.$gray-a-100;
+
+    @media (hover: none) {
+      background-color: colors.$gray-300;
+    }
+  }
+
+  > .label {
+    display: inherit;
+    align-items: inherit;
+    justify-content: inherit;
+    width: 100%;
+  }
+
+  .-color-primary {
+    @include build-color(theme.$primary);
+  }
+
+  .-color-primary {
+    @include build-color(theme.$secondary);
+  }
+
+  &.-color-inherit {
+    color: inherit;
+  }
+
+  &.-focus-visible {
+    @include mix.box-shadow(6);
+  }
+
+  &.-disabled {
+    @include mix.build-theme using($theme, $name) {
+      $color: get-value($theme, (action, disabled));
+      $disabledBackground: get-value($theme, (action, disabled-background));
+      &.-disabled {
+        color: $color;
+        background-color: $disabledBackground;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .-size-small {
+    width: 40px;
+    height: 40px;
+  }
+
+  .-size-medium {
+    width: 48px;
+    height: 48px;
+  }
+
+  .-extended {
+    width: auto;
+    min-width: 48px;
+    height: 48px;
+    min-height: auto;
+    padding: 0 16px;
+    border-radius: 24px;
+
+    &.-size-small {
+      width: auto;
+      min-width: 34px;
+      height: 34px;
+      padding: 0 8px;
+      border-radius: 17px;
+    }
+
+    &.-size-medium {
+      width: auto;
+      min-width: 40px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 20px;
+    }
+  }
+}
