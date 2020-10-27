@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch cek render komponen tanpa error dan snapshot 1`] = `
+<body>
+  <div>
+    <span
+      class="input-check"
+    >
+      <button
+        class="-icon button-base"
+        focusripple="true"
+        href="false"
+      >
+        <span
+          class="label"
+        >
+          <input
+            class="input"
+            data-testid="switch"
+            type="checkbox"
+          />
+           
+          <span
+            class="icon-thumb"
+          />
+           
+        </span>
+         
+        <div
+          class="ripple-container"
+        />
+        
+      </button>
+      
+       
+      <span
+        class="track"
+        slot="track"
+      />
+    </span>
+  </div>
+</body>
+`;

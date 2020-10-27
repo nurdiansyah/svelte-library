@@ -26,11 +26,18 @@
   );
 </script>
 
-<ButtonBase {...$$restProps} class={classes} {disabled} focusRipple={!disableFocusRipple} on:click on:blur on:focus>
+<ButtonBase
+  {...$$restProps}
+  class={classes}
+  {disabled}
+  focusRippleEnable={!disableFocusRipple}
+  on:click
+  on:blur
+  on:focus>
   <span class="label">
     <slot />
   </span>
 </ButtonBase>
 
-<style src="./button-icon.scss" global>
+<style src="./styles/button-icon.scss" global>
 </style>

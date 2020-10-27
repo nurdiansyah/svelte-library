@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputCheck check: type checkbox 1`] = `
+<body>
+  <div />
+</body>
+`;
+
+exports[`InputCheck check: type radio 1`] = `
+<body>
+  <div />
+</body>
+`;
+
+exports[`InputCheck check: type switch 1`] = `
+<body>
+  <div />
+</body>
+`;

@@ -1,0 +1,174 @@
+@use "styles/functions" as *;
+@use "styles/colors";
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+.input-check {
+  .button-base.-icon {
+    padding: 9px;
+    > .input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      cursor: inherit;
+      opacity: 0;
+    }
+  }
+
+  > .track {
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    transition: get-transition(theme.$transitions, (opacity, background-color), shortest);
+  }
+
+  &.-checked {
+    .button-base.-icon {
+      @include mix.build-colors() using($color) {
+        $_color-main: get-value($color, main);
+
+        color: $_color-main;
+        &:hover {
+          background-color: fade-in($_color-main, 0.04);
+          @media (hover: none) {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  &.-switch {
+    position: relative;
+    z-index: 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 34 + 12 * 2px;
+    height: 14 + 12 * 2px;
+    padding: 12px;
+    overflow: hidden;
+    vertical-align: middle;
+
+    .button-base.-icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      transition: get-transition(theme.$transitions, (left, transform), shortest);
+
+      > .input {
+        left: -100%;
+        width: 300%;
+      }
+    }
+
+    .icon-thumb {
+      width: 20px;
+      height: 20px;
+      background-color: currentColor;
+      border-radius: 50%;
+      @include mix.box-shadow(2);
+    }
+
+    &.-edge {
+      &-start {
+        margin-left: -8px;
+      }
+
+      &-end {
+        margin-right: -8px;
+      }
+    }
+
+    &.-size-small {
+      width: 40px;
+      height: 24px;
+      padding: 7px;
+
+      .icon-thumb {
+        width: 16px;
+        height: 16px;
+      }
+
+      .button-base.-icon {
+        padding: 4px;
+      }
+    }
+
+    &.-checked {
+      .button-base.-icon {
+        transform: translateX(20px);
+      }
+
+      &.-size-small {
+        .button-base.-icon {
+          transform: translateX(16px);
+        }
+      }
+    }
+  }
+
+  &.-radio {
+    .button-base.-icon {
+      position: relative;
+      display: flex;
+
+      > .layer {
+        position: absolute;
+        left: 0;
+        transition: get-transition(theme.$transitions, transform, shortest, ease-in);
+        transform: scale(0);
+      }
+    }
+
+    .-checked {
+      .button-base.-icon {
+        > .layer {
+          transition: get-transition(theme.$transitions, transform, shortest, ease-out);
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  &.-checkbox {
+  }
+
+  .form-label {
+    display: block;
+    transform-origin: top left;
+  }
+
+  @include mix.build-theme() using($theme, $key) {
+    $text-secondary: get-value($theme, (text, secondary));
+    $disable-switch: value-if($key == "light", colors.$gray-400, colors.$gray-800);
+
+    .button-base.-icon {
+      color: $text-secondary;
+
+      &.-disabled {
+        color: get-value($theme, (action, disabled));
+
+        &.-switch {
+          color: $disable-switch;
+        }
+
+        + .track {
+          background-color: value-if($key == "light", colors.$black, colors.$white);
+        }
+      }
+    }
+
+    > .track {
+      background-color: value-if($key == "light", colors.$black, colors.$white);
+      opacity: value-if($key == "light", 0.38, 0.3);
+    }
+  }
+}

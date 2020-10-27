@@ -31,7 +31,7 @@
     onBlurVisible && onBlurVisible(e);
   };
 
-  const handleFocus = (e) => {
+  const handleFocus = (e: Event) => {
     if (isFocusVisible && isFocusVisible(e)) {
       focusVisible = true;
     }

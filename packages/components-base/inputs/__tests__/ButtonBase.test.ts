@@ -1,3 +1,4 @@
+import { fireEvent, act } from "@testing-library/svelte";
 import { itConformance } from "../../utils/test-utils";
 import ButtonBase from "../ButtonBase.svelte";
 
@@ -18,6 +19,20 @@ describe("ButtonBase", () => {
   });
 
   describe("directive focusVisible", () => {
-    it("check: ", () => {});
+    async function focusVisible(el: HTMLElement) {
+      await act(async () => {
+        el.focus();
+        el.blur();
+        await fireEvent.keyDown(document.activeElement || document.body, { key: "Tab" });
+        el.focus();
+      });
+    }
+    it("check: ", async () => {
+      const { getByTestId } = render();
+      const el = getByTestId(testId);
+      await focusVisible(el);
+      expect(() => getByTestId(testId)).not.toThrow();
+      expect(el).toHaveClass("-focus-visible");
+    });
   });
 });
