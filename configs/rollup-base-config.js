@@ -1,65 +1,129 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import svelte from "rollup-plugin-svelte";
 import sucrase from "@rollup/plugin-sucrase";
+import replace from "@rollup/plugin-replace";
+import svelte from "rollup-plugin-svelte-hot";
+import Hmr from "rollup-plugin-hot";
+import livereload from "rollup-plugin-livereload";
+import copy from "rollup-plugin-copy";
 import { terser } from "rollup-plugin-terser";
-import bundleSize from "rollup-plugin-bundle-size";
+import rimraf from "rimraf";
+import { spassr } from "spassr";
+
+const isNollup = !!process.env.NOLLUP;
 
 const tsPlugin = () => {
   return sucrase({
     transforms: ["typescript"],
-    exclude: ["**/*.css"]
+    include: ["**/*.ts", "**/*.js"]
   });
 };
 
-export const sveltePlugin = (options = {}) => {
-  return svelte(options);
+export const createRollupConfigs = (options = {}) => {
+  const { production, serve, distDir } = options;
+  const useDynamicImports = process.env.BUNDLING === "dynamic" || isNollup || !!production;
+  rimraf.sync(`${distDir}/**`);
+  if (serve) {
+    spassr({
+      serveSpa: true,
+      serveSsr: !isNollup,
+      silent: isNollup
+    });
+  }
+
+  // Combine configs as needed
+  return [
+    !isNollup && baseConfig(options, { dynamicImports: false }),
+    useDynamicImports && baseConfig(options, { dynamicImports: true }),
+    !isNollup && serviceWorkerConfig(options)
+  ].filter(Boolean);
 };
 
-export const resolvePlugin = (options = {}) => {
-  return {
-    ...{
-      dedupe: ["svelte"],
-      browser: true
-    },
-    ...options
+function baseConfig(options, ctx) {
+  const { dynamicImports } = ctx;
+  const { staticDir, distDir, production, buildDir, svelteWrapper, rollupWrapper } = options;
+
+  const outputConfig = !!dynamicImports
+    ? { format: "esm", dir: buildDir }
+    : { format: "iife", file: `${buildDir}/bundle.js` };
+
+  const _svelteConfig = {
+    dev: !production, // runtime checks
+    css: (css) => css.write(`${buildDir}/bundle.css`),
+    hot: isNollup
   };
-};
 
-/**
- * create configuration rollup.
- * @param {Object} options
- * @param {Object} options.svelte
- * @param {Object[]} options.startPlugins
- * @param {Object[]} options.endPlugins
- * @param {*} options.output
- * @param {*} options.input
- * @param {boolean} options.dev
- */
-export const createConfigRollup = (options = {}) => {
-  const mode = process.env.ROLLUPP_WATCH && "development";
-  const dev = options.dev || mode === "development";
-  const startPlugins = options.startPlugins || [];
-  const endPlugins = options.endPlugins || [];
-  return {
-    input: options.input,
-    output: options.output,
+  const svelteConfig = svelteWrapper(_svelteConfig, ctx) || _svelteConfig;
+
+  const transform = (contents) => {
+    const scriptTag =
+      typeof options.scriptTag != "undefined"
+        ? options.scriptTag
+        : '<script type="module" defer src="/build/main.js"></script>';
+    const bundleTag = '<script defer src="/build/bundle.js"></script>';
+    return contents.toString().replace("__SCRIPT__", dynamicImports ? scriptTag : bundleTag);
+  };
+
+  const _rollupConfig = {
+    inlineDynamicImports: !dynamicImports,
+    preserveEntrySignatures: false,
+    input: "src/index.ts",
+    output: {
+      name: "debox-app",
+      sourcemap: true,
+      ...outputConfig
+    },
     plugins: [
-      ...startPlugins,
+      copy({
+        targets: [
+          { src: [`${staticDir}/*`, "!*/(__index.html)"], dest: distDir },
+          { src: [`${staticDir}/__index.html`], dest: distDir, rename: "__app.html", transform }
+        ],
+        copyOnce: true,
+        flatten: false
+      }),
+      svelte(svelteConfig),
+
+      // resolve matching modules from current working directory
       resolve({
         browser: true,
-        dedupe: ["svelte"]
+        dedupe: (importee) => !!importee.match(/svelte(\/|$)/)
       }),
       commonjs(),
       tsPlugin(),
-      !dev &&
-        terser({
-          module: true
-        }),
-      !dev && bundleSize(),
-      ...endPlugins
+      production && terser(), // minify
+      !production && isNollup && Hmr({ inMemory: true, public: staticDir }), // refresh only updated code
+      !production && !isNollup && livereload(distDir) // refresh entire window when code is updated
     ],
-    preserveEntrySignatures: false,
-    external: ["tslib"]
+    watch: {
+      clearScreen: false,
+      buildDelay: 100
+    }
   };
-};
+  return rollupWrapper(_rollupConfig, ctx) || _rollupConfig;
+}
+
+/**
+ * Can be deleted if service workers aren't used
+ */
+function serviceWorkerConfig(config) {
+  const { distDir, production, swWrapper } = config;
+  const _rollupConfig = {
+    input: `src/sw.js`,
+    output: {
+      name: "service_worker",
+      sourcemap: true,
+      format: "iife",
+      file: `${distDir}/sw.js`
+    },
+    plugins: [
+      commonjs(),
+      resolve({ browser: true }),
+      production && terser(),
+      replace({ "process.env.NODE_ENV": "'production'" })
+    ]
+  };
+  const rollupConfig = swWrapper(_rollupConfig, {}) || _rollupConfig;
+
+  return rollupConfig;
+}
