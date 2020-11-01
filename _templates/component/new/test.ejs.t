@@ -10,7 +10,7 @@ to: packages/<%= _project %>/<%= _category %>/__tests__/<%= h.changeCase.pascal(
   nameProps = nameCamel + "Props"
   nameCss = prefix + "-" + nameParam
 %>
-import { itConformance } from "<%= _testUtils %>";
+import { itConformance } from "<%= _utils %>/test-utils";
 import <%= nameComponent %> from "../<%= nameComponent %>.svelte";
 
 describe("<%= nameComponent %>", () => {

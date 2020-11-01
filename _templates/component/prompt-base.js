@@ -22,8 +22,8 @@ module.exports = [
   },
   {
     type: "select",
-    name: "_testUtils",
-    message: "test-utils location?",
-    choices: ["@deboxsoft/components-base/utils/test-utils", "../../utils/test-utils"]
+    name: "_utils",
+    message: "utils location?",
+    choices: ["@deboxsoft/components-base/utils", "../utils"]
   }
 ];

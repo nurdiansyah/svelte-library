@@ -7,8 +7,8 @@ to: packages/<%= _project %>/<%= _category %>/<%= h.changeCase.pascal(_name) %>.
   nameCss = prefix + "-" + nameParam;
 %>
 
-<script>
-  import { clsx } from "<%= _testUtils %>";
+<script lang="ts">
+  import { clsx } from "../utils"";
 
   // props
 
