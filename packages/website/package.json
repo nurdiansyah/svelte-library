@@ -10,34 +10,33 @@
     }
   ],
   "scripts": {
-    "build": "yarn copy-workers && sapper build --output ../../node_modules/@sapper ../../website",
-    "clean": "rimraf ../../website",
-    "copy-workers": "rm -rf static/workers && cp -r ../../node_modules/@sveltejs/svelte-repl/workers static/workers",
-    "dev": "yarn copy-workers && sapper dev --output ../../node_modules/@sapper --port 3001",
-    "export": "sapper export",
-    "start": "node ../../website",
-    "sass": "sass --load-path ../../node_modules --load-path src",
-    "test": "run-p --race dev cy:run"
+    "dev": "run-p routify rollup",
+    "dev:nollup": "run-p routify nollup",
+    "dev-dynamic": "cross-env BUNDLING=dynamic npm run dev",
+    "build": "routify -b && rollup -c && routify export && workbox injectManifest",
+    "serve": "spassr --serve-spa --serve-ssr",
+    "export": "routify export",
+    "build:docker": "npm run build && ./scripts/docker/docker-build.sh",
+    "deploy:now": "cd scripts/now && npm run deploy",
+    "deploy:netlify": "cd scripts/netlify && npm run deploy",
+    "rollup": "rollup -cw",
+    "nollup": "nollup -c",
+    "routify": "routify",
+    "test": "jest"
   },
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.10.0",
     "@deboxsoft/svelte-components-base": "*",
+    "@deboxsoft/svelte-icons": "*",
     "@deboxsoft/svelte-ui": "*",
-    "clsx": "^1.1.1",
-    "compression": "1.7.4",
-    "fastify": "^3.1.1",
-    "middie": "5.1.0",
-    "nanoid": "3.1.12",
-    "nconf": "^0.10.0",
-    "nconf-yaml": "^1.0.2",
-    "perfect-scrollbar": "1.5.0",
-    "pino": "^6.4.1",
-    "pino-pretty": "^4.1.0",
-    "prism-svelte": "^0.4.3",
-    "prismjs": "^1.17.1",
-    "sirv": "1.0.5"
+    "@sveltech/routify": "^1.9.9",
+    "mdsvex": "^0.8.8",
+    "prismjs": "^1.22.0"
   },
   "devDependencies": {
-    "@types/nanoid": "2.1.0",
-    "@types/pino": "^6.3.0"
+    "nollup": "^0.13.13",
+    "remark-slug": "^6.0.0",
+    "rollup-plugin-workbox": "^5.2.1",
+    "yaml": "^1.10.0"
   }
 }

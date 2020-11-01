@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "outDir": "build",
+    "sourceMap": false,
+    "module": "ESNext",
+    "target": "ESNext",
+    "checkJs": true,
+    "allowJs": true,
+    "baseUrl": "src",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
+  },
+  "include": ["./src"],
+  "exclude": ["**/__tests__/**"]
+}

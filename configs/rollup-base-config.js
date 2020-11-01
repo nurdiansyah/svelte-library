@@ -7,23 +7,25 @@ import Hmr from "rollup-plugin-hot";
 import livereload from "rollup-plugin-livereload";
 import copy from "rollup-plugin-copy";
 import { terser } from "rollup-plugin-terser";
+import svg from "rollup-plugin-svg";
+import alias from "@rollup/plugin-alias";
 import rimraf from "rimraf";
 import { spassr } from "spassr";
+import path from "path";
 
 const isNollup = !!process.env.NOLLUP;
 
 const tsPlugin = () => {
   return sucrase({
-    transforms: ["typescript"],
-    include: ["**/*.ts", "**/*.js"]
+    transforms: ["typescript"]
   });
 };
 
 export const createRollupConfigs = (options = {}) => {
   const { production, serve, distDir } = options;
   const useDynamicImports = process.env.BUNDLING === "dynamic" || isNollup || !!production;
-  rimraf.sync(`${distDir}/**`);
-  if (serve) {
+  rimraf.sync(distDir);
+  if (serve && !isNollup) {
     spassr({
       serveSpa: true,
       serveSsr: !isNollup,
@@ -44,36 +46,40 @@ function baseConfig(options, ctx) {
   const { staticDir, distDir, production, buildDir, svelteWrapper, rollupWrapper } = options;
 
   const outputConfig = !!dynamicImports
-    ? { format: "esm", dir: buildDir }
-    : { format: "iife", file: `${buildDir}/bundle.js` };
+    ? { format: "esm", dir: path.join(distDir, buildDir) }
+    : { format: "iife", file: path.join(distDir, buildDir, "bundle.js") };
 
   const _svelteConfig = {
     dev: !production, // runtime checks
-    css: (css) => css.write(`${buildDir}/bundle.css`),
+    css: (css) => css.write(`bundle.css`),
     hot: isNollup
   };
 
-  const svelteConfig = svelteWrapper(_svelteConfig, ctx) || _svelteConfig;
+  const svelteConfig = svelteWrapper(_svelteConfig, ctx);
 
   const transform = (contents) => {
     const scriptTag =
       typeof options.scriptTag != "undefined"
         ? options.scriptTag
-        : '<script type="module" defer src="/build/main.js"></script>';
-    const bundleTag = '<script defer src="/build/bundle.js"></script>';
+        : `<script type="module" defer src="/${buildDir}/debox-app.js"></script>`;
+    const bundleTag = `<script defer src="/${buildDir}/bundle.js"></script>`;
     return contents.toString().replace("__SCRIPT__", dynamicImports ? scriptTag : bundleTag);
   };
 
   const _rollupConfig = {
     inlineDynamicImports: !dynamicImports,
     preserveEntrySignatures: false,
-    input: "src/index.ts",
+    input: "src/debox-app.ts",
     output: {
-      name: "debox-app",
+      name: "DeboxApp",
       sourcemap: true,
       ...outputConfig
     },
     plugins: [
+      replace({
+        "process.browser": "true",
+        "process.env.NODE_ENV": JSON.stringify(production)
+      }),
       copy({
         targets: [
           { src: [`${staticDir}/*`, "!*/(__index.html)"], dest: distDir },
@@ -82,6 +88,10 @@ function baseConfig(options, ctx) {
         copyOnce: true,
         flatten: false
       }),
+      svg(),
+      alias({
+        entries: [{ find: "@", replacement: path.resolve("src") }]
+      }),
       svelte(svelteConfig),
 
       // resolve matching modules from current working directory
@@ -89,8 +99,8 @@ function baseConfig(options, ctx) {
         browser: true,
         dedupe: (importee) => !!importee.match(/svelte(\/|$)/)
       }),
-      commonjs(),
       tsPlugin(),
+      commonjs(),
       production && terser(), // minify
       !production && isNollup && Hmr({ inMemory: true, public: staticDir }), // refresh only updated code
       !production && !isNollup && livereload(distDir) // refresh entire window when code is updated
@@ -109,7 +119,7 @@ function baseConfig(options, ctx) {
 function serviceWorkerConfig(config) {
   const { distDir, production, swWrapper } = config;
   const _rollupConfig = {
-    input: `src/sw.js`,
+    input: `src/sw.ts`,
     output: {
       name: "service_worker",
       sourcemap: true,
