@@ -6,13 +6,17 @@
   * @type {string} [htmlColor]
   */
   export let htmlColor = undefined;
+  export let ariaHidden = true;
+  export let focusable = false;
+
 </script>
 
 <svg
-  {...$$restProps}
   viewBox={viewBox}
   color={htmlColor}
-  role="img"
+  aria-hidden={ariaHidden}
+  {focusable}
+  {...$$restProps}
 >
   {{{paths}}}
   <title>{{componentName}}</title>

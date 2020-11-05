@@ -1,1 +1,46 @@
 @use "./reboot";
+@use "./functions" as *;
+@use "./theme";
+@use "./mixins" as mix;
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: get-value(theme.$font, base);
+  @each $key, $value in get-value(theme.$typography, body1) {
+    #{$key}: $value;
+  }
+}
+
+h1 {
+  @include mix.makeStyleTypo(h1);
+}
+
+h2 {
+  @include mix.makeStyleTypo(h2);
+}
+
+h3 {
+  @include mix.makeStyleTypo(h3);
+}
+
+h4 {
+  @include mix.makeStyleTypo(h4);
+}
+
+h5 {
+  @include mix.makeStyleTypo(h5);
+}
+
+h6 {
+  @include mix.makeStyleTypo(h6);
+}
+
+.dbx-theme {
+  color: get-value(theme.$light, (text, primary));
+  background-color: get-value(theme.$light, (background, default));
+  &.-dark {
+    color: get-value(theme.$dark, (text, secondary));
+    background-color: get-value(theme.$dark, (background, default));
+  }
+}

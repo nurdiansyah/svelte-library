@@ -1,0 +1,21 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+.dbx-menu {
+  .dbx-paper {
+    // specZ: The maximum height of a simple menu should be one or more rows less than the view
+    // height. This ensures a tapable area outside of the simple menu with which to dismiss
+    // the menu.
+    max-height: calc(100% - 96px);
+
+    // Add iOS momentum scrolling.
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Styles applied to the `List` component via `MenuList`. */
+  .dbx-list {
+    // We disable the focus ring for mouse, touch and keyboard users.
+    outline: 0;
+  }
+}

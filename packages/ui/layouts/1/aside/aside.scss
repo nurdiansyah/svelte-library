@@ -1,0 +1,72 @@
+@use "variables" as *;
+
+//
+// variables
+//
+$width: get-value($aside-config, (base, width));
+$minimized-width: get-value($aside-config, (base, minimized-width));
+$z-index: get-value($aside-config, (base, z-index));
+$bg-color: get-value($aside-config, (base, bg-color));
+$color: get-value($aside-config, (base, color, default));
+$color-hover: get-value($aside-config, (base, color, hover));
+$color-active: get-value($aside-config, (base, color, active));
+$scroll: get-value($aside-config, (base, scroll));
+$brand-height: get-value($header-config, (desktop, default, height));
+
+//
+// Aside
+//
+
+.page-aside {
+  display: flex;
+  flex-flow: column;
+  width: $width;
+  height: 100%;
+  background-color: $aside-bg-color;
+  box-shadow: none;
+  transition: $transition;
+  &:hover {
+    color: $color-hover;
+  }
+
+  &:active {
+    color: $color-active;
+  }
+
+  @include media-breakpoint-up() {
+    &.-fixed {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: $z-index;
+    }
+
+    // Static Aside Mode
+    &.-static {
+      position: relative;
+      z-index: 1;
+    }
+
+    &.-minimized {
+      width: $minimized-width;
+      .brand-logo {
+        > .logo {
+          display: none;
+        }
+        > .toggle {
+          transition: $transition;
+          transform: rotateZ(180deg) #{"/*rtl:ignore*/"};
+
+          [direction="rtl"] & {
+            transform: rotateZ(-180deg) #{"/*rtl:ignore*/"};
+          }
+        }
+      }
+    }
+  }
+
+  @include media-breakpoint-down() {
+    display: none;
+  }
+}

@@ -1,7 +1,7 @@
-@use "../../scss/functions" as *;
-@use "../../scss/theme";
-@use "../../scss/colors";
-@use "../../scss/mixins/index" as mix;
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/colors";
+@use "styles/mixins/index" as mix;
 
 .dbx-badge {
   $radius-standard: 10;
@@ -22,11 +22,11 @@
     min-width: calc(#{$radius-standard} * 2px);
     height: calc(#{$radius-standard} * 2px);
     padding: 0 6px;
-    font-size: pxToRem(12);
+    font-size: px-to-rem(12);
     font-weight: get-value(theme.$font, (weight, medium));
     line-height: 1;
     border-radius: $radius-standard;
-    transition: get-transition(theme.$transitions, transform, ease-in-out, entering-screen);
+    transition: theme.get-transition(transform, ease-in-out, entering-screen);
   }
 
   &.-color-primary > .badge {
@@ -143,6 +143,6 @@
   }
 
   &.-invisible > .badge {
-    transition: get-transition(theme.$transitions, transform, ease, leaving-screen);
+    transition: theme.get-transition(transform, ease, leaving-screen);
   }
 }

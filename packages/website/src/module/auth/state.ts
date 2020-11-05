@@ -16,11 +16,10 @@ function createAuthStore() {
   let auth0;
 
   async function init() {
-    auth0 = await createAuth0Client(AUTH_CONFIG);
-    await auth0.crossOriginVerification();
+    // auth0 = await createAuth0Client(AUTH_CONFIG);
+    // await auth0.crossOriginVerification();
     // update store
-    user.set(await auth0.getUser());
-    loading.set(false);
+    // user.set(await auth0.getUser());
     authenticated.set(true);
   }
 
@@ -29,18 +28,16 @@ function createAuthStore() {
     await auth0.loginWithPopup();
 
     //update store
-    user.set(await auth0.getUser());
+    // user.set(await auth0.getUser());
     authenticated.set(true);
   }
 
   async function signout() {
     // logout
-    console.log("signout");
-    await auth0.logout({ returnTo: window.location.pathname });
+    // await auth0.logout({ returnTo: window.location.pathname });
     // update store
-    const authUser = await auth0.getUser();
-    user.set(authUser);
-    console.log(authUser);
+    // const authUser = await auth0.getUser();
+    // user.set(authUser);
     authenticated.set(false);
   }
 

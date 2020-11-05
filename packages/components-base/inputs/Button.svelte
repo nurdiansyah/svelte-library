@@ -39,5 +39,5 @@
   </span>
 </ButtonBase>
 
-<style src="./button.scss" global>
+<style src="./styles/button.scss" global>
 </style>

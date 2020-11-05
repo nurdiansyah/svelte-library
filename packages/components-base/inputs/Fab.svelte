@@ -25,5 +25,5 @@
   </span>
 </ButtonBase>
 
-<style src="./dbx-fab.scss" global>
+<style src="./styles/fab.scss" global>
 </style>

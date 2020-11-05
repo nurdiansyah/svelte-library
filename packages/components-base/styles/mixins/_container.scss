@@ -3,7 +3,7 @@
 @use "../theme";
 @use "./breakpoints" as *;
 
-@mixin make-container($padding-x: get-value(theme.$spacers, 2)) {
+@mixin make-container($padding-x: theme.get-spacer(2)) {
   box-sizing: border-box;
   display: block;
   width: 100%;
@@ -13,7 +13,7 @@
   margin-left: auto;
 
   @include media-breakpoint-up(sm) {
-    $padding-x: get-value(theme.$spacers, 3);
+    $padding-x: theme.get-spacer(3);
     padding-right: $padding-x;
     padding-left: $padding-x;
   }

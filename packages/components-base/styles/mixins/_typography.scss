@@ -1,0 +1,9 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+
+@mixin makeStyleTypo($tag) {
+  $style: get-value(theme.$typography, $tag);
+  @each $key, $value in $style {
+    $key: $value;
+  }
+}

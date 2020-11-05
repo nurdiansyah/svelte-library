@@ -31,7 +31,8 @@
     "@deboxsoft/svelte-ui": "*",
     "@sveltech/routify": "^1.9.9",
     "mdsvex": "^0.8.8",
-    "prismjs": "^1.22.0"
+    "prismjs": "^1.22.0",
+    "localforage": "^1.9.0"
   },
   "devDependencies": {
     "nollup": "^0.13.13",

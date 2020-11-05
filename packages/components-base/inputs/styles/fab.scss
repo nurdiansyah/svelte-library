@@ -30,7 +30,7 @@
   color: colors.color-contrast(colors.$gray-300);
   background-color: colors.$gray-300;
   border-radius: 50%;
-  transition: get-transition(theme.$transitions, (background-color, box-shadow, border), short);
+  transition: theme.get-transition((background-color, box-shadow, border), short);
   @include mix.box-shadow(6);
 
   &:active {
@@ -53,11 +53,11 @@
     width: 100%;
   }
 
-  .-color-primary {
+  &.-color-primary {
     @include build-color(theme.$primary);
   }
 
-  .-color-primary {
+  &.-color-secondary {
     @include build-color(theme.$secondary);
   }
 

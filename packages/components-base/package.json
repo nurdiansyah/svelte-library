@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/nanoid": "^2.1.0",
-    "@types/yup": "^0.29.8"
+    "@types/yup": "^0.29.8",
+    "meow": "^7.1.1"
   }
 }

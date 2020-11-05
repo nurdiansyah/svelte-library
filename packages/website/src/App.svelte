@@ -2,13 +2,15 @@
   import { Router } from "@sveltech/routify";
   import { routes } from "@sveltech/routify/tmp/routes";
   import { authStore } from "./module/auth/state";
-  import { uiStore } from "./ui-store";
+  import { createContext as createContextStore } from "./ui-store";
 
-  const BodyClass = (node, options) => {
+  const { toggleTheme, store: uiStore } = createContextStore();
+  const BodyClass = (node, { isDark }) => {
+    const darkClass = "-dark";
     document.body.classList.add("dbx-theme");
+    isDark && document.body.classList.add(darkClass);
     return {
       update({ isDark }) {
-        const darkClass = "-dark";
         document.body.classList.remove(darkClass);
         if (isDark) {
           document.body.classList.add(darkClass);

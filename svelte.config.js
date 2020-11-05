@@ -11,6 +11,7 @@ const createPreprocess = (options) => {
       plugins: [require("autoprefixer")]
     },
     typescript: {
+      typescript: require("typescript"),
       compilerOptions: {
         allowJs: true
       }

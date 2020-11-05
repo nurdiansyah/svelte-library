@@ -1,13 +1,12 @@
 <script lang="ts">
-  import clsx from "clsx";
+  import { clsx } from "../utils";
 
-  let className: string | null = null,
-    classes: string;
-  export { className as class };
+  let { class: className } = $$props;
+  let classes: string | undefined;
   export let tabs: boolean = false;
   export let pills: boolean = false;
   export let vertical: boolean = false;
-  export let horizontal: string | null = null;
+  export let horizontal: string | undefined = undefined;
   export let justified: boolean = false;
   export let fill: boolean = false;
   export let navbar: boolean = false;
@@ -38,10 +37,9 @@
   );
 </script>
 
-<ul {...$$restProps} class="{classes}">
+<ul {...$$restProps} class={classes}>
   <slot />
 </ul>
 
-<style lang="scss" global>
-  @use "./nav.scss";
+<style lang="scss" src="./nav.scss" global>
 </style>

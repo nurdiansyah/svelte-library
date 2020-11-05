@@ -196,20 +196,6 @@ $escaped-characters: (("<", "%3c"), (">", "%3e"), ("#", "%23"), ("(", "%28"), ("
   }
 }
 
-@function get-transition($transitions, $props, $duration: standard, $easing: ease-in-out) {
-  $props: value-if(type-of($props) == "list", $props, ($props));
-  $result: null;
-  $i: 0;
-  @each $prop in $props {
-    $result: $result $prop get-value($transitions, (duration, $duration)) get-value($transitions, (easing, $easing));
-    $i: $i + 1;
-    @if $i < length($props) {
-      $result: #{$result + ","};
-    }
-  }
-  @return $result;
-}
-
-@function pxToRem($px, $base: 16) {
+@function px-to-rem($px, $base: 16) {
   @return #{$px/16 + "rem"};
 }

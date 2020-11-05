@@ -1,0 +1,238 @@
+@use "styles/functions" as *;
+@use "styles/mixins/index" as mix;
+@use "styles/theme";
+@use "styles/colors";
+
+@keyframes dbx-auto-fill {
+}
+
+@keyframes dbx-auto-fill-cancel {
+}
+
+.dbx-input {
+  position: relative;
+
+  > .input {
+    box-sizing: content-box;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 1.4375em;
+    padding: 4px 0 5px;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    letter-spacing: inherit;
+    background: none;
+    border: 0;
+    animation-name: dbx-auto-fill-cancel;
+    animation-duration: 10ms;
+    -webkit-tap-highlight-color: transparent;
+
+    &::placeholder {
+      outline: 0;
+    }
+
+    &:invalid {
+      box-shadow: none;
+    }
+
+    &::-webkit-search-decoration {
+      appearance: none;
+    }
+
+    &:-webkit-autofill {
+      animation-name: dbx-auto-fill;
+      animation-duration: 5000s;
+    }
+  }
+
+  &.-search {
+    > .input {
+      -moz-appearance: textfield;
+      -webkit-appearance: textfield;
+    }
+  }
+
+  //&.-plaintext > input {
+  //  padding: 0;
+  //  margin-bottom: 0; // match inputs if this class comes on inputs with default margins
+  //  color: var.$input-plaintext-color;
+  //  background-color: transparent;
+  //  border: 0 solid transparent;
+  //}
+  &.-full-width {
+    width: 100%;
+  }
+
+  &.-multiline {
+    padding: 4px 0 5px;
+    > .input {
+      height: auto;
+      padding: 0;
+      resize: none;
+    }
+    &.-dense {
+      padding-top: 1px;
+    }
+  }
+
+  &.-dense {
+    > .input {
+      padding-top: 1px;
+    }
+  }
+
+  &.-disabled > .input {
+    opacity: 1;
+  }
+
+  &.-underline {
+    &::before,
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+      content: "";
+    }
+
+    &::before {
+      transition: border-bottom-color get-value(theme.$transitions, (duration, shorter));
+
+      &.-disabled {
+        border-bottom-style: dotted;
+      }
+    }
+
+    &::after {
+      transition: transform get-value(theme.$transitions, (duration, shorter))
+        get-value(theme.$transitions, (easing, ease-out));
+      transform: scaleX(0);
+
+      &.-error {
+        border-bottom-style: get-value(theme.$error, main);
+        transform: scaleX(1);
+      }
+
+      &.-focused {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &.-filled {
+    border-top-left-radius: get-value(theme.$shape, border-radius);
+    border-top-right-radius: get-value(theme.$shape, border-radius);
+    transition: background-color get-value(theme.$transitions, (duration, shorter))
+      get-value(theme.$transitions, (easing, ease-out));
+
+    > .input {
+      padding: 25px 12px 8px;
+
+      &:-webkit-autofill {
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+      }
+    }
+
+    &.-dense {
+      > .input {
+        padding-top: 21px;
+        padding-bottom: 4px;
+      }
+
+      &.-hidden-label > .input {
+        padding-top: 8px;
+        padding-bottom: 9px;
+      }
+    }
+
+    &.-hidden-label {
+      > .input {
+        padding-top: 16px;
+        padding-bottom: 17px;
+      }
+    }
+
+    &.-multiline {
+      padding: 25px 12px 8px;
+
+      > .input {
+        padding: 0;
+      }
+
+      &.-dense {
+        padding-top: 21px;
+        padding-bottom: 4px;
+      }
+
+      &.-hidden-label {
+        padding-top: 16px;
+        padding-bottom: 17px;
+      }
+    }
+
+    &.-append {
+      padding-left: 12px;
+
+      > .input {
+        padding-left: 0;
+      }
+    }
+
+    &.-prepend {
+      padding-right: 12px;
+
+      > .input {
+        padding-right: 0;
+      }
+    }
+  }
+
+  //&.outlined {
+  //}
+
+  @include mix.build-theme() using($theme, $key) {
+    &.-underline {
+      &::before {
+        border-bottom-color: 1px solid get-value($theme, (form, underline, bottom-line));
+
+        &:hover:not(.-disabled) {
+          border-bottom: 2px solid get-value($theme, (form, underline, bottom-line-hover));
+
+          @media (hover: none) {
+            border-bottom: 1px solid;
+          }
+        }
+      }
+
+      &::after {
+        &.-secondary-color {
+          border-bottom-color: get-value($theme, (form, underline, bottom-line-secondary));
+        }
+      }
+    }
+
+    &.-filled {
+      $_background-color: get-value($theme, (form, filled, background));
+      background-color: $_background-color;
+
+      &:hover {
+        background-color: get-value($theme, (form, filled, background-hover));
+        @media (hover: none) {
+          background-color: $_background-color;
+        }
+      }
+
+      &.-focused {
+        background-color: get-value($theme, (form, filled, background-focus));
+      }
+
+      &.-disabled {
+        background-color: $_background-color;
+      }
+    }
+  }
+}

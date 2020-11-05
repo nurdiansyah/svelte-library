@@ -1,0 +1,31 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+.dbx-paper {
+  transition: theme.get-transition("box-shadow");
+
+  &.-bordered {
+    border: 1px solid transparent;
+  }
+
+  &.-rounded {
+    border-radius: get-value(theme.$shape, border-radius);
+  }
+
+  @include mix.build-theme using($theme, $name) {
+    color: get-value($theme, (text, primary));
+    background-color: get-value($theme, (background, paper));
+
+    &.-outlined {
+      border-color: get-value($theme, divider);
+    }
+
+    &.-color-inherit {
+      color: inherit;
+      background-color: inherit;
+    }
+  }
+
+  @include mix.elevation-box-shadow();
+}

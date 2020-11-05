@@ -16,7 +16,7 @@
   export let labelPlacement: "start" | "top" | "bottom" | "end" = "end";
   export let generateIdFor: boolean = true;
 
-  let idFor = generateIdFor && getId();
+  let idFor: string | undefined = (generateIdFor && getId()) || undefined;
 
   // handler
 

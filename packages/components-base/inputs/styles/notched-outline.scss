@@ -1,0 +1,53 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+
+.notched-outline {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0 8px;
+  margin: 0;
+  overflow: hidden;
+  text-align: left;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: inherit;
+
+  > .legend {
+    padding: 0;
+    line-height: 11px;
+    transition: width 150ms get-value(theme.$transitions, (easing, ease-out));
+  }
+
+  &.-labelled > .legend {
+    display: block;
+    width: auto;
+    max-width: 0.01px;
+    height: 11px;
+    padding: 0;
+    font-size: 0.75em;
+    visibility: hidden;
+    transition: max-width 50ms get-value(theme.$transitions, (easing, ease-out));
+
+    > span {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+  }
+
+  &.-notched > .legend {
+    max-width: 1000px;
+    transition: max-width 100ms get-value(theme.$transitions, (easing, ease-out));
+  }
+
+  &.-align-left {
+    padding-left: 8px;
+  }
+
+  &.-align-right {
+    padding-right: 8px;
+  }
+}

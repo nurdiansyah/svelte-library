@@ -1,19 +1,19 @@
 <script lang="ts">
-  import clsx from "clsx";
+  import { clsx } from "../utils";
 
-  let className: string | null = null,
-    displayValue: string,
-    classes: string;
+  let { class: className } = $$props;
+  let displayValue: string;
+  let exited: boolean;
+  let classes: string | undefined;
 
-  export { className as class };
   export let anchorOrigin: { horizontal: "left" | "right"; vertical: "top" | "bottom" } = {
     horizontal: "right",
     vertical: "top"
   };
   export let color: "default" | "error" | "primary" | "secondary" = "default";
-  export let badgeContent: string | null = null;
+  export let badgeContent: string | number | undefined = undefined;
   export let invisible: boolean = false;
-  export let showZero: false = true;
+  export let showZero: boolean = true;
   export let max: number = 99;
   export let overlap: "rectangle" | "circle" = "rectangle";
   export let variant: "dot" | "standard" = "standard";
@@ -24,8 +24,8 @@
       _invisible = true;
     }
 
-    if (variant !== "dot") {
-      displayValue = badgeContent > max ? `${max}+` : badgeContent;
+    if (variant !== "dot" && badgeContent) {
+      displayValue = typeof badgeContent === "number" && badgeContent > max ? `${max}+` : String(badgeContent);
     }
     classes = clsx(
       className,

@@ -13,7 +13,7 @@ $_typography: theme.$typography;
   line-height: get-value($_typography, (button, line-height));
   letter-spacing: get-value($_typography, (button, letter-spacing));
   border-radius: get-value(theme.$shape, (border-radius));
-  transition: get-transition(theme.$transitions, (background-color, box-shadow, border), short);
+  transition: theme.get-transition((background-color, box-shadow, border), short);
 
   > .label {
     display: inherit;
@@ -54,12 +54,12 @@ $_typography: theme.$typography;
 
     &.-size-small {
       padding: 4px 5px;
-      font-size: pxToRem(13);
+      font-size: px-to-rem(13);
     }
 
     &.-size-large {
       padding: 8px 11px;
-      font-size: pxToRem(15);
+      font-size: px-to-rem(15);
     }
   }
 
@@ -70,43 +70,16 @@ $_typography: theme.$typography;
 
     &.-size-small {
       padding: 3px 9px;
-      font-size: pxToRem(13);
+      font-size: px-to-rem(13);
     }
 
     &.-size-large {
       padding: 7px 21px;
-      font-size: pxToRem(15);
+      font-size: px-to-rem(15);
     }
   }
 
   &.-contained {
-    color: colors.color-contrast(colors.$gray-300);
-    background-color: colors.$gray-300;
-    box-shadow: nth(theme.$shadow, 3);
-
-    &:hover {
-      background-color: colors.$gray-100;
-      box-shadow: nth(theme.$shadow, 5);
-
-      // reset on touch devices, it doesn't add specificity
-      @media (hover: none) {
-        background-color: colors.$gray-300;
-        box-shadow: nth(theme.$shadow, 3);
-      }
-    }
-
-    &.-focus-visible {
-      box-shadow: nth(theme.$shadow, 7);
-    }
-
-    &.-active {
-      box-shadow: nth(theme.$shadow, 9);
-    }
-
-    &.-disabled {
-      box-shadow: nth(theme.$shadow, 1);
-    }
-
     &.-full-width {
       width: 100%;
     }
@@ -125,10 +98,10 @@ $_typography: theme.$typography;
   }
 
   .dbx-icon {
-    font-size: pxToRem(20);
+    font-size: px-to-rem(20);
 
     &.-size-small {
-      font-size: pxToRem(18);
+      font-size: px-to-rem(18);
 
       .end-icon {
         margin-right: -2px;
@@ -140,7 +113,7 @@ $_typography: theme.$typography;
     }
 
     &.-size-large {
-      font-size: pxToRem(22);
+      font-size: px-to-rem(22);
     }
   }
 
@@ -149,25 +122,10 @@ $_typography: theme.$typography;
     $_disabled-background: get-value($theme, (action, disabled-background));
     $_disabled: get-value($theme, (action, disabled));
     $_text-color: get-value($theme, (text, primary));
-
+    $_action-hover: get-value($theme, (action, hover));
     color: $_text-color;
     &:hover {
-      background-color: fade-in($_text-color, $_hover-opacity);
-    }
-
-    &.-text {
-      @include mix.build-colors() using($color) {
-        $_main-color: get-value($color, main);
-
-        color: $_main-color;
-
-        &:hover {
-          background-color: fade-in($_main-color, $_hover-opacity);
-          @media (hover: none) {
-            background-color: transparent;
-          }
-        }
-      }
+      background-color: $_action-hover;
     }
 
     &.-outlined {
@@ -179,51 +137,73 @@ $_typography: theme.$typography;
     }
 
     &.-contained {
+      color: colors.color-contrast(colors.$gray-300);
+      background-color: colors.$gray-300;
+      box-shadow: nth(theme.$shadow, 3);
+
       &:hover {
+        background-color: colors.$gray-a-100;
+        box-shadow: nth(theme.$shadow, 5);
+
+        // reset on touch devices, it doesn't add specificity
+        @media (hover: none) {
+          background-color: colors.$gray-300;
+          box-shadow: nth(theme.$shadow, 3);
+        }
+
         &.-disabled {
           background-color: $_disabled-background;
         }
       }
 
+      &.-focus-visible {
+        box-shadow: nth(theme.$shadow, 7);
+      }
+
+      &.-active {
+        box-shadow: nth(theme.$shadow, 9);
+      }
+
       &.-disabled {
         color: $_disabled;
         background-color: $_disabled-background;
+        box-shadow: nth(theme.$shadow, 1);
       }
     }
 
     &.-disabled {
       color: get-value($theme, (action, disabled));
     }
-  }
 
-  @include mix.build-colors() using($color) {
-    $_main-color: get-value($color, main);
-    $_dark-color: get-value($color, dark);
+    @include mix.build-colors() using($color) {
+      $_main-color: get-value($color, main);
+      $_dark-color: get-value($color, dark);
 
-    &.-outlined {
-      color: $_main-color;
+      &.-outlined {
+        color: $_main-color;
 
-      border-color: fade-in($_main-color, 0.5);
+        border-color: rgba($_main-color, 0.5);
 
-      &:hover {
-        background-color: fade-in($_main-color, 0.04);
-        border-color: $_main-color;
+        &:hover {
+          background-color: rgba($_main-color, 0.04);
+          border-color: $_main-color;
 
-        @media (hover: none) {
-          background-color: transparent;
+          @media (hover: none) {
+            background-color: transparent;
+          }
         }
       }
-    }
 
-    &.-contained {
-      color: colors.color-contrast($_main-color);
-      background-color: $_main-color;
+      &.-contained {
+        color: colors.color-contrast($_main-color);
+        background-color: $_main-color;
 
-      &:hover {
-        background-color: $_dark-color;
-
-        @media (hover: none) {
+        &:hover {
           background-color: $_dark-color;
+
+          @media (hover: none) {
+            background-color: $_dark-color;
+          }
         }
       }
     }

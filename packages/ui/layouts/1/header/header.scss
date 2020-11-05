@@ -1,0 +1,57 @@
+@use "variables" as *;
+
+.page-header {
+  color: get-value($header-config, (desktop, color));
+  background-color: get-value($header-config, (desktop, bg-color));
+
+  @include media-breakpoint-up() {
+    padding-left: get-value($aside-config, (base, width));
+    transition: $transition;
+
+    &.-min-aside-left {
+      padding-left: get-value($aside-config, (base, minimized-width));
+    }
+  }
+}
+
+.page-header-mobile {
+  color: get-value($header-config, (mobile, color));
+  background-color: get-value($header-config, (mobile, bg-color));
+  @include media-breakpoint-up() {
+    display: none;
+  }
+
+  @include media-breakpoint-down() {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: get-value($header-config, (mobile, height));
+    padding: 0 $page-padding;
+    &.-fixed {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: $zindex-fixed;
+      height: get-value($header-config, (mobile, fixed, height));
+    }
+  }
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  padding: 0 rfs-value(1rem);
+
+  > .item {
+    color: $secondary;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: #ffffff;
+    }
+  }
+}

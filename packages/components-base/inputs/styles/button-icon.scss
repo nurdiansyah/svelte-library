@@ -1,21 +1,31 @@
 @use "styles/functions" as *;
 @use "styles/theme";
-@use "styles/mixins/index" as mix;
+@use "styles/mixins" as mix;
 
 .button-base.-icon {
   flex: 0 0 auto;
   padding: 12px;
-  overflow: visible;
-  font-size: pxToRem(24);
+  font-size: px-to-rem(24);
   text-align: center;
   border-radius: 50%;
-  transition: get-transition(theme.$transitions, background-color, shortest);
+  transition: theme.get-transition(background-color, shortest);
 
   > .label {
     display: flex;
     align-items: inherit;
     justify-content: inherit;
     width: 100%;
+
+    > svg {
+      display: inline-block;
+      flex-shrink: 0;
+      width: 1em;
+      height: 1em;
+      font-size: 1.5rem;
+      user-select: none;
+      fill: currentColor;
+      transition: theme.get-transition(shorter, ease-in-out);
+    }
   }
 
   > .edge-start {
@@ -32,7 +42,7 @@
 
   &.-size-small {
     padding: 3px;
-    font-size: pxToRem(18);
+    font-size: px-to-rem(18);
 
     > .edge-start {
       margin-left: 3px;
@@ -44,36 +54,36 @@
   }
 
   @include mix.build-theme() using($theme, $key) {
-    $action: get-value($theme, action);
-    $action-active: get-value($action, active);
-    $action-hover-opacity: get-value($action, hover-opacity);
-    $action-disabled: get-value($action, disabled);
+    $_text-color: get-value($theme, (text, primary));
+    $_active: get-value($theme, (action, active));
+    $_hover: get-value($theme, (action, hover));
+    $_disabled: get-value($theme, (action, disabled));
 
-    color: $action-active;
+    color: $_text-color;
     &:hover {
-      background-color: fade-in($action-active, $action-hover-opacity);
+      background-color: $_hover;
       @media (hover: none) {
         background-color: transparent;
       }
     }
 
     &.-disabled {
-      color: $action-disabled;
+      color: $_disabled;
     }
-  }
 
-  &.-color-inherit {
-    color: inherit;
-  }
+    &.-color-inherit {
+      color: inherit;
+    }
 
-  @include mix.build-colors() using($color) {
-    $_color-main: get-value($color, main);
+    @include mix.build-colors() using($color) {
+      $_color-main: get-value($color, main);
 
-    color: $_color-main;
-    &:hover {
-      background-color: fade-in($_color-main, 0.04);
-      @media (hover: none) {
-        background-color: transparent;
+      color: $_color-main;
+      &:hover {
+        background-color: fade-in($_color-main, 0.04);
+        @media (hover: none) {
+          background-color: transparent;
+        }
       }
     }
   }

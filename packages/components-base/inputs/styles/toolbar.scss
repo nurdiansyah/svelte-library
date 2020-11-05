@@ -1,0 +1,25 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins" as mix;
+
+.dbx-toolbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &.-gutters {
+    $_spacing: theme.get-spacer(2);
+    padding-right: $_spacing;
+    padding-left: $_spacing;
+
+    @include mix.media-breakpoint-up(sm) {
+      $_spacing: theme.get-spacer(3);
+      padding-right: $_spacing;
+      padding-left: $_spacing;
+    }
+  }
+
+  &.-dense {
+    min-height: 48px;
+  }
+}

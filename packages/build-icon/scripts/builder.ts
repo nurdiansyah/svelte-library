@@ -164,7 +164,7 @@ async function worker({ svgPath, options, renameFilter, template }) {
   const destPath = renameFilter(svgPathObj, innerPath, options);
 
   const outputFileDir = path.dirname(path.join(options.outputDir, destPath));
-  const exists2 = await fse.exists(outputFileDir);
+  const exists2 = fse.existsSync(outputFileDir);
 
   if (!exists2) {
     console.log(`Making dir: ${outputFileDir}`);

@@ -1,0 +1,71 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+.dbx-select {
+  min-width: 16px;
+  padding-right: 24px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 0;
+
+  &:focus {
+    border-radius: 0;
+  }
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  &.-disabled {
+    cursor: default;
+  }
+
+  &.-filled {
+    padding-right: 32px;
+  }
+
+  &.-outlined {
+    border-radius: get-value(theme.$shape, (border-radius));
+  }
+
+  .select-menu {
+    height: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-icon {
+    position: absolute;
+    top: calc(50% - 12px);
+    right: 0;
+    pointer-events: none;
+  }
+
+  @include mix.build-theme() using($theme, $key) {
+    &:focus {
+      background-color: get-value($theme, (form, select, background-color));
+    }
+
+    &-icon {
+      color: get-value($theme, (action, active));
+
+      &.-disabled {
+        color: get-value($theme, (action, disabled));
+      }
+
+      &.-open {
+        transform: rotate(180deg);
+      }
+
+      &.-filled {
+        right: 7px;
+      }
+
+      &.-outlined {
+        right: 7px;
+      }
+    }
+  }
+}

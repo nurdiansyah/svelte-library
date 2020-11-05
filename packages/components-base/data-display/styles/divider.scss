@@ -1,0 +1,50 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins" as mix;
+
+.dbx-divider {
+  flex-shrink: 0;
+  height: 1px;
+  margin: 0;
+  border: none;
+
+  &.-absolute {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  &.-inset {
+    margin-left: 72px;
+  }
+
+  &.-middle {
+    $_spacing: theme.get-spacer(2);
+    margin-right: #{$_spacing};
+    margin-left: #{$_spacing};
+  }
+
+  &.-vertical {
+    width: 1px;
+    height: 100%;
+  }
+
+  &.-flex-item {
+    align-items: stretch;
+    height: auto;
+  }
+
+  @include mix.build-theme() using($theme, $key) {
+    $_divider-color: get-value($theme, divider);
+    background-color: $_divider-color;
+
+    &.-light {
+      background-color: rgba($_divider-color, 0.08);
+    }
+
+    &.-inherit {
+      background-color: inherit;
+    }
+  }
+}
