@@ -36,6 +36,7 @@
       focusVisible = true;
     }
   };
+  $: rippleOptions = { ...rippleOptions, ...{ focusRippleEnable } };
 </script>
 
 {#if href || link}
@@ -48,6 +49,7 @@
     on:blur={handleBlur}
     on:focus={handleFocus}
     href={href || '#'}
+    use:ripple={rippleOptions}
     use:focusVisibleAction={{ onFocusVisible: handleIsFocusVisible }}>
     <slot />
   </a>
@@ -60,6 +62,7 @@
     on:focus
     on:blur={handleBlur}
     on:focus={handleFocus}
+    use:ripple={rippleOptions}
     use:focusVisibleAction={{ onFocusVisible: handleIsFocusVisible }}>
     <slot />
   </div>
@@ -72,12 +75,10 @@
     on:focus
     on:blur={handleBlur}
     on:focus={handleFocus}
+    use:ripple={rippleOptions}
     use:focusVisibleAction={{ onFocusVisible: handleIsFocusVisible }}>
     <slot />
   </button>
-{/if}
-{#if focusRippleEnable}
-  <div use:ripple={rippleOptions} />
 {/if}
 
 <style src="./styles/button-base.scss" global>

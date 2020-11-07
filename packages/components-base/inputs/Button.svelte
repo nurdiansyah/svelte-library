@@ -32,12 +32,10 @@
 </script>
 
 <ButtonBase {...$$restProps} class={classes} {disabled} on:click on:blur on:focus>
-  <span class="label">
-    <svelte:component this={startIcon} class="start-icon" />
-    <slot />
-    <svelte:component this={endIcon} class="end-icon" />
-  </span>
+  <svelte:component this={startIcon} class="start-icon" />
+  <slot />
+  <svelte:component this={endIcon} class="end-icon" />
 </ButtonBase>
 
-<style src="./button.scss" global>
+<style src="./styles/button.scss" global>
 </style>
