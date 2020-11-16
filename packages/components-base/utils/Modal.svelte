@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Transition } from "svelte/types/compiler/interfaces";
   import type { SvelteComponent } from "svelte/internal";
 
   import { clsx } from "./clsx";
@@ -8,14 +7,15 @@
   import TrapFocus from "./modal/TrapFocus.svelte";
   import { ownerDocument } from "./dom";
   import Portal from "./Portal.svelte";
-  import { ModalManager } from "./modal/ModalManager";
+  import { getModalManager, ModalManager } from "./modal/ModalManager";
+  import SimpleBackdrop from "./modal/SimpleBackdrop.svelte";
 
   let { class: className } = $$props;
   let classes: string;
-  let exited: boolean;
+  let exited: boolean = false;
   let BackdropComponent: typeof SvelteComponent | undefined;
 
-  export let backdropComponent: typeof SvelteComponent | undefined = undefined;
+  export let backdropComponent: typeof SvelteComponent = SimpleBackdrop;
   export let backdropProps: Record<string, any> = {};
   export let closeAfterTransition: boolean = false;
   export let container: HTMLElement | undefined = undefined;
@@ -43,9 +43,12 @@
   export let open: boolean = false;
   export let transitionDuration: number = 300;
 
-  const isTopModal = () => manager.isTopModal(node);
+  const isTopModal = () => manager?.isTopModal(node) || false;
 
   function handleMount() {
+    if (!manager) {
+      manager = getModalManager();
+    }
     manager.mount(node, { disableScrollLock });
     if (node) node.scrollTop = 0;
   }
@@ -62,8 +65,8 @@
   }
 
   function handleClose() {
-    manager && node && manager.remove(node);
-    if (onClose) {
+    const index = (manager && node && manager.remove(node)) || -1;
+    if (index > -1 && onClose) {
       onClose();
     }
   }
@@ -72,11 +75,9 @@
     if (e.target !== e.currentTarget) {
       return;
     }
-
     if (onBackdropClick) {
       onBackdropClick(e);
     }
-
     if (!disableBackdropClick && onClose) {
       onClose(e, "backdrop-click");
     }
@@ -115,19 +116,13 @@
     onExiting && onExiting();
   }
   function handleExited() {
-    exited = false;
     closeAfterTransition && handleClose();
     onExited && onExited();
+    exited = true;
   }
 
   onMount(async () => {
-    exited = false;
     if (!container) container = ownerDocument(node).body;
-    if (!manager) {
-      try {
-        manager = new ModalManager();
-      } catch (e) {}
-    }
     onEnter && onEnter();
   });
 
@@ -142,7 +137,7 @@
       handleClose();
     }
   }
-  $: classes = clsx(className, "dbx-modal", !open && "-open");
+  $: classes = clsx(className, "dbx-modal", open && "-open");
 
   $: {
     BackdropComponent = hideBackdrop ? undefined : backdropComponent;
@@ -168,7 +163,7 @@
         {disableAutoFocus}
         {disableEnforceFocus}
         {disableRestoreFocus}
-        enable={isTopModal}
+        enable={isTopModal()}
         {open}
         getDoc={() => ownerDocument(node)}>
         <slot />

@@ -1,0 +1,70 @@
+@use "styles/functions" as *;
+@use "styles/mixins/index" as mix;
+@use "styles/theme";
+
+.dbx-icon {
+  --icon-rotate: 0;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  font-size: px-to-rem(24);
+  color: inherit;
+  user-select: none;
+
+  &.-type-svg {
+    display: inline-block;
+    fill: currentColor;
+    transition: theme.get-transition(fill, shorter);
+  }
+
+  &.-type-font {
+    overflow: hidden;
+  }
+
+  &.-spin {
+    animation: infinite dbx-icon-spin linear 1s;
+  }
+  &.-size-large {
+    font-size: 2.25rem;
+  }
+
+  &.-size-small {
+    font-size: 1.25rem;
+  }
+
+  &.-size-inherit {
+    font-size: inherit;
+  }
+
+  &.-color-primary {
+    color: get-value(theme.$primary, main);
+  }
+
+  &.-color-secondary {
+    color: get-value(theme.$secondary, main);
+  }
+
+  > i {
+    fill: currentColor;
+  }
+
+  @include mix.build-theme() using($theme, $key) {
+    &.-disabled {
+      color: get-value($theme, (action, disabled));
+    }
+
+    &.-active {
+      color: get-value($theme, (action, active));
+    }
+  }
+}
+
+@keyframes dbx-icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

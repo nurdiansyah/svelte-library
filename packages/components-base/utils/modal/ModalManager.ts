@@ -174,7 +174,6 @@ export class ModalManager {
     if (modalIndex !== -1) {
       return modalIndex;
     }
-
     modalIndex = this.modals.length;
     this.modals.push(modal);
 

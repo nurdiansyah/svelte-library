@@ -1,24 +1,23 @@
 <script lang="ts">
-  import clsx from "clsx";
+  import type { AvatarProps } from "./types";
+
+  import { clsx } from "../utils";
   import { onMount } from "svelte";
   import Person from "@deboxsoft/svelte-icons/Person.svelte";
 
-  let className: string | null = null,
-    classes: string,
-    hasImgNotFailing: boolean = false,
-    loaded: "loaded" | "error" | null = null,
-    active: boolean = false,
-    hasImg: boolean,
-    _tmp;
+  let { class: className } = $$props;
+  let classes: string | undefined;
+  let hasImgNotFailing: boolean = false;
+  let loaded: "loaded" | "error" | undefined = undefined;
+  let active: boolean = false;
+  let hasImg: boolean;
+  let _tmp: any;
 
-  export { className as class };
-  export let alt: string | null = null;
-  export let variant: "circle" | "rounded" | "square" = "circle";
-  export let imgProps: Object = {};
-  export let sizes: string | null = null;
-  export let src: string | null = null;
-  export let srcSet: string | null = null;
-
+  export let alt: AvatarProps["alt"] = undefined;
+  export let variant: AvatarProps["variant"] = "circle";
+  export let src: AvatarProps["src"] = undefined;
+  export let srcSet: AvatarProps["srcSet"] = undefined;
+  export let imgProps: AvatarProps["imgProps"] = {};
   onMount(() => {
     active = true;
   });
@@ -26,8 +25,8 @@
   const loadingImage = () => {
     let active = true;
     const image = new Image();
-    image.src = src;
-    image.srcset = srcSet;
+    src && (image.src = src);
+    srcSet && (image.srcset = srcSet);
     image.onload = () => {
       if (active) {
         _tmp = { src, srcSet };
@@ -43,24 +42,27 @@
   };
 
   $: {
-    hasImg = src || srcSet;
+    hasImg = src || srcSet ? true : false;
     if (hasImg) {
       if (_tmp.src !== src || _tmp.srcSet === srcSet) {
-        loaded = false;
+        loaded = undefined;
       }
       if (!loaded) {
-        loaded = loadingImage();
+        loadingImage();
       }
     }
     hasImgNotFailing = hasImg && loaded !== "error";
-    classes = clsx(className, "dbx-avatar", !hasImgNotFailing && "-color-default", variant && `-${variant}`);
+    classes = clsx(className, "dbx-avatar", !hasImgNotFailing && `-color-default`, variant && `-${variant}`);
   }
 </script>
 
 <div {...$$restProps} class={classes}>
-  {#if $$slots.default}
-    <slot />
+  {#if hasImgNotFailing}
+    <img {...imgProps} {src} {srcSet} {alt} />
+  {:else if !loaded}
+    <Person />
   {/if}
+  <slot />
 </div>
 
 <style src="./styles/avatar.scss" global>

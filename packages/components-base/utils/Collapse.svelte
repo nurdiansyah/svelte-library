@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { clsx } from "../utils";
+  import { clsx } from "./clsx";
 
   import { createEventDispatcher } from "svelte";
   import { slide } from "svelte/transition";

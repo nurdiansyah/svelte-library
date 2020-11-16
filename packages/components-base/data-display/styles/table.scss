@@ -1,0 +1,30 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins" as mix;
+
+.dbx-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  > caption {
+    @include mix.makeStyleTypo(body2);
+    padding: theme.get-spacer(2);
+    text-align: left;
+    caption-side: bottom;
+  }
+
+  &.-header-sticky {
+    border-collapse: separate;
+  }
+
+  .table-body {
+    display: table-row-group;
+  }
+
+  @include mix.build-theme() using($theme, $key) {
+    $_text-secondary: get-value($theme, (text, secondary));
+    color: $_text-secondary;
+  }
+}

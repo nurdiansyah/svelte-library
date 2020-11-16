@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List render 1`] = `
+<body>
+  <div>
+    <div
+      class="dbx-list -padding"
+      data-testid="list"
+      role="menu"
+    >
+
+    </div>
+  </div>
+</body>
+`;

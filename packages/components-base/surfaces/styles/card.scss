@@ -1,0 +1,39 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+.dbx-card {
+  overflow: hidden;
+}
+
+.action-action-area {
+  display: block;
+  width: 100%;
+  text-align: inherit;
+
+  &.-focus-highlight {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background-color: currentColor;
+    border-radius: inherit;
+    opacity: 0;
+    transition: theme.get-transition(opacity, short);
+
+    &.-focus-visible {
+      opacity: 0.12;
+    }
+  }
+
+  @include mix.build-theme using($theme, $name) {
+    &:hover {
+      &.-focus-highlight {
+        opacity: get-value($theme, (action, hover-opacity));
+      }
+    }
+  }
+}

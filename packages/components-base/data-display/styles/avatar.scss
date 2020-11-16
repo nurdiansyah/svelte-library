@@ -1,7 +1,7 @@
-@use "../../scss/functions" as *;
-@use "../../scss/theme";
-@use "../../scss/colors";
-@use "../../scss/mixins/index" as mix;
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/colors";
+@use "styles/mixins" as mix;
 
 .dbx-avatar {
   position: relative;
@@ -12,7 +12,7 @@
   width: 40px;
   height: 40px;
   overflow: hidden;
-  font-size: pxToRem(20);
+  font-size: px-to-rem(20);
   line-height: 1;
   user-select: none;
   border-radius: 50%;

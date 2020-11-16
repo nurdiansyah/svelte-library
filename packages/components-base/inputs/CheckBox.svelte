@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   /**
    * CheckBox Element
    * @component CheckBox

@@ -1,0 +1,74 @@
+@use "styles/functions" as *;
+@use "styles/colors";
+@use "styles/theme";
+@use "styles/mixins" as mix;
+
+.app-bar {
+  z-index: get-value(theme.$z-index, app-bar);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 100%;
+
+  &.-position-fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: auto;
+
+    @media print {
+      position: absolute;
+    }
+  }
+
+  &.-position-absolute {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+  }
+
+  &.-position-sticky {
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: auto;
+  }
+
+  &.-position-static {
+    position: static;
+    transform: translateZ(0);
+  }
+
+  &.-position-relative {
+    position: relative;
+  }
+
+  @include mix.build-theme using($theme, $name) {
+    $_color: value-if($name == "light", colors.$gray-100, colors.$gray-900);
+    .button-base.-icon,
+    .button-base.-button {
+      color: inherit;
+    }
+    &.-color-default {
+      color: colors.color-contrast($_color);
+      background-color: $_color;
+    }
+
+    &.-color-inherit {
+      color: inherit;
+    }
+
+    &.-color-transparent {
+      color: inherit;
+      background-color: transparent;
+    }
+
+    @include mix.build-colors() using($color) {
+      $_color: get-value($color, main);
+      color: colors.color-contrast($_color);
+      background-color: $_color;
+    }
+  }
+}

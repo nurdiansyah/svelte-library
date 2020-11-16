@@ -1,6 +1,6 @@
 {
   "name": "@deboxsoft/svelte-components-base",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Component base UI for svelte.",
   "license": "SEE LICENSE IN ../../LICENSE.md",
   "main": "./libs/index.js",
@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/nanoid": "^2.1.0",
-    "@types/yup": "^0.29.8"
+    "@types/yup": "^0.29.8",
+    "meow": "^7.1.1"
   }
 }

@@ -1,0 +1,97 @@
+@use "styles/functions" as *;
+@use "styles/theme";
+@use "styles/mixins" as mix;
+
+.dbx-drawer {
+  position: fixed;
+  top: 0;
+  z-index: get-value(theme.$z-index, drawer);
+  width: get-value(theme.$drawer, width);
+  &.-docked {
+    flex: 0 0 auto;
+
+    &.-minimized {
+      width: get-value(theme.$drawer, (minimized, width));
+    }
+  }
+
+  .dbx-paper {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+    // We disable the focus ring for mouse, touch and keyboard users.
+    // At some point, it would be better to keep it for keyboard users.
+    // :focus-ring CSS pseudo-class will help.
+    outline: 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  &.-anchor-left {
+    .dbx-paper {
+      right: auto;
+      left: 0;
+    }
+  }
+
+  &.-anchor-right {
+    .dbx-paper {
+      right: 0;
+      left: auto;
+    }
+  }
+
+  &.-anchor-top {
+    .dbx-paper {
+      top: 0;
+      right: 0;
+      bottom: auto;
+      left: 0;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  &.-anchor-bottom {
+    .dbx-paper {
+      top: auto;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+
+  @include mix.build-theme() using($theme, $key) {
+    &.-docked {
+      &.-anchor-left {
+        .dbx-paper {
+          border-right: 1px solid get-value($theme, divider);
+        }
+      }
+    }
+    &.-docked {
+      &.-anchor-top {
+        .dbx-paper {
+          border-bottom: 1px solid get-value($theme, divider);
+        }
+      }
+    }
+    &.-docked {
+      &.-anchor-right {
+        .dbx-paper {
+          border-left: 1px solid get-value($theme, divider);
+        }
+      }
+    }
+    &.-docked {
+      &.-anchor-bottom {
+        .dbx-paper {
+          border-top: 1px solid get-value($theme, divider);
+        }
+      }
+    }
+  }
+}

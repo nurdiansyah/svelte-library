@@ -1,0 +1,16 @@
+@forward "styles/variables";
+$z-index: (
+  mobile-stepper: 1000,
+  speed-dial: 1050,
+  app-bar: 1200,
+  drawer: 1100,
+  modal: 1300,
+  snackbar: 1400,
+  tooltip: 1500
+) !default;
+
+$secondary: (
+  light: #5b5b5b,
+  main: orange,
+  dark: #232323
+) !default;

@@ -1,0 +1,127 @@
+@use "variables" as *;
+
+// submenu link paddings and indentions
+// item
+$item-link-padding: get-value($aside-menu-config, (default, item, link, self, padding));
+$item-section-padding: get-value($aside-menu-config, (default, section, self, padding));
+
+// item submenu
+$item-submenu-padding-left: get-value($aside-menu-config, (default, item, submenu, item, link, self, padding-x));
+
+$item-submenu-indent: get-value($aside-menu-config, (default, item, submenu, self, indent));
+$item-submenu-link-padding: get-value($aside-menu-config, (default, item, submenu, item, link, self, padding));
+
+$item-submenu-section-indent: get-value($aside-menu-config, (default, item, submenu, section, self, indent));
+$item-submenu-section-padding: get-value($aside-menu-config, (default, item, submenu, section, padding));
+
+.menu-nav {
+  width: 100%;
+  padding: get-value($aside-config, (base, padding), 15px 0);
+  margin: 0;
+
+  &.-minimized {
+    > .menu-item {
+      > .link {
+        > .icon {
+          width: 100%;
+        }
+
+        > .text {
+          display: none;
+        }
+
+        > .arrow {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.menu-item {
+  margin: get-value($aside-menu-config, (default, item, self, margin));
+  list-style: none;
+  > .link {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    align-items: stretch;
+    align-items: center;
+    min-height: get-value($aside-menu-config, (default, item, link, self, height));
+    padding: $item-link-padding;
+    margin: get-value($aside-menu-config, (default, item, link, selft, margin));
+    color: get-value($aside-menu-config, (default, item, link, self, font-color, default));
+    text-decoration: none;
+    cursor: pointer;
+    background-color: get-value($aside-menu-config, (default, item, link, self, bg-color, default));
+    border-radius: get-value($aside-menu-config, (default, item, link, self, border-radius));
+
+    > .icon {
+      width: get-value($aside-menu-config, (default, item, link, icon, width));
+      font-size: get-value($aside-menu-config, (default, item, link, icon, font-size));
+      color: get-value($aside-menu-config, (default, item, link, icon, font-color, default));
+    }
+    > .text {
+      flex-grow: 1;
+      align-items: center;
+      font-size: get-value($aside-menu-config, (default, item, link, text, font-size));
+      font-weight: get-value($aside-menu-config, (default, item, link, text, font-weight));
+      color: get-value($aside-menu-config, (default, item, link, text, font-color, default));
+      transform: get-value($aside-menu-config, (default, item, link, text, font-transform));
+    }
+    > .label {
+      padding: get-value($aside-menu-config, (default, item, link, label, padding));
+      size: get-value($aside-menu-config, (default, item, link, label, size));
+    }
+
+    > .arrow {
+      display: flex;
+      flex: 0 0 20px;
+      align-items: center;
+      justify-content: flex-end;
+      width: get-value($aside-menu-config, (default, item, link, arrow, width));
+      color: get-value($aside-menu-config, (default, item, link, arrow, font-color, default));
+      i {
+        display: flex;
+        font-size: get-value($aside-menu-config, (default, item, link, arrow, font-size));
+        line-height: 0;
+        &::before {
+          transition: get-value($aside-menu-config, (default, item, link, arrow, transition));
+        }
+      }
+    }
+
+    &[active],
+    &:active,
+    &:focus,
+    &:hover {
+      color: get-value($aside-menu-config, (default, item, link, self, font-color, hover));
+      background-color: get-value($aside-menu-config, (default, item, link, self, bg-color, hover));
+      > .icon {
+        color: get-value($aside-menu-config, (default, item, link, icon, font-color, hover));
+      }
+      > .text {
+        color: get-value($aside-menu-config, (default, item, link, text, font-color, hover));
+      }
+    }
+  }
+
+  &.-open {
+    > .link > .arrow {
+      color: get-value($aside-menu-config, (default, item, link, arrow, font-color, hover));
+      i::before {
+        transform: rotateZ(90deg);
+      }
+    }
+  }
+
+  .submenu-nav {
+    padding: 0;
+    > .menu-item {
+      > .link {
+        padding: $item-submenu-link-padding;
+        padding-left: $item-submenu-padding-left + (2 * $item-submenu-section-indent);
+      }
+    }
+  }
+}

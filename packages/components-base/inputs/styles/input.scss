@@ -1,0 +1,488 @@
+@use "styles/functions" as *;
+@use "styles/mixins/index" as mix;
+@use "styles/theme";
+@use "styles/colors";
+
+@keyframes dbx-auto-fill {
+}
+
+@keyframes dbx-auto-fill-cancel {
+}
+
+.dbx-input {
+  @include mix.makeStyleTypo(body1);
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.1876em;
+  cursor: text;
+
+  > .input {
+    box-sizing: content-box;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 1.4375em;
+    padding: 4px 0 5px;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    letter-spacing: inherit;
+    background: none;
+    border: 0;
+    animation-name: dbx-auto-fill-cancel;
+    animation-duration: 10ms;
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  > .adornment {
+    display: flex;
+    align-items: center;
+    height: 0.01em;
+    max-height: 2em;
+    white-space: nowrap;
+  }
+
+  &.-adorned-start {
+    > .adornment {
+      margin-right: 8px;
+    }
+  }
+
+  &.-adorned-end {
+    > .adornment {
+      margin-left: 8px;
+    }
+  }
+
+  &::placeholder {
+    color: currentColor;
+    transition: theme.get-transition(opacity, shorter);
+  }
+
+  &:invalid {
+    box-shadow: none;
+  }
+
+  &::-webkit-search-decoration {
+    appearance: none;
+  }
+
+  &:-webkit-autofill {
+    animation-name: dbx-auto-fill;
+    animation-duration: 5000s;
+  }
+
+  &.-search {
+    > .input {
+      -moz-appearance: textfield;
+      -webkit-appearance: textfield;
+    }
+  }
+
+  &.-plaintext > .input {
+    padding: 0;
+    margin-bottom: 0; // match inputs if this class comes on inputs with default margins
+    background-color: transparent;
+    border: 0 solid transparent;
+  }
+
+  &.-full-width {
+    width: 100%;
+  }
+
+  &.-multiline {
+    padding: 4px 0 5px;
+
+    > .input {
+      height: auto;
+      padding: 0;
+      resize: none;
+    }
+
+    &.-margin-dense {
+      padding-top: 3px;
+    }
+  }
+
+  &.-margin-dense {
+    > .input {
+      padding-top: 1px;
+    }
+  }
+
+  &.-disabled {
+    cursor: default;
+
+    > .input {
+      opacity: 1;
+    }
+  }
+
+  &.-underline {
+    &::before,
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+      content: "";
+    }
+
+    &::before {
+      transition: theme.get-transition(border-bottom-color, shorter);
+
+      &.-disabled {
+        border-bottom-style: dotted;
+      }
+    }
+
+    &::after {
+      transition: transform get-value(theme.$transitions, (duration, shorter))
+        get-value(theme.$transitions, (easing, ease-out));
+      transform: scaleX(0);
+    }
+
+    &.-error {
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    &.-focused {
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &.-filled {
+    border-top-left-radius: get-value(theme.$shape, border-radius);
+    border-top-right-radius: get-value(theme.$shape, border-radius);
+    transition: background-color get-value(theme.$transitions, (duration, shorter))
+      get-value(theme.$transitions, (easing, ease-out));
+
+    > .input {
+      padding: 27px 12px 10px;
+
+      &:-webkit-autofill {
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+      }
+    }
+
+    &.-multiline {
+      padding: 27px 12px 10px;
+
+      > .input {
+        padding: 0;
+      }
+
+      &.-margin-dense {
+        padding-top: 23px;
+        padding-bottom: 6px;
+      }
+    }
+
+    &.-margin-dense {
+      > .input {
+        padding-top: 23px;
+        padding-bottom: 6px;
+      }
+    }
+
+    &.-hidden-label {
+      > .input {
+        padding-top: 18px;
+        padding-bottom: 19px;
+      }
+
+      &.-margin-dense {
+        > .input {
+          padding-top: 10px;
+          padding-bottom: 11px;
+        }
+      }
+    }
+
+    &.-margin-dense {
+      > .input {
+        padding-top: 21px;
+        padding-bottom: 4px;
+      }
+    }
+
+    &.-adorned-start {
+      > .adornment {
+        padding-left: 12px;
+      }
+
+      > .input {
+        padding-left: 0;
+      }
+    }
+
+    &.-adorned-end {
+      > .adornment {
+        padding-right: 12px;
+      }
+
+      > .input {
+        padding-right: 0;
+      }
+    }
+  }
+
+  // outlined
+  &.-outlined {
+    border-radius: get-value(theme.$shape, border-radius);
+
+    &.-focused {
+      > .notched-outline {
+        border-width: 2px;
+      }
+    }
+
+    &.-adorned-start {
+      > .adornment {
+        padding-left: 14px;
+      }
+
+      > .input {
+        padding-left: 0;
+      }
+    }
+
+    &.-adorned-end {
+      > .adornment {
+        padding-right: 14px;
+      }
+
+      > .input {
+        padding-right: 0;
+      }
+    }
+
+    &.-multiline {
+      padding: 18.5px 14px;
+
+      > .input {
+        padding: 0;
+      }
+    }
+
+    &.-margin-dense {
+      > .input {
+        padding-top: 10.5px;
+        padding-bottom: 10.5px;
+      }
+    }
+  }
+
+  // select
+  &.-select {
+    > select.input {
+      height: 1.1876em;
+    }
+    > .input {
+      min-width: 16px;
+      padding-right: 24px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 0;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+
+      &:focus {
+        border-radius: 0;
+      }
+
+      &::-ms-expand {
+        display: none;
+      }
+
+      &.-disabled {
+        cursor: default;
+      }
+
+      &[multiple] {
+        height: auto;
+      }
+    }
+
+    > .icon {
+      position: absolute;
+      top: calc(50% - 12px);
+      right: 0;
+      pointer-events: none;
+    }
+
+    &.-filled {
+      border-radius: get-value(theme.$shape, border-radius);
+      > .input {
+        padding-right: 32px;
+      }
+      > .icon {
+        right: 7px;
+      }
+    }
+
+    &.-outlined {
+      > .input {
+        padding-right: 32px;
+      }
+      > .icon {
+        right: 7px;
+      }
+    }
+
+    &.-open {
+      > .icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  $_primary-color-main: get-value(theme.$primary, main);
+  $_secondary-color-main: get-value(theme.$secondary, main);
+  $_error-color-main: get-value(theme.$error, main);
+  @include mix.build-theme() using($theme, $key) {
+    &::placeholder {
+      opacity: value-if($key == "light", 0.42, 0.5);
+    }
+    &.-underline {
+      $_bottom-line-color: get-value($theme, (form, underline, bottom-line));
+
+      &::before {
+        border-bottom: 1px solid $_bottom-line-color;
+
+        &:hover:not(.-disabled) {
+          border-bottom: 2px solid get-value($theme, (form, underline, bottom-line-hover));
+
+          @media (hover: none) {
+            border-bottom: 1px solid $_bottom-line-color;
+          }
+        }
+      }
+
+      &::after {
+        border-bottom: 2px solid get-value(theme.$primary, main);
+
+        &.-color-secondary {
+          border-bottom-color: get-value(theme.$secondary, main);
+        }
+
+        &.-error {
+          border-bottom-color: get-value(theme.$error, main);
+        }
+      }
+    }
+
+    &.-filled {
+      $_background-color: get-value($theme, (form, filled, background));
+      background-color: $_background-color;
+
+      &:hover {
+        background-color: get-value($theme, (form, filled, background-hover));
+        @media (hover: none) {
+          background-color: $_background-color;
+        }
+      }
+
+      &.-focused {
+        background-color: get-value($theme, (form, filled, background-focus));
+      }
+
+      &.-disabled {
+        background-color: $_background-color;
+      }
+    }
+
+    &.-outlined {
+      $_border-color: value-if($key == "light", rgba(0, 0, 0, 0.23), rgba(255, 255, 255, 0.23));
+
+      > .notched-outline {
+        border-color: $_border-color;
+      }
+
+      > .input {
+        padding: 18.5px 14px;
+
+        &:-webkit-autofill {
+          border-radius: inherit;
+          -webkit-box-shadow: value-if($key == "dark", 0 0 0 100px #266798 inset);
+          -webkit-text-fill-color: value-if($key == "dark", #fff);
+        }
+      }
+
+      &.-focused {
+        > .notched-outline {
+          border-width: 2px;
+        }
+      }
+
+      &:hover {
+        > .notched-outline {
+          border-color: get-value($theme, (text, primary));
+
+          @media (hover: none) {
+            border-color: $_border-color;
+          }
+        }
+      }
+
+      &.-focused {
+        > .notched-outline {
+          border-color: $_primary-color-main;
+        }
+      }
+
+      &.-error {
+        > .notched-outline {
+          border-color: $_error-color-main;
+        }
+      }
+
+      &.-disabled {
+        > .notched-outline {
+          border-color: get-value($theme, (action, disabled));
+        }
+      }
+
+      &.-color-secondary {
+        &.-focused {
+          > .notched-outline {
+            border-color: $_secondary-color-main;
+          }
+        }
+      }
+    }
+
+    &.-select {
+      > .input {
+        &:focus {
+          background-color: value-if($key == "light", rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+        }
+
+        &:not([multiple]) > option,
+        &:not([multiple]) > optgroup {
+          background-color: get-value($theme, (background, paper));
+        }
+      }
+
+      > .icon {
+        color: get-value($theme, (action, active));
+
+        &.-disabled {
+          color: get-value($theme, (action, disabled));
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+@use "variables" as *;
+
+#app-page {
+  display: flex;
+  flex-direction: row;
+}
+
+.app-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100vh;
+
+  > .content {
+    flex: 1 0 auto;
+    transition: $transition;
+  }
+
+  @include media-breakpoint-up() {
+    .page-aside & {
+      > .content {
+        padding-left: get-value($aside-config, (base, width));
+      }
+      &.-min-aside-left {
+        > .content {
+          padding-left: get-value($aside-config, (base, minimized-width));
+        }
+      }
+    }
+  }
+}
+
+.brand-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: rfs-value(1.5rem);
+
+  > .logo {
+    display: flex;
+    justify-content: flex-start;
+
+    a {
+      @include font-size(1.5rem);
+      font-weight: bold;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
+
+.page-content {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+
+  .content-nav {
+    height: get-value($header-config, (subnav, self, height));
+    padding: rfs-fluid-value($spacer);
+    border-top: 1px solid get-value($header-config, (subnav, self, border-color));
+    box-shadow: get-value($header-config, (subnav, self, shadow));
+  }
+
+  .content-main {
+    flex: 1 0 auto;
+    padding: rfs-fluid-value($spacer);
+  }
+}
+
+.app-footer {
+  display: flex;
+  flex: 0 0;
+  background-color: get-value($footer-config, (self, bg-color));
+
+  > .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: rfs-fluid-value(1rem);
+
+    > .copyright {
+      font-size: $font-size-sm;
+      color: #586069;
+    }
+  }
+
+  @include media-breakpoint-up() {
+    padding-left: get-value($aside-config, (base, width));
+    transition: $transition;
+    &.-min-aside-left {
+      padding-left: get-value($aside-config, (base, minimized-width));
+    }
+  }
+
+  &.-fixed {
+    position: fixed;
+    z-index: get-value($footer-config, (fixed, z-index));
+    height: get-value($footer-config, (fixed, height));
+    box-shadow: get-value($footer-config, (fixed, shadow));
+  }
+}

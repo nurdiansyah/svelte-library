@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   type Vertical = "top" | "center" | "bottom" | number;
   type Horizontal = "left" | "center" | "right" | number;
-  type Position = { vertical: Vertical; horizontal: Horizontal };
+  type TransformPosition = { vertical: Vertical; horizontal: Horizontal };
   type AnchorPosition = { top: number; left: number };
   type PositionStyle = { top?: string; left?: string; transformOrigin?: string };
   type AnchorReference = "anchorEl" | "anchorPosition" | "none";
@@ -34,7 +34,7 @@
     return offset;
   }
 
-  export function getTransformOriginValue(transform: Position) {
+  export function getTransformOriginValue(transform: TransformPosition) {
     return [transform.horizontal, transform.vertical].map((n) => (typeof n === "number" ? `${n}px` : n)).join(" ");
   }
 
@@ -49,7 +49,7 @@
     return scrollTop;
   }
 
-  function getAnchorEl(anchorEl: AnchorElement) {
+  function getAnchorEl(anchorEl?: AnchorElement) {
     return typeof anchorEl === "function" ? anchorEl() : anchorEl;
   }
 </script>
@@ -70,8 +70,8 @@
   let paperNode: HTMLElement | undefined;
 
   // props
-  export let anchorEl: AnchorElement = undefined;
-  export let anchorOrigin: Position = { vertical: "top", horizontal: "left" };
+  export let anchorEl: AnchorElement | undefined = undefined;
+  export let anchorOrigin: TransformPosition = { vertical: "top", horizontal: "left" };
   export let anchorPosition: AnchorPosition | undefined = undefined;
   export let anchorReference: AnchorReference = "anchorEl";
   export let container: HTMLElement | undefined = undefined;
@@ -87,7 +87,7 @@
   export let onClose: ((e?: Event) => void) | undefined = undefined;
   export let open: boolean;
   export let paperProps: Record<string, any> = {};
-  export let transformOrigin: Position = { vertical: "top", horizontal: "left" };
+  export let transformOrigin: TransformPosition = { vertical: "top", horizontal: "left" };
 
   // Return posisi top atau left offset.
   // mengaitkan ke element (atau ke body apapbila anchor element tidak tersedia)

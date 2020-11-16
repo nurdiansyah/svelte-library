@@ -1,7 +1,22 @@
+interface RippleOptions {
+  focusRippleEnable: boolean;
+  color: string;
+  opacity: number;
+  class?: string;
+  centered: boolean;
+  spreadingDuration: string;
+  spreadingDelay: string;
+  spreadingTimingFunction: string;
+  clearingDuration: string;
+  clearingDelay: string;
+  clearingTimingFunction: string;
+}
+
 /**
  * Options for customizing ripples
  */
-const defaults = {
+const defaults: RippleOptions = {
+  focusRippleEnable: true,
   color: "currentColor",
   class: "",
   opacity: 0.1,
@@ -18,10 +33,11 @@ const defaults = {
  * Creates a ripple element but does not destroy it (use RippleStop for that)
  *
  * @param {Event} e
- * @param {*} options
+ * @param {Object} options
+ * @param {boolean} options.focusRippleEnable
  * @returns Ripple element
  */
-export function RippleStart(e, options = {}) {
+export function RippleStart(e, options: Partial<RippleOptions> = {}) {
   e.stopImmediatePropagation();
   const opts = { ...defaults, ...options };
 
@@ -82,8 +98,10 @@ export function RippleStop(ripple) {
 
 /**
  * @param node {Element}
+ * @param _options {Object}
+ * @param _options.focusRippleEnable {boolean}
  */
-export const ripple = (node, _options = {}) => {
+export const ripple = (node, _options: Partial<RippleOptions> = {}) => {
   let options = _options;
   let destroyed = false;
   let ripple;
@@ -93,7 +111,7 @@ export const ripple = (node, _options = {}) => {
   };
   const handleStop = () => RippleStop(ripple);
   const handleKeyboardStart = (e) => {
-    if (!keyboardActive && (e.keyCode === 13 || e.keyCode === 32)) {
+    if (!keyboardActive && (e.code === "Enter" || e.code === "Space")) {
       ripple = RippleStart(e, { ...options, centered: true });
       keyboardActive = true;
     }
@@ -123,13 +141,13 @@ export const ripple = (node, _options = {}) => {
     destroyed = true;
   }
 
-  if (options) setup();
+  if (options.focusRippleEnable) setup();
 
   return {
     update(newOptions) {
       options = newOptions;
-      if (options && destroyed) setup();
-      else if (!(options || destroyed)) destroy();
+      if (options.focusRippleEnable && destroyed) setup();
+      else if (!(options.focusRippleEnable || destroyed)) destroy();
     },
     destroy
   };

@@ -1,0 +1,217 @@
+@use "styles/functions" as *;
+@use "styles/colors";
+@use "styles/theme";
+@use "styles/mixins/index" as mix;
+
+.dbx-chip {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0;
+  font-size: px-to-rem(13);
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: default;
+  border: 0;
+  border-radius: 16px;
+  outline: 0;
+  transition: theme.get-transition((background-color, box-shadow));
+
+  > .label {
+    padding-right: 12px;
+    padding-left: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  & .dbx-avatar {
+    width: 24px;
+    height: 24px;
+    margin-right: -6px;
+    margin-left: 5px;
+    font-size: px-to-rem(12);
+  }
+
+  &.-size-small {
+    height: 24px;
+
+    > .label {
+      padding-right: 8px;
+      padding-left: 8px;
+    }
+
+    .delete-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      margin-left: -4px;
+    }
+
+    .dbx-avatar {
+      width: 18px;
+      height: 18px;
+      margin-right: -4px;
+      margin-left: 4px;
+      font-size: px-to-rem(10);
+    }
+  }
+
+  &.-clickable {
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &.-active {
+      @include mix.box-shadow(1);
+    }
+  }
+
+  &.-deleteable {
+  }
+
+  &.-outlined {
+    background-color: transparent;
+    border: 1px solid transparent;
+
+    .dbx-avatar,
+    .dbx-icon {
+      margin-left: 4px;
+    }
+
+    &.-size-small {
+      .dbx-avatar,
+      .dbx-icon {
+        margin-left: 2px;
+      }
+    }
+
+    .delete-icon {
+      margin-right: 5px;
+    }
+
+    &.-size-small {
+      .delete-icon {
+        margin-right: 3px;
+      }
+    }
+
+    &.-color-primary {
+    }
+
+    &.-color-secondary {
+    }
+  }
+
+  // stylelint-disable rscss/class-format
+  @mixin _create-color($color) {
+    $_main-color: get-value($color, main);
+    $_contras-color: colors.color-contrast($_main-color);
+    color: $_contras-color;
+
+    background-color: $_main-color;
+
+    &.-clickable {
+      &:hover,
+      &:focus {
+        background-color: colors.emphasize($_main-color, 8%);
+      }
+    }
+
+    &.-deleteable {
+      &:focus {
+        background-color: colors.emphasize($_main-color, 20%);
+      }
+    }
+
+    &.-outlined {
+      color: $_main-color;
+      border-color: $_main-color;
+
+      .delete-icon {
+        color: fade-in($_main-color, 0.7);
+
+        &:hover,
+        &:active {
+          color: $_main-color;
+        }
+      }
+    }
+
+    .delete-icon {
+      color: fade-in($_contras-color, 0.7);
+
+      &:hover,
+      &:active {
+        color: $_contras-color;
+      }
+    }
+
+    .dbx-avatar {
+      color: colors.color-contrast(get-value($color, main));
+      background-color: get-value($color, dark);
+    }
+
+    .dbx-icon {
+      color: inherit;
+    }
+
+    @include mix.build-theme using($theme, $name) {
+      &.-outlined {
+        &.-clickable:hover,
+        &.-clickable:focus,
+        &.-deleteable:focus {
+          background-color: fade-in($_main-color, get-value($theme, (action, hover-opacity)));
+        }
+      }
+    }
+  }
+  // stylelint-enable
+
+  &.-color-primary {
+    @include _create-color(theme.$primary);
+  }
+
+  &.-color-secondary {
+    @include _create-color(theme.$secondary);
+  }
+
+  @include mix.build-theme using($theme, $name) {
+    $_background-color: if($name == "light", colors.$gray-300, colors.$gray-700);
+    $_delete-icon-color: fade-in(get-value($theme, (text, primary)), 0.4);
+
+    & .dbx-avatar {
+      color: if($name == "light", colors.$gray-700, colors.$gray-300);
+    }
+
+    &.-clickable {
+      &:hover,
+      &:focus {
+        background-color: colors.emphasize($_background-color, 8%);
+      }
+    }
+
+    &.-deleteable {
+      &:focus {
+        background-color: colors.emphasize($_background-color, 8%);
+      }
+    }
+
+    &.-outlined {
+      border-color: if($name == "light", rgba(0, 0, 0, 0.23), rgba(255, 255, 255, 0.23));
+      &.-clickable:hover,
+      &.-clickable:focus,
+      &.-deleteable:focus {
+        background-color: fade-in(get-value($theme, (text, primary)), 0.2);
+      }
+    }
+  }
+}

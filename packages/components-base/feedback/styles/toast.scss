@@ -1,0 +1,52 @@
+@use "styles/variables-default" as var;
+@use "styles/mixins" as mix;
+
+.c-toast {
+  position: fixed;
+  z-index: var.$zindex-notify;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  > .item {
+    @include mix.font-size(var.$toast-font-size);
+    @include mix.border-radius(var.$toast-border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: var.$toast-width;
+    padding: var.$toast-padding-y var.$toast-padding-x;
+    overflow: hidden;
+    background-clip: padding-box;
+    border: var.$toast-border-width solid transparent;
+    box-shadow: var.$toast-box-shadow;
+
+    > .content {
+      display: block;
+
+      > .message {
+        display: block;
+      }
+    }
+  }
+
+  &.-top-right {
+    top: 0;
+    right: 0;
+  }
+
+  &.-top-left {
+    top: 0;
+    left: 0;
+  }
+
+  &.-bottom-left {
+    bottom: 0;
+    left: 0;
+  }
+
+  &.-bottom-right {
+    right: 0;
+    bottom: 0;
+  }
+}

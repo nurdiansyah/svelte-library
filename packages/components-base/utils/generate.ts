@@ -5,6 +5,6 @@ interface Options {
   prefix?: string;
 }
 
-export const getId = ({ prefix = "dbx", size = 5 }: Options) => {
+export const getId = ({ prefix = "dbx", size = 5 }: Options = {}) => {
   return `${prefix}-${utils.generateId(size)}`;
 };

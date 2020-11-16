@@ -14,7 +14,7 @@
       if (!container) {
         container = document.body;
       }
-      container.appendChild(portal);
+      container.appendChild(portal.firstChild);
     }
   });
 </script>
