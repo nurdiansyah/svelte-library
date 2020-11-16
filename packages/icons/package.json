@@ -1,6 +1,6 @@
 {
   "name": "@deboxsoft/svelte-icons",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Icons for svelte.",
   "license": "SEE LICENSE IN ../../LICENSE.md",
   "main": "./index.js",
