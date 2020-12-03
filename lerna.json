@@ -1,15 +1,11 @@
 {
-  "packages": [
-    "packages/*"
-  ],
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
     "version": {
       "allowBranch": ["master", "feat/*", "bug/*", "tag/*", "sup/*", "rel/*"],
-      "exact": true,
-      "gitRemote": "upstream"
+      "exact": true
     }
   },
   "ignoreChanges": [

@@ -1,9 +1,6 @@
 {
-  "extends": "@deboxsoft/devel/tsconfig-base.json",
+  "extends": "@nurdiansyah/devel/tsconfig.svelte.json",
   "compilerOptions": {
-    "importsNotUsedAsValues": "error",
-    "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
     "composite": false,
     "noEmit": false,
     "sourceMap": false

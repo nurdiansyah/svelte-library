@@ -1,5 +1,4 @@
 import { mdsvex } from "mdsvex";
-import {} from "mdsvex/dist/mdsvex";
 import slug from "remark-slug";
 import { createRollupConfigs } from "../../configs/rollup-base-config";
 

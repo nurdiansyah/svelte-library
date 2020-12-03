@@ -2,8 +2,7 @@
   "bracketSpacing": true,
   "semi": true,
   "trailingComma": "none",
-  "svelteSortOrder": "scripts-markup-styles",
-  "printWidth": 120,
+  "printWidth": 100,
   "overrides": [
     {
       "files": [".js", ".jsx"],

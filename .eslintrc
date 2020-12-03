@@ -1,16 +1,16 @@
 {
-  "extends": [
-    "@deboxsoft/devel"
-  ],
+  "extends": ["@nurdiansyah/devel"],
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaVersion": 2019
   },
   "ignorePatterns": [
+    "coverage",
     "libs",
     "node_modules",
     "build",
-    "__sapper__",
-    "**/*.d.ts"
+    "dist",
+    "**/*.d.ts",
+    "**/*.svelte"
   ],
   "env": {
     "es6": true,

@@ -1,6 +1,6 @@
 {
   "name": "@deboxsoft/svelte-components-base",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "Component base UI for svelte.",
   "license": "SEE LICENSE IN ../../LICENSE.md",
   "main": "./libs/index.js",
@@ -30,8 +30,8 @@
     "sass": "sass --load-path ./"
   },
   "dependencies": {
-    "@deboxsoft/core-web": "^1.0.2",
-    "@deboxsoft/svelte-icons": "^0.0.2",
+    "@deboxsoft/module-core": "^1.1.2",
+    "@deboxsoft/svelte-icons": "^0.0.3",
     "@popperjs/core": "2.5.3",
     "nanoid": "^3.1.12",
     "tippy.js": "^6.2.7",
