@@ -9,15 +9,15 @@
   // state
   let { class: className } = $$props;
   let classes: string;
-  let notchedWidth;
+  let notchedWidth: number;
 
   $: classes = clsx(className, "notched-outline", label && "-labelled", notched && "-notched", `-align-${align}`);
   $: notchedWidth = notched && labelWidth > 0 ? labelWidth * 0.75 + 8 : 0.01;
 </script>
 
+<style src="./styles/notched-outline.scss" global>
+</style>
+
 <fieldset class={classes} aria-hidden="true" {...$$restProps}>
   <legend class="legend" style="width: {notchedWidth};"><span>{label || ' '}</span></legend>
 </fieldset>
-
-<style src="./styles/notched-outline.scss">
-</style>

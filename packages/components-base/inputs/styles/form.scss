@@ -2,137 +2,61 @@
 @use "styles/theme";
 @use "styles/mixins/index" as mix;
 
-.form-control {
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: 0;
-  margin: 16px 0 8px 0;
-  vertical-align: top;
-  border: 0;
+.dbx-form {
+  > .form-group {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 
-  // Show and hide the placeholder logic
-  > label[data-shrink="false"] + & > .dbx-input > input {
-    &::placeholder,
-    &:focus::placeholder {
-      opacity: 0 !important;
-    }
-  }
-
-  &.-dense {
-    margin-top: 8px;
-    margin-bottom: 4px;
-  }
-
-  &.-full-width {
-    width: 100%;
-  }
-
-  &.-no-margin {
-    margin: 0;
-  }
-
-  > .label + .dbx-input {
-    margin-top: 16px;
-  }
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-
-  &.-row {
-    flex-direction: row;
-  }
-}
-
-.form-label {
-  display: flex;
-  align-items: center;
-  margin-right: 16px;
-  margin-left: -11px;
-  vertical-align: middle; // correct align with text
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-
-  > .label {
-    margin: 0 0 16px;
-  }
-
-  &.-disabled {
-    cursor: default;
-  }
-
-  &.-label-placement {
-    &-start {
-      flex-direction: row-reverse;
-      margin-right: -11px;
-      margin-left: 16px;
-    }
-
-    &-top {
-      flex-direction: column-reverse;
-      margin-left: 16px;
-    }
-
-    &-bottom {
-      flex-direction: column;
-      margin-left: 16px;
-    }
-  }
-  @include mix.build-colors() using ($color) {
-    &.-focused {
-      color: get-value($color, main);
-    }
-  }
-
-  &.-error {
-    color: get-value(theme.$error, main);
-
-    > .asterisk {
-      color: get-value(theme.$error, main);
-    }
-  }
-}
-
-.helper-text {
-  $caption: get-value(theme.$typography, caption);
-  @each $prop, $value in $caption {
-    #{$prop}: $value;
-  }
-  margin: 3px 0 0;
-  text-align: left;
-
-  &.-margin-dense {
-    margin-top: 4px;
-  }
-
-  &.-contained {
-    margin-right: 14px;
-    margin-left: 14px;
-  }
-
-  &.-disabled {
-    color: get-value(theme.$error, main);
-  }
-}
-
-// Theme
-@include mix.build-theme(null) using($theme, $key) {
-  .form-label {
-    color: get-value($theme, (text, secondary));
-
-    &.-disabled {
-      color: get-value($theme, (text, disabled));
+    &.-row {
+      flex-direction: row;
     }
   }
 
   .helper-text {
-    color: get-value($theme, (text, secondary));
+    $caption: get-value(theme.$typography, caption);
+    @each $prop, $value in $caption {
+      #{$prop}: $value;
+    }
+    margin: 3px 0 0;
+    text-align: left;
+
+    &.-margin-dense {
+      margin-top: 4px;
+    }
+
+    &.-contained {
+      margin-right: 14px;
+      margin-left: 14px;
+    }
+
     &.-disabled {
-      color: get-value($theme, (text, disabled));
+      color: get-value(theme.$error, main);
+    }
+  }
+
+  // Theme
+  @include mix.build-theme(null) using($theme, $key) {
+    .form-label {
+      color: get-value($theme, (text, secondary));
+
+      &.-disabled {
+        color: get-value($theme, (text, disabled));
+      }
+
+      @include mix.build-colors() using($color) {
+        &.-focused {
+          color: get-value($color, main);
+        }
+      }
+    }
+
+    .helper-text {
+      color: get-value($theme, (text, secondary));
+
+      &.-disabled {
+        color: get-value($theme, (text, disabled));
+      }
     }
   }
 }

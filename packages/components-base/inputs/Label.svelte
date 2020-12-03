@@ -4,10 +4,11 @@
   import { clsx, getId } from "../utils";
 
   // state
-  let { class: className } = $$props;
-  let classes: string;
+  let className: string | undefined, classes: string;
 
   // props
+  export { className as class };
+  export let htmlFor: LabelProps["htmlFor"];
   export let color: LabelProps["color"] = "primary";
   export let disabled: LabelProps["disabled"] = false;
   export let error: LabelProps["error"] = false;
@@ -19,23 +20,29 @@
   // handler
 
   // reactive
-  $: classes = clsx(
-    className,
-    "form-label",
-    `-color-${color}`,
-    error && `-error`,
-    disabled && "-disabled",
-    required && "-required",
-    focused && "-focused",
-    placement !== "end" && `-label-placement-${labelPlacement}`
-  );
+  $: {
+    classes = clsx(
+      className,
+      "dbx-label",
+      `-color-${color}`,
+      error && `-error`,
+      disabled && "-disabled",
+      required && "-required",
+      focused && "-focused",
+      placement !== "end" && `-label-placement-${placement}`
+    );
+  }
 </script>
 
-<label {...$$restProps} class={classes}>
+<style src="./styles/label.scss" global>
+</style>
+
+<label {...$$restProps} for={htmlFor} class={classes}>
   <slot />
   {#if label || $$slots['label']}
     <span class="label">
       <slot name="label">{label}</slot>
     </span>
-  {:else if required}<span class="asterisk">&thinsp;{'*'}</span>{/if}
+  {/if}
+  {#if required}<span class="asterisk">&thinsp;{'*'}</span>{/if}
 </label>

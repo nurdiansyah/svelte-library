@@ -12,8 +12,8 @@ interface FormContext {
 
 const key = {};
 
-export const setContext = (options: Options) => {
+export const setContext = (options: Options = {}) => {
   const formStore = new FormStore(options);
-  return setContextSvelte<FormContext>(key, { formStore });
+  setContextSvelte<FormContext>(key, { formStore });
 };
 export const getContext = () => getContextSvelte<FormContext>(key);

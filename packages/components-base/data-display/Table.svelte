@@ -1,37 +1,54 @@
 <script lang="ts">
+  import type { TableProps, TableCellProps } from "./types";
+
   import { clsx } from "../utils";
 
   let { class: className } = $$props;
   let classes: string | undefined;
-  export let size: "sm" | "lg" | undefined = undefined;
-  export let bordered: boolean = false;
-  export let borderless: boolean = false;
-  export let striped: boolean = false;
-  export let dark: boolean = false;
-  export let hover: boolean = false;
-  export let responsive: boolean = true;
+  export let size: TableProps["size"] = "medium";
+  export let containerDisabled: TableProps["containerDisabled"] = false;
+  export let headerSticky: TableProps["headerSticky"] = false;
 
-  $: classes = clsx(
-    className,
-    "c-table",
-    size && `-${size}`,
-    bordered && "-bordered",
-    borderless && "-borderless",
-    striped && "-striped",
-    dark && "-dark",
-    hover && "-hover"
-  );
+  $: {
+    classes = clsx(className, "dbx-table", size !== "medium" && `-size-${size}`, headerSticky && "-header-sticky");
+  }
 </script>
 
-{#if responsive}
-  <div class={responsiveClassName}>
+{#if !containerDisabled}
+  <div class="table-container">
     <table {...$$restProps} class={classes}>
-      <slot />
+      <slot name="caption" />
+      {#if $$slots['header']}
+        <thead class="table-header">
+          <slot name="header" />
+        </thead>
+      {/if}
+      <tbody class="table-body">
+        <slot />
+      </tbody>
+      {#if $$slots['footer']}
+        <tfoot class="table-footer">
+          <slot name="footer" />
+        </tfoot>
+      {/if}
     </table>
   </div>
 {:else}
   <table {...$$restProps} class={classes}>
-    <slot />
+    <slot name="caption" />
+    {#if $$slots['header']}
+      <thead class="table-header">
+        <slot name="header" />
+      </thead>
+    {/if}
+    <tbody class="table-body">
+      <slot />
+    </tbody>
+    {#if $$slots['footer']}
+      <tfoot class="table-footer">
+        <slot name="footer" />
+      </tfoot>
+    {/if}
   </table>
 {/if}
 

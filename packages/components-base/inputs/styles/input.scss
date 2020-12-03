@@ -1,5 +1,5 @@
 @use "styles/functions" as *;
-@use "styles/mixins/index" as mix;
+@use "styles/mixins" as mix;
 @use "styles/theme";
 @use "styles/colors";
 
@@ -23,8 +23,8 @@
     display: block;
     width: 100%;
     min-width: 0;
-    height: 1.4375em;
-    padding: 4px 0 5px;
+    height: 1.1876em;
+    padding: 6px 0 7px;
     margin: 0;
     font: inherit;
     color: currentColor;
@@ -353,9 +353,17 @@
   $_secondary-color-main: get-value(theme.$secondary, main);
   $_error-color-main: get-value(theme.$error, main);
   @include mix.build-theme() using($theme, $key) {
-    &::placeholder {
-      opacity: value-if($key == "light", 0.42, 0.5);
+    $_disabled-color: get-value($theme, (text, disabled));
+    > .input {
+      &::placeholder {
+        opacity: value-if($key == "light", 0.42, 0.5);
+      }
     }
+
+    &.-disabled {
+      color: $_disabled-color;
+    }
+
     &.-underline {
       $_bottom-line-color: get-value($theme, (form, underline, bottom-line));
 
@@ -373,13 +381,17 @@
 
       &::after {
         border-bottom: 2px solid get-value(theme.$primary, main);
+      }
 
-        &.-color-secondary {
+      &.-color-secondary {
+        &::after {
           border-bottom-color: get-value(theme.$secondary, main);
         }
+      }
 
-        &.-error {
-          border-bottom-color: get-value(theme.$error, main);
+      &.-error {
+        &::after {
+          border-bottom-color: $_error-color-main;
         }
       }
     }

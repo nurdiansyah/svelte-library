@@ -1,12 +1,13 @@
 @use "styles/functions" as *;
+@use "styles/colors";
 @use "styles/theme";
 @use "styles/mixins" as mix;
 
 .dbx-table {
   display: table;
   width: 100%;
-  border-collapse: collapse;
   border-spacing: 0;
+  border-collapse: collapse;
 
   > caption {
     @include mix.makeStyleTypo(body2);
@@ -17,14 +18,245 @@
 
   &.-header-sticky {
     border-collapse: separate;
+
+    .table-cell {
+      position: static;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
   }
 
   .table-body {
     display: table-row-group;
   }
 
-  @include mix.build-theme() using($theme, $key) {
-    $_text-secondary: get-value($theme, (text, secondary));
+  .button-base.-label-sort {
+    display: inline-flex;
+    flex-direction: inherit;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+
+    > .dbx-icon {
+      margin-right: 4px;
+      margin-left: 4px;
+      font-size: 18px;
+      user-select: none;
+      opacity: 0;
+      transition: theme.get-transition((opacity, transform), shorter);
+    }
+
+    &:hover {
+      > .dbx-icon {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &.-active {
+    .button-base.-label-sort {
+      > .icon {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.-descending {
+    .button-base.-label-sort {
+      > .icon {
+        transform: rotate(0deg);
+      }
+    }
+  }
+
+  &.-ascending {
+    .button-base.-label-sort {
+      > .icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &.-size-small {
+    .table-cell {
+      padding: 6px 24px 6px 16px;
+
+      &:last-child {
+        padding-right: 16px;
+      }
+
+      &.-padding-checkbox {
+        width: 24px;
+        padding: 0 12px 0 16px;
+
+        &:last-child {
+          padding-right: 16px;
+          padding-left: 12px;
+        }
+
+        & > * {
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  .table-cell {
+    @include mix.makeStyleTypo("body2");
+    display: table-cell;
+    padding: 16px;
+    text-align: left;
+    vertical-align: inherit;
+
+    &.-head {
+      font-weight: get-value(theme.$font, (weight, medium));
+      line-height: px-to-rem(24);
+    }
+
+    &.-footer {
+      font-size: px-to-rem(12);
+      line-height: px-to-rem(21);
+    }
+
+    &.-padding-checkbox {
+      width: 48px;
+      padding: 0 0 0 4px;
+
+      &:last-child {
+        padding-right: 4px;
+        padding-left: 0;
+      }
+    }
+
+    &.-padding-none {
+      padding: 0;
+
+      &:last-child {
+        padding: 0;
+      }
+    }
+
+    &.-align {
+      &-left {
+        text-align: left;
+      }
+
+      &-center {
+        text-align: center;
+      }
+
+      &-right {
+        text-align: right;
+      }
+
+      &-justify {
+        text-align: justify;
+      }
+    }
+  }
+}
+
+.table-container {
+  width: 100%;
+  overflow: auto;
+}
+
+.table-footer {
+  display: table-footer-group;
+}
+
+.table-header {
+  display: table-header-group;
+}
+
+.table-row {
+  display: table-row;
+  color: inherit;
+  vertical-align: middle;
+  outline: 0;
+}
+
+.table-pagination {
+  overflow: auto;
+  font-size: px-to-rem(14);
+
+  &:last-child {
+    padding: 0;
+  }
+
+  > .toolbar.dbx-toolbar {
+    min-height: 52px;
+    padding-right: 2px;
+
+    > .spacer {
+    }
+
+    > .select {
+    }
+
+    .pagination-caption {
+      @include mix.makeStyleTypo(body2);
+      color: inherit;
+    }
+  }
+}
+
+@include mix.build-theme(null) using($theme, $key) {
+  $_text-primary: get-value($theme, (text, primary));
+  $_text-secondary: get-value($theme, (text, secondary));
+  $_background-color-default: get-value($theme, (background, default));
+  $_action-hover: get-value($theme, (action, hover));
+  $_secondary-main: get-value(theme.$secondary, main);
+
+  .dbx-table {
     color: $_text-secondary;
+
+    &.-header-sticky {
+      .table-cell {
+        background-color: $_background-color-default;
+      }
+    }
+  }
+
+  .table-cell {
+    $_border-bottom-color: rgba(get-value($theme, divider), 1);
+    // Workaround for a rendering bug with spanned columns in Chrome 62.0.
+    // Removes the alpha (sets it to 1), and lightens or darkens the theme color.
+    color: $_text-primary;
+    border-bottom: 1px solid
+      value-if($key == "light", lighten($_border-bottom-color, 88%), darken($_border-bottom-color, 68%));
+
+    &.-head {
+      color: $_text-primary;
+
+      .button-base.-label-sort {
+        &:hover,
+        &:focus {
+          color: $_text-secondary;
+        }
+      }
+
+      &.-active {
+        .button-base.-label-sort {
+          color: $_text-primary;
+
+          > .dbx-icon {
+            color: $_text-secondary;
+          }
+        }
+      }
+    }
+  }
+
+  .table-row {
+    &.-hover:hover {
+      background-color: $_action-hover;
+    }
+
+    &.-selected,
+    &.-selected:hover {
+      background-color: $_secondary-main;
+    }
   }
 }

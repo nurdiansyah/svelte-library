@@ -5,7 +5,8 @@
   // props
 
   // context
-  setContext();
+  const context = setContext();
+
   // state
   let { class: className } = $$props;
   let classes;
@@ -16,9 +17,11 @@
   $: classes = clsx(className, "dbx-form");
 </script>
 
-<form {...$$restProps} class={classes}>
-  <slot />
-</form>
-
 <style src="./styles/form.scss" global>
 </style>
+
+<div class={classes}>
+  <form {...$$restProps} class={classes}>
+    <slot />
+  </form>
+</div>

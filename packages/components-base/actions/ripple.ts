@@ -1,4 +1,4 @@
-interface RippleOptions {
+export interface RippleOptions {
   focusRippleEnable: boolean;
   color: string;
   opacity: number;
