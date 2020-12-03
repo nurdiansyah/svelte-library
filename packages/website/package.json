@@ -1,6 +1,6 @@
 {
   "name": "@deboxsoft/svelte-website",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Website Component UI for svelte.",
   "license": "SEE LICENSE IN ../../LICENSE.md",
   "maintainers": [
@@ -26,13 +26,13 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.10.0",
-    "@deboxsoft/svelte-components-base": "*",
-    "@deboxsoft/svelte-icons": "*",
-    "@deboxsoft/svelte-ui": "*",
+    "@deboxsoft/svelte-components-base": "0.0.2",
+    "@deboxsoft/svelte-icons": "0.0.4",
+    "@deboxsoft/svelte-ui": "0.0.2",
     "@sveltech/routify": "^1.9.9",
+    "localforage": "^1.9.0",
     "mdsvex": "^0.8.8",
-    "prismjs": "^1.22.0",
-    "localforage": "^1.9.0"
+    "prismjs": "^1.22.0"
   },
   "devDependencies": {
     "nollup": "^0.13.13",

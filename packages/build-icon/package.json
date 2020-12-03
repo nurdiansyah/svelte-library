@@ -1,6 +1,6 @@
 {
   "name": "@deboxsoft/build-icons",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Deboxsoft",
   "description": "Building svelte component icon base materia icons.",
   "main": "./src/index.js",
