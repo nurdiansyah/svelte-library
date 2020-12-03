@@ -22,5 +22,9 @@
   },
   "devDependencies": {
     "meow": "^7.1.1"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "3ce966d8415033b7a27e9a0a92d49975a491d4fb"
 }

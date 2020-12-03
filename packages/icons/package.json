@@ -23,5 +23,9 @@
   "scripts": {},
   "devDependencies": {
     "meow": "^7.1.1"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "f50636332df6a90c4425db394072329576572cc8"
 }

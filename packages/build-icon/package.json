@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "author": "Deboxsoft",
   "description": "Building svelte component icon base materia icons.",
+  "private": true,
   "main": "./src/index.js",
   "keywords": [
     "svelte",
@@ -31,5 +32,6 @@
   },
   "engines": {
     "node": ">=8.0.0"
-  }
+  },
+  "gitHead": "f50636332df6a90c4425db394072329576572cc8"
 }
