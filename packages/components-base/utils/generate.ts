@@ -1,10 +1,11 @@
-import { utils } from "@deboxsoft/core-web";
+import { utils } from "@deboxsoft/module-core";
 
 interface Options {
   size?: number;
-  prefix?: string;
+  prefix?: string | false;
 }
 
 export const getId = ({ prefix = "dbx", size = 5 }: Options = {}) => {
-  return `${prefix}-${utils.generateId(size)}`;
+  prefix = prefix ? `${prefix}-` : "";
+  return `${prefix}${utils.generateId(size)}`;
 };

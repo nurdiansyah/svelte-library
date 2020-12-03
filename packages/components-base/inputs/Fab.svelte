@@ -13,17 +13,17 @@
     className,
     "dbx-fab",
     disabled && "-disabled",
-    size !== "default" && `-size-${size}`,
+    size !== "large" && `-size-${size}`,
     color && `-color-${color}`,
     variant === "extended" && "-extended"
   );
 </script>
+
+<style src="./styles/fab.scss" global>
+</style>
 
 <ButtonBase {...$$restProps} class={classes} {disabled} focusRipple={!disableFocusRipple}>
   <span class="label">
     <slot />
   </span>
 </ButtonBase>
-
-<style src="./styles/fab.scss" global>
-</style>

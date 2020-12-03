@@ -36,10 +36,6 @@
     margin-right: -12px;
   }
 
-  &.-disabled {
-    background-color: transparent;
-  }
-
   &.-size-small {
     padding: 3px;
     font-size: px-to-rem(18);
@@ -69,6 +65,7 @@
 
     &.-disabled {
       color: $_disabled;
+      background-color: transparent;
     }
 
     &.-color-inherit {

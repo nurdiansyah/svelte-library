@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { SvelteComponent } from "svelte";
+  import type { RippleOptions } from "../actions";
 
   import { clsx } from "../utils";
   import { ripple, focusVisible as focusVisibleAction } from "../actions";
@@ -11,9 +12,8 @@
   export let disabled: boolean = false;
   export let link: boolean = false;
   export let focusVisibleClass: string | undefined = undefined;
-  // TODO ripple not implement
-  export let rippleOptions = {};
-  export let focusRippleEnable: boolean = true;
+  export let rippleOptions: RippleOptions = {};
+  export let rippleDisable: boolean = false;
   export let tagDiv: boolean = false;
 
   let isFocusVisible: (e: Event) => undefined;
@@ -36,7 +36,7 @@
       focusVisible = true;
     }
   };
-  $: rippleOptions = { ...rippleOptions, ...{ focusRippleEnable } };
+  $: rippleOptions = { ...rippleOptions, ...{ focusRippleEnable: !rippleDisable } };
 </script>
 
 {#if href || link}

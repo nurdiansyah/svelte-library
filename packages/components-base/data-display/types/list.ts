@@ -1,12 +1,5 @@
 import type { SvelteComponent } from "svelte/internal";
-
-export interface AvatarProps {
-  alt?: string;
-  variant?: "circle" | "rounded" | "square";
-  src?: string;
-  srcSet?: string;
-  imgProps?: Record<string, any>;
-}
+import type { AvatarProps } from "./avatar";
 
 export interface DataItem extends ListItemProps {
   dataList?: DataList;
@@ -20,7 +13,7 @@ export interface ListItemProps {
   disabled: boolean;
   selected: boolean;
   href?: string;
-  icon?: SvelteComponent;
+  icon?: typeof SvelteComponent;
   iconProps?: Record<string, any>;
   avatar?: string | AvatarProps;
   secondaryAction?: typeof SvelteComponent;

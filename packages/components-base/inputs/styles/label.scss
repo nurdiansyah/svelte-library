@@ -1,3 +1,42 @@
 @use "styles/functions" as *;
 @use "styles/theme";
 @use "styles/mixins/index" as mix;
+
+.dbx-label {
+  @include mix.makeStyleTypo(body1);
+  padding: 0;
+  line-height: 1;
+
+  > .label {
+    margin: 0 0 16px;
+  }
+
+  // Theme
+  @include mix.build-theme() using($theme, $key) {
+    color: get-value($theme, (text, secondary));
+
+    > .asterisk {
+      &.-error {
+        color: get-value(theme.$error, main);
+      }
+    }
+
+    &.-disabled {
+      color: get-value($theme, (text, disabled));
+    }
+
+    &.-focused {
+      color: get-value(theme.$primary, main);
+    }
+
+    &.-error {
+      color: get-value(theme.$error, main);
+    }
+
+    &.-color-secondary {
+      &.-focused {
+        color: get-value(theme.$secondary, main);
+      }
+    }
+  }
+}

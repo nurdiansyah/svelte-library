@@ -193,10 +193,12 @@ $_typography: theme.$typography;
         background-color: $_main-color;
 
         &:hover {
+          color: colors.color-contrast($_dark-color);
           background-color: $_dark-color;
 
           @media (hover: none) {
-            background-color: $_dark-color;
+            color: colors.color-contrast($_main-color);
+            background-color: $_main-color;
           }
         }
       }
