@@ -8,7 +8,7 @@ to: packages/<%= _project %>/<%= _category %>/<%= h.changeCase.pascal(_name) %>.
 %>
 
 <script lang="ts">
-  import { clsx } from "../utils"";
+  import { clsx } from "../utils";
 
   // props
 
@@ -26,6 +26,6 @@ to: packages/<%= _project %>/<%= _category %>/<%= h.changeCase.pascal(_name) %>.
   <slot />
 </div>
 
-<style src="./<%= nameParam %>.scss" global>
+<style src="./styles/<%= nameParam %>.scss" global>
 </style>
 
