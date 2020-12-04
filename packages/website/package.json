@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.10.0",
-    "@deboxsoft/svelte-components-base": "0.0.2",
+    "@deboxsoft/svelte-components-base": "0.0.3",
     "@deboxsoft/svelte-icons": "0.0.4",
     "@deboxsoft/svelte-ui": "0.0.2",
     "@sveltech/routify": "^1.9.9",

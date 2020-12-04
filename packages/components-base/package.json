@@ -1,6 +1,6 @@
 {
   "name": "@deboxsoft/svelte-components-base",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Component base UI for svelte.",
   "license": "SEE LICENSE IN ../../LICENSE.md",
   "main": "./libs/index.js",
