@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@nurdiansyah/cpx": "^1.5.0",
-    "@nurdiansyah/devel": "^5.0.2",
+    "@nurdiansyah/devel": "^5.0.7",
     "@nurdiansyah/eslint-config-devel": "^7.0.0",
     "@nurdiansyah/stylelint-rscss": "^1.0.0",
     "@rollup/plugin-alias": "^3.1.1",

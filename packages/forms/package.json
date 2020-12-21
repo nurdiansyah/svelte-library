@@ -1,0 +1,53 @@
+{
+  "name": "@deboxsoft/svelte-forms",
+  "version": "0.0.0",
+  "description": "Component base UI for svelte.",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "files": [
+    "**/*.js",
+    "**/*.d.ts",
+    "**/*.svelte",
+    "**/*.scss",
+    "LICENSE",
+    "!**/__tests__/**/*"
+  ],
+  "repository": {
+    "url": "git@github.com:deboxsoft/svelte-library.git",
+    "type": "git",
+    "directory": "packages/svelte-forms"
+  },
+  "maintainers": [
+    {
+      "name": "Nurdiansyah",
+      "email": "nur.diansyah.ckt@gmail.com"
+    }
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "typecheck": "svelte-check",
+    "sass": "sass --load-path ./"
+  },
+  "devDependencies": {
+    "@deboxsoft/module-client": "^1.5.0",
+    "@nurdiansyah/devel": "^5.0.7",
+    "@nurdiansyah/rollup": "^1.2.2",
+    "@types/nanoid": "^2.1.0",
+    "@types/yup": "^0.29.8",
+    "meow": "^7.1.1",
+    "npm-run-all": "^4.1.5",
+    "prettier-plugin-svelte": "^1.4.2",
+    "rollup": "^2.35.1",
+    "svelte-check": "^1.1.22",
+    "typescript": "^4.1.3"
+  },
+  "peerDependencies": {
+    "@deboxsoft/module-client": "^1.5.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "3ce966d8415033b7a27e9a0a92d49975a491d4fb"
+}
