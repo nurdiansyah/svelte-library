@@ -120,18 +120,6 @@ local.properties
 .loadpath
 .recommenders
 
-# Eclipse Core
-.project
-
-# TeXlipse plugin
-.texlipse
-
-# STS (Spring Tool Suite)
-.springBeans
-
-# Code Recommenders
-.recommenders/
-
 webpack-assets.json
 webpack-stats.json
 
@@ -154,10 +142,15 @@ schema.graphql
 # yarn
 yarn-error.log
 lerna-debug.log
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 # cache parcel
 **/.cache
 .trash
 docker-compose.yml
 **/*.tsbuildinfo
-__sapper__

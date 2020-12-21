@@ -1,18 +1,17 @@
 {
-  "extends": "./configs/tsconfig/tsconfig.base.json",
+  "extends": "@nurdiansyah/devel/tsconfig.svelte.json",
   "compilerOptions": {
     "composite": false,
     "lib": ["DOM", "ES2019"],
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "importsNotUsedAsValues": "error"
   },
   "include": ["types", "packages"],
   "exclude": [
     "node_modules/*",
-    "**/__sapper__/*",
     "**/public/*",
     "**/node_modules",
     "**/__types__",
-    "**/__mocks__",
-    "packages/*.d.ts"
+    "**/__mocks__"
   ]
 }
