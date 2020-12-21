@@ -1,12 +1,12 @@
 ---
-to: packages/<%= _project %>/<%= _category %>/<%= h.changeCase.pascal(_name) %>.svelte
+to: packages/theme-<%= _theme %>/<%= _category %>/<%= h.changeCase.pascal(_name) %>.svelte
 ---
 <%
+  nameClass = h.changeCase.pascal(_name)
   nameParam = h.changeCase.param(_name)
   prefix = "dbx";
   nameCss = prefix + "-" + nameParam;
 %>
-
 <script lang="ts">
   import { clsx } from "../utils";
 
@@ -26,6 +26,4 @@ to: packages/<%= _project %>/<%= _category %>/<%= h.changeCase.pascal(_name) %>.
   <slot />
 </div>
 
-<style src="./styles/<%= nameParam %>.scss" global>
-</style>
 
